@@ -11,25 +11,18 @@ Data-Structure Scientific Document Management
 
 ​		将该数据文件解压后，其中包含一个dblp.xml文件。该文件由科学文献的记录序列组成，记录的格式如下所示：
 
+```css
 <article mdate="2002-01-03" key="persons/Codd71a">
-
 <author>E. F. Codd</author>
-
 <title>Further Normalization of the Data Base Relational Model.</title>
-
 <journal>IBM Research Report, San Jose, California</journal>
-
 <volume>RJ909</volume>
-
 <month>August</month>
-
 <year>1971</year>
-
 <cdrom>ibmTR/rj909.pdf</cdrom>
-
 <ee>db/labs/ibm/RJ909.html</ee>gg'm'j'k'k'k'k'k'k'k'k'k
-
 </article>
+```
 
 ​		每个记录对应一篇文章，其中包含对作者，题名，发表杂志，卷号，出版时间等的详细说明。请基于该数据，设计能满足后述功能的文献管理系统。
 
