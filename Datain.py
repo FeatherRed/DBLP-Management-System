@@ -31,6 +31,12 @@ def xmlprocessing(file_path,new_file_path):
             line = line.replace('__GT__', '&gt;')
             line = line.replace('__delta__', '&#916;')
             line = line.replace('__quot__', '&quot;')
+            line = line.replace('<i>','')
+            line = line.replace('</i>', '')
+            line = line.replace('<sup>', '')
+            line = line.replace('</sup>', '')
+            line = line.replace('<sub>', '')
+            line = line.replace('</sub>', '')
             # 将修改后的行写入目标文件
             output_file.write(line)
 
