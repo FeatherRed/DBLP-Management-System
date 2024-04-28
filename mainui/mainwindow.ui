@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>832</width>
-    <height>658</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,14 +16,21 @@
   <widget class="QTabWidget" name="tabWidget">
    <property name="geometry">
     <rect>
-     <x>80</x>
-     <y>60</y>
-     <width>681</width>
-     <height>521</height>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>600</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">QTabBar::tab{width:90}
+QTabBar::tab{height:150}</string>
+   </property>
+   <property name="tabPosition">
+    <enum>QTabWidget::East</enum>
+   </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab">
     <attribute name="title">
@@ -67,7 +74,7 @@
       </rect>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page"/>
      <widget class="QWidget" name="page_3">
@@ -185,8 +192,8 @@
       <rect>
        <x>530</x>
        <y>230</y>
-       <width>82</width>
-       <height>83</height>
+       <width>101</width>
+       <height>103</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -346,13 +353,13 @@
       </widget>
      </widget>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>500</x>
        <y>190</y>
-       <width>77</width>
-       <height>112</height>
+       <width>95</width>
+       <height>139</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_7">
