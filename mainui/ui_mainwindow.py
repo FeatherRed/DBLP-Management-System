@@ -17,28 +17,48 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLineEdit, QPlainTextEdit,
     QPushButton, QSizePolicy, QStackedWidget, QTabWidget,
-    QVBoxLayout, QWidget)
-
+    QVBoxLayout, QWidget, QLabel, QDialog, QFileDialog, QMessageBox)
+import os, create, Datain
 class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(832, 658)
-        self.tabWidget = QTabWidget(Form)
-        self.tabWidget.setObjectName(u"tabWidget")
-        self.tabWidget.setGeometry(QRect(80, 60, 681, 521))
-        self.tab = QWidget()
-        self.tab.setObjectName(u"tab")
-        self.pushButton_builddatabse = QPushButton(self.tab)
-        self.pushButton_builddatabse.setObjectName(u"pushButton_builddatabse")
-        self.pushButton_builddatabse.setGeometry(QRect(480, 220, 75, 23))
-        self.plainTextEdit_builddatabse = QPlainTextEdit(self.tab)
-        self.plainTextEdit_builddatabse.setObjectName(u"plainTextEdit_builddatabse")
-        self.plainTextEdit_builddatabse.setGeometry(QRect(40, 130, 331, 221))
-        self.tabWidget.addTab(self.tab, "")
-        self.tab_2 = QWidget()
-        self.tab_2.setObjectName(u"tab_2")
-        self.stackedWidget = QStackedWidget(self.tab_2)
+        Form.resize(800, 600)
+        self.MainWidget = QTabWidget(Form)
+        self.MainWidget.setObjectName(u"MainWidget")
+        self.MainWidget.setGeometry(QRect(0, 0, 800, 600))
+        self.MainWidget.setStyleSheet(u"QTabBar::tab{width:90}\n"
+"QTabBar::tab{height:150}")
+        self.MainWidget.setTabPosition(QTabWidget.East)
+        self.DataBasetab = QWidget()
+        self.DataBasetab.setObjectName(u"DataBasetab")
+        self.pushButton_db = QPushButton(self.DataBasetab)
+        self.pushButton_db.setObjectName(u"pushButton_db")
+        self.pushButton_db.setGeometry(QRect(440, 410, 161, 91))
+        self.label_openfile = QLabel(self.DataBasetab)
+        self.label_openfile.setObjectName(u"label_openfile")
+        self.label_openfile.setEnabled(True)
+        self.label_openfile.setGeometry(QRect(70, 140, 561, 151))
+        self.label_openfile.setStyleSheet(u"color: #333333; /* \u6587\u672c\u989c\u8272 */\n"
+"font-size: 20px; /* \u5b57\u4f53\u5927\u5c0f */\n"
+"font-weight: bold; /* \u5b57\u4f53\u7c97\u7ec6 */\n"
+"font-family: CMU Serif; /* \u5b57\u4f53\u5bb6\u65cf */\n"
+"background-color: #abb8ff; /* \u80cc\u666f\u989c\u8272 */\n"
+"border-style: solid; /* \u8fb9\u6846\u6837\u5f0f */\n"
+"border-width: 2px; /* \u8fb9\u6846\u5bbd\u5ea6 */\n"
+"border-color: #1c7cd6; /* \u8fb9\u6846\u989c\u8272 */\n"
+"border-radius: 5px; /* \u8fb9\u6846\u5706\u89d2 */\n"
+"\n"
+"")
+        self.label_openfile.setTextFormat(Qt.RichText)
+        self.label_openfile.setTextInteractionFlags(Qt.NoTextInteraction)
+        self.pushButton_openfile = QPushButton(self.DataBasetab)
+        self.pushButton_openfile.setObjectName(u"pushButton_openfile")
+        self.pushButton_openfile.setGeometry(QRect(120, 410, 161, 91))
+        self.MainWidget.addTab(self.DataBasetab, "")
+        self.Searchtab = QWidget()
+        self.Searchtab.setObjectName(u"Searchtab")
+        self.stackedWidget = QStackedWidget(self.Searchtab)
         self.stackedWidget.setObjectName(u"stackedWidget")
         self.stackedWidget.setGeometry(QRect(30, 60, 391, 411))
         self.page = QWidget()
@@ -131,9 +151,9 @@ class Ui_Form(object):
         self.verticalLayout_4.addWidget(self.plainTextEdit_3)
 
         self.stackedWidget.addWidget(self.page_2)
-        self.layoutWidget1 = QWidget(self.tab_2)
+        self.layoutWidget1 = QWidget(self.Searchtab)
         self.layoutWidget1.setObjectName(u"layoutWidget1")
-        self.layoutWidget1.setGeometry(QRect(530, 230, 82, 83))
+        self.layoutWidget1.setGeometry(QRect(530, 230, 101, 103))
         self.verticalLayout = QVBoxLayout(self.layoutWidget1)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
@@ -152,10 +172,10 @@ class Ui_Form(object):
 
         self.verticalLayout.addWidget(self.pushButton_3)
 
-        self.tabWidget.addTab(self.tab_2, "")
-        self.tab_3 = QWidget()
-        self.tab_3.setObjectName(u"tab_3")
-        self.stackedWidget_2 = QStackedWidget(self.tab_3)
+        self.MainWidget.addTab(self.Searchtab, "")
+        self.Analysistab = QWidget()
+        self.Analysistab.setObjectName(u"Analysistab")
+        self.stackedWidget_2 = QStackedWidget(self.Analysistab)
         self.stackedWidget_2.setObjectName(u"stackedWidget_2")
         self.stackedWidget_2.setGeometry(QRect(30, 40, 381, 411))
         self.page_5 = QWidget()
@@ -257,33 +277,33 @@ class Ui_Form(object):
         self.verticalLayout_11.addLayout(self.horizontalLayout_7)
 
         self.stackedWidget_2.addWidget(self.page_9)
-        self.widget = QWidget(self.tab_3)
-        self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(500, 190, 77, 112))
-        self.verticalLayout_7 = QVBoxLayout(self.widget)
+        self.layoutWidget2 = QWidget(self.Analysistab)
+        self.layoutWidget2.setObjectName(u"layoutWidget2")
+        self.layoutWidget2.setGeometry(QRect(500, 190, 95, 139))
+        self.verticalLayout_7 = QVBoxLayout(self.layoutWidget2)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
         self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
-        self.pushButton_18 = QPushButton(self.widget)
+        self.pushButton_18 = QPushButton(self.layoutWidget2)
         self.pushButton_18.setObjectName(u"pushButton_18")
 
         self.verticalLayout_7.addWidget(self.pushButton_18)
 
-        self.pushButton_16 = QPushButton(self.widget)
+        self.pushButton_16 = QPushButton(self.layoutWidget2)
         self.pushButton_16.setObjectName(u"pushButton_16")
 
         self.verticalLayout_7.addWidget(self.pushButton_16)
 
-        self.pushButton_15 = QPushButton(self.widget)
+        self.pushButton_15 = QPushButton(self.layoutWidget2)
         self.pushButton_15.setObjectName(u"pushButton_15")
 
         self.verticalLayout_7.addWidget(self.pushButton_15)
 
-        self.pushButton_17 = QPushButton(self.widget)
+        self.pushButton_17 = QPushButton(self.layoutWidget2)
         self.pushButton_17.setObjectName(u"pushButton_17")
 
         self.verticalLayout_7.addWidget(self.pushButton_17)
 
-        self.tabWidget.addTab(self.tab_3, "")
+        self.MainWidget.addTab(self.Analysistab, "")
         self.tab_4 = QWidget()
         self.tab_4.setObjectName(u"tab_4")
         self.pushButton_exit = QPushButton(self.tab_4)
@@ -292,18 +312,20 @@ class Ui_Form(object):
         self.plainTextEdit_exit = QPlainTextEdit(self.tab_4)
         self.plainTextEdit_exit.setObjectName(u"plainTextEdit_exit")
         self.plainTextEdit_exit.setGeometry(QRect(50, 110, 331, 221))
-        self.tabWidget.addTab(self.tab_4, "")
+        self.MainWidget.addTab(self.tab_4, "")
 
         self.retranslateUi(Form)
 
-        self.tabWidget.setCurrentIndex(3)
+        self.MainWidget.setCurrentIndex(0)
         self.stackedWidget.setCurrentIndex(3)
-        self.stackedWidget_2.setCurrentIndex(4)
+        self.stackedWidget_2.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(Form)
-    # setupUi
-        ###### 三个按钮事件 ######
+
+        '-------------------------------控件设置处--------------------------------'
+        self.label_openfile.setWordWrap(True)                                           #Qlabel Text自动换行
+        '-------------------------------槽函数连接处-------------------------------'
         self.pushButton_top1.clicked.connect(self.on_pushButton_top1_clicked)
         self.pushButton_2.clicked.connect(self.on_pushButton_2_clicked)
         self.pushButton_3.clicked.connect(self.on_pushButton_3_clicked)
@@ -311,49 +333,19 @@ class Ui_Form(object):
         self.pushButton_16.clicked.connect(self.on_pushButton_16_clicked)
         self.pushButton_15.clicked.connect(self.on_pushButton_15_clicked)
         self.pushButton_17.clicked.connect(self.on_pushButton_17_clicked)
-        self.pushButton_builddatabse.clicked.connect(self.on_pushButton_builddatabse_clicked)
+        self.pushButton_db.clicked.connect(self.on_pushButton_builddatabse_clicked)
 
-        # 按钮一：打开第一个面板
-
-    def on_pushButton_top1_clicked(self):
-        self.stackedWidget.setCurrentIndex(1)
-
-        # 按钮二：打开第二个面板
-
-    def on_pushButton_2_clicked(self):
-        self.stackedWidget.setCurrentIndex(2)
-
-        # 按钮三：打开第三个面板
-
-    def on_pushButton_3_clicked(self):
-        self.stackedWidget.setCurrentIndex(3)
-
-        # 按钮一：打开第一个面板
-
-    def on_pushButton_18_clicked(self):
-        self.stackedWidget_2.setCurrentIndex(1)
-
-            # 按钮二：打开第二个面板
-
-    def on_pushButton_16_clicked(self):
-        self.stackedWidget_2.setCurrentIndex(2)
-
-            # 按钮三：打开第三个面板
-
-    def on_pushButton_15_clicked(self):
-        self.stackedWidget_2.setCurrentIndex(3)
-
-    def on_pushButton_17_clicked(self):
-        self.stackedWidget_2.setCurrentIndex(4)
-
-    def on_pushButton_builddatabse_clicked(self):
-        self.stackedWidget_2.setCurrentIndex(0)
-        self.stackedWidget.setCurrentIndex(0)
+        '-------------------------------创建数据库连接处---------------------------'
+        self.pushButton_openfile.clicked.connect(self.msg)
+        self.pushButton_db.clicked.connect(self.createdb)
+    # setupUi
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.pushButton_builddatabse.setText(QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
+        self.pushButton_db.setText(QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
+        self.label_openfile.setText("")
+        self.pushButton_openfile.setText(QCoreApplication.translate("Form", u"\u6253\u5f00\u6587\u4ef6", None))
+        self.MainWidget.setTabText(self.MainWidget.indexOf(self.DataBasetab), QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
         self.lineEdit.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d\u6216\u5b8c\u6574\u8bba\u6587\u9898\u76ee", None))
         self.pushButton.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
         self.plainTextEdit.setPlaceholderText("")
@@ -364,7 +356,7 @@ class Ui_Form(object):
         self.pushButton_top1.setText(QCoreApplication.translate("Form", u"\u57fa\u672c\u641c\u7d22", None))
         self.pushButton_2.setText(QCoreApplication.translate("Form", u"\u76f8\u5173\u641c\u7d22", None))
         self.pushButton_3.setText(QCoreApplication.translate("Form", u"\u90e8\u5206\u5339\u914d\u641c\u7d22", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QCoreApplication.translate("Form", u"\u641c\u7d22", None))
+        self.MainWidget.setTabText(self.MainWidget.indexOf(self.Searchtab), QCoreApplication.translate("Form", u"\u641c\u7d22", None))
         self.pushButton_19.setText(QCoreApplication.translate("Form", u"\u4f5c\u8005\u7edf\u8ba1", None))
         self.lineEdit_4.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5e74\u4efd\u4fe1\u606f", None))
         self.pushButton_20.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
@@ -374,10 +366,80 @@ class Ui_Form(object):
         self.pushButton_16.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
         self.pushButton_15.setText(QCoreApplication.translate("Form", u"\u805a\u56e2\u5206\u6790", None))
         self.pushButton_17.setText(QCoreApplication.translate("Form", u"\u53ef\u89c6\u5316\u663e\u793a", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QCoreApplication.translate("Form", u"\u7edf\u8ba1", None))
+        self.MainWidget.setTabText(self.MainWidget.indexOf(self.Analysistab), QCoreApplication.translate("Form", u"\u7edf\u8ba1", None))
         self.pushButton_exit.setText(QCoreApplication.translate("Form", u"Exit", None))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), QCoreApplication.translate("Form", u"\u9000\u51fa", None))
+        self.MainWidget.setTabText(self.MainWidget.indexOf(self.tab_4), QCoreApplication.translate("Form", u"\u9000\u51fa", None))
     # retranslateUi
+    '--------------------------函数处--------------------------------'
+
+    def on_pushButton_top1_clicked(self):
+        self.stackedWidget.setCurrentIndex(1)
+
+        # 按钮二：打开第二个面板
+    def on_pushButton_2_clicked(self):
+        self.stackedWidget.setCurrentIndex(2)
+
+        # 按钮三：打开第三个面板
+    def on_pushButton_3_clicked(self):
+        self.stackedWidget.setCurrentIndex(3)
+
+        # 按钮一：打开第一个面板
+    def on_pushButton_18_clicked(self):
+        self.stackedWidget_2.setCurrentIndex(1)
+
+            # 按钮二：打开第二个面板
+    def on_pushButton_16_clicked(self):
+        self.stackedWidget_2.setCurrentIndex(2)
+
+            # 按钮三：打开第三个面板
+    def on_pushButton_15_clicked(self):
+        self.stackedWidget_2.setCurrentIndex(3)
+    def on_pushButton_17_clicked(self):
+        self.stackedWidget_2.setCurrentIndex(4)
+    def on_pushButton_builddatabse_clicked(self):
+        self.stackedWidget_2.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(0)
+    '-------------------------创建数据库函数-------------------------'
+
+    'openfile'
+    def msg(self,Filepath):
+        self.label_openfile.clear()
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        file, _ = QFileDialog.getOpenFileName(self.pushButton_openfile, "选取文件", current_dir, "Xml Files (*.xml)")  # 文件扩展名用双分号间隔
+        #判断该file是否为空
+        if not file:
+            return
+        else:
+            print(file)
+            ##设置文本框
+            self.label_openfile.setText(file)
+    'createdatabase'
+    def createdb(self):
+        #先判断是否有路径
+        file = self.label_openfile.text()
+        if not file:
+            QMessageBox.information(self.pushButton_db, "警告", "未找到路径，请重新打开路径")
+        else:
+            #判断当前是否已经处理好文件
+            file_name = os.path.splitext(os.path.basename(file))[0]
+            #判断该文件名有无deal
+            if "_deal" not in file_name:
+                Datain.preprocessing(file)
+                print("已经处理完毕，正构建json")
+            else:
+                print("该文件已处理完毕，正构建json")
+                file_name = file_name[:4]
+                #存在_deal删掉
+            #判断是否有json
+            json_path = file_name + ".json"
+            print(json_path)
+            if(os.path.exists(json_path)):
+                #存在json了 直接读就行
+                print("直接读json")
+            else:
+                #不存在json 还得生成json并且保存跑后的record
+                self.record = create.read_records_from_xml(file_name + "_deal.xml")
+                create.createjson(self.record,file_name)
 
 if __name__ == "__main__":
     import sys
@@ -386,4 +448,4 @@ if __name__ == "__main__":
     ui = Ui_Form()
     ui.setupUi(Form)
     Form.show()
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
