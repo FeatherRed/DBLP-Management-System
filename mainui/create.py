@@ -1,7 +1,7 @@
 # 导入必要的模块
 from lxml import etree  # 用于XML解析
-import json  # 用于JSON序列化
 import html  # 用于HTML实体转义
+import pickle   #存record
 from Record_class import Article, Book, WWW, Inproceedings, Mastersthesis, Incollection, Proceedings, Phdthesis
 
 # 创建记录元素的函数
@@ -48,13 +48,13 @@ def read_records_from_xml(file_path):
     del context  # 删除XML解析器上下文
     return records  # 返回记录字典
 
-def createjson(records,filename):
+def createpkl(records,filename):
     for key, value in records.items():
         records[key] = [item.to_dict() for item in value]
-    # 将记录字典写入JSON文件
-    output_file = filename + ".json"
-    with open(output_file, 'w') as f:
-        json.dump(records, f, indent=4)  # 以缩进格式写入JSON文件
+    # 将记录字典写入pkl文件
+    output_file = filename + ".pkl"
+    with open(output_file, 'wb') as f:
+        pickle.dump(records, f, True)  # 以缩进格式写入pkl文件
 
 # 定义记录类型列表和XML文件路径
 if __name__ == "__main__":
@@ -68,6 +68,6 @@ if __name__ == "__main__":
         records[key] = [item.to_dict() for item in value]
 
     # 将记录字典写入JSON文件
-    output_file = 'Record.json'
+    output_file = 'Record.pkl'
     with open(output_file, 'w') as f:
-        json.dump(records, f, indent=4)  # 以缩进格式写入JSON文件
+        pickle.dump(records, f, True)  # 以缩进格式写入pkl文件

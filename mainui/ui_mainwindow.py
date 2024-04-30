@@ -17,7 +17,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLineEdit, QPlainTextEdit,
     QPushButton, QSizePolicy, QStackedWidget, QTabWidget,
-    QVBoxLayout, QWidget, QLabel, QDialog, QFileDialog, QMessageBox)
+    QVBoxLayout, QWidget, QLabel, QDialog, QFileDialog, QMessageBox, QTableView,
+    QAbstractItemView)
 import os, create, Datain
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -190,10 +191,12 @@ class Ui_Form(object):
 
         self.verticalLayout_8.addWidget(self.pushButton_aa1)
 
-        self.plainTextEdit_authoranalysis = QPlainTextEdit(self.layoutWidget_6)
-        self.plainTextEdit_authoranalysis.setObjectName(u"plainTextEdit_authoranalysis")
+        self.tableView_authoranalysis = QTableView(self.layoutWidget_6)
+        self.tableView_authoranalysis.setObjectName(u"tableView_authoranalysis")
+        self.tableView_authoranalysis.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.tableView_authoranalysis.setShowGrid(True)
 
-        self.verticalLayout_8.addWidget(self.plainTextEdit_authoranalysis)
+        self.verticalLayout_8.addWidget(self.tableView_authoranalysis)
 
         self.stackedWidget_2.addWidget(self.page_authoranalysis)
         self.page_hotspotanalysis = QWidget()
@@ -314,10 +317,11 @@ class Ui_Form(object):
 
         self.MainWidget.setCurrentIndex(0)
         self.stackedWidget.setCurrentIndex(3)
-        self.stackedWidget_2.setCurrentIndex(4)
+        self.stackedWidget_2.setCurrentIndex(1)
 
 
         QMetaObject.connectSlotsByName(Form)
+    # setupUi
         '-------------------------------控件设置处--------------------------------'
         self.label_openfile.setWordWrap(True)                                           #Qlabel Text自动换行
         '-------------------------------槽函数连接处-------------------------------'
@@ -333,11 +337,36 @@ class Ui_Form(object):
         '-------------------------------创建数据库连接处---------------------------'
         self.pushButton_openfile.clicked.connect(self.msg)
         self.pushButton_db.clicked.connect(self.createdb)
-
-
-
-    # setupUi
-
+    def retranslateUi(self, Form):
+        Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
+        self.pushButton_db.setText(QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
+        self.label_openfile.setText("")
+        self.pushButton_openfile.setText(QCoreApplication.translate("Form", u"\u6253\u5f00\u6587\u4ef6", None))
+        self.MainWidget.setTabText(self.MainWidget.indexOf(self.DataBasetab), QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
+        self.lineEdit_basicsearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d\u6216\u5b8c\u6574\u8bba\u6587\u9898\u76ee", None))
+        self.pushButton_bs1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
+        self.plainTextEdit_basicsearch.setPlaceholderText("")
+        self.lineEdit_relevancesearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d", None))
+        self.pushButton_rs1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
+        self.lineEdit_particalsearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5173\u952e\u5b57\u4fe1\u606f", None))
+        self.pushButton_ps1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
+        self.pushButton_basicsearch.setText(QCoreApplication.translate("Form", u"\u57fa\u672c\u641c\u7d22", None))
+        self.pushButton_relevancesearch.setText(QCoreApplication.translate("Form", u"\u76f8\u5173\u641c\u7d22", None))
+        self.pushButton_particalsearch.setText(QCoreApplication.translate("Form", u"\u90e8\u5206\u5339\u914d\u641c\u7d22", None))
+        self.MainWidget.setTabText(self.MainWidget.indexOf(self.Searchtab), QCoreApplication.translate("Form", u"\u641c\u7d22", None))
+        self.pushButton_aa1.setText(QCoreApplication.translate("Form", u"\u4f5c\u8005\u7edf\u8ba1", None))
+        self.lineEdit_hotspotanalysis.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5e74\u4efd\u4fe1\u606f", None))
+        self.pushButton_hsa1.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
+        self.pushButton_ca1.setText(QCoreApplication.translate("Form", u"\u805a\u56e2\u5206\u6790", None))
+        self.pushButton_va1.setText(QCoreApplication.translate("Form", u"\u53ef\u89c6\u5316\u663e\u793a", None))
+        self.pushButton_authoranalysis.setText(QCoreApplication.translate("Form", u"\u4f5c\u8005\u7edf\u8ba1", None))
+        self.pushButton_hotspotanalysis.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
+        self.pushButton_clusteranalysis.setText(QCoreApplication.translate("Form", u"\u805a\u56e2\u5206\u6790", None))
+        self.pushButton_virtualanalysis.setText(QCoreApplication.translate("Form", u"\u53ef\u89c6\u5316\u663e\u793a", None))
+        self.MainWidget.setTabText(self.MainWidget.indexOf(self.Analysistab), QCoreApplication.translate("Form", u"\u7edf\u8ba1", None))
+        self.pushButton_exit.setText(QCoreApplication.translate("Form", u"Exit", None))
+        self.MainWidget.setTabText(self.MainWidget.indexOf(self.tab_4), QCoreApplication.translate("Form", u"\u9000\u51fa", None))
+    # retranslateUi
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.pushButton_db.setText(QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
@@ -427,21 +456,23 @@ class Ui_Form(object):
             #判断该文件名有无deal
             if "_deal" not in file_name:
                 Datain.preprocessing(file)
-                print("已经处理完毕，正构建json")
+                print("已经处理完毕，正构建pkl")
             else:
-                print("该文件已处理完毕，正构建json")
+                print("该文件已处理完毕，正构建pkl")
                 file_name = file_name[:4]
                 #存在_deal删掉
             #判断是否有json
-            json_path = file_name + ".json"
+            json_path = file_name + ".pkl"
+            self.path = json_path
             print(json_path)
             if(os.path.exists(json_path)):
-                #存在json了 直接读就行
-                print("直接读json")
+                #存在pkl了 直接读就行
+                print("直接读pkl")
             else:
-                #不存在json 还得生成json并且保存跑后的record
-                self.record = create.read_records_from_xml(file_name + "_deal.xml")
-                create.createjson(self.record,file_name)
+                #不存在pkl 还得生成pkl并且保存跑后的record
+                record = create.read_records_from_xml(file_name + "_deal.xml")
+                create.createpkl(record,file_name)
+                del record
 
 if __name__ == "__main__":
     import sys
