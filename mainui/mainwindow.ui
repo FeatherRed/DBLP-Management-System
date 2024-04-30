@@ -265,7 +265,7 @@ border-radius: 5px;</string>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>4</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page_analysisnull"/>
      <widget class="QWidget" name="page_authoranalysis">
@@ -287,7 +287,14 @@ border-radius: 5px;</string>
          </widget>
         </item>
         <item>
-         <widget class="QPlainTextEdit" name="plainTextEdit_authoranalysis"/>
+         <widget class="QTableView" name="tableView_authoranalysis">
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="showGrid">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
