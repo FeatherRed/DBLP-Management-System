@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QTabWidget" name="tabWidget">
+  <widget class="QTabWidget" name="MainWidget">
    <property name="geometry">
     <rect>
      <x>0</x>
@@ -32,35 +32,65 @@ QTabBar::tab{height:150}</string>
    <property name="currentIndex">
     <number>0</number>
    </property>
-   <widget class="QWidget" name="tab">
+   <widget class="QWidget" name="DataBasetab">
     <attribute name="title">
      <string>建立数据库</string>
     </attribute>
-    <widget class="QPushButton" name="pushButton_builddatabse">
+    <widget class="QPushButton" name="pushButton_db">
      <property name="geometry">
       <rect>
-       <x>480</x>
-       <y>220</y>
-       <width>75</width>
-       <height>23</height>
+       <x>440</x>
+       <y>420</y>
+       <width>121</width>
+       <height>61</height>
       </rect>
      </property>
      <property name="text">
       <string>建立数据库</string>
      </property>
     </widget>
-    <widget class="QPlainTextEdit" name="plainTextEdit_builddatabse">
+    <widget class="QLabel" name="label_openfile">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
      <property name="geometry">
       <rect>
-       <x>40</x>
-       <y>130</y>
-       <width>331</width>
-       <height>221</height>
+       <x>90</x>
+       <y>190</y>
+       <width>481</width>
+       <height>121</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: #333333;
+font-size: 20px;
+font-weight: bold;
+font-family: CMU Serif;
+background-color: #abb8ff;
+border-style: solid;
+border-width: 2px;
+border-color: #1c7cd6;
+border-radius: 5px;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_openfile">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>420</y>
+       <width>121</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>打开文件</string>
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="tab_2">
+   <widget class="QWidget" name="Searchtab">
     <attribute name="title">
      <string>搜索</string>
     </attribute>
@@ -74,10 +104,10 @@ QTabBar::tab{height:150}</string>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>3</number>
      </property>
-     <widget class="QWidget" name="page"/>
-     <widget class="QWidget" name="page_3">
+     <widget class="QWidget" name="page_searchnull"/>
+     <widget class="QWidget" name="pagebasicsearch">
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
@@ -91,14 +121,14 @@ QTabBar::tab{height:150}</string>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
-           <widget class="QLineEdit" name="lineEdit">
+           <widget class="QLineEdit" name="lineEdit_basicsearch">
             <property name="placeholderText">
              <string>请输入作者姓名或完整论文题目</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton">
+           <widget class="QPushButton" name="pushButton_bs1">
             <property name="text">
              <string>搜索</string>
             </property>
@@ -107,7 +137,7 @@ QTabBar::tab{height:150}</string>
          </layout>
         </item>
         <item>
-         <widget class="QPlainTextEdit" name="plainTextEdit">
+         <widget class="QPlainTextEdit" name="plainTextEdit_basicsearch">
           <property name="placeholderText">
            <string/>
           </property>
@@ -116,7 +146,7 @@ QTabBar::tab{height:150}</string>
        </layout>
       </widget>
      </widget>
-     <widget class="QWidget" name="page_4">
+     <widget class="QWidget" name="page_relevancesearch">
       <widget class="QWidget" name="layoutWidget_2">
        <property name="geometry">
         <rect>
@@ -130,14 +160,14 @@ QTabBar::tab{height:150}</string>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QLineEdit" name="lineEdit_2">
+           <widget class="QLineEdit" name="lineEdit_relevancesearch">
             <property name="placeholderText">
              <string>请输入作者姓名</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_4">
+           <widget class="QPushButton" name="pushButton_rs1">
             <property name="text">
              <string>搜索</string>
             </property>
@@ -146,12 +176,12 @@ QTabBar::tab{height:150}</string>
          </layout>
         </item>
         <item>
-         <widget class="QPlainTextEdit" name="plainTextEdit_2"/>
+         <widget class="QPlainTextEdit" name="plainTextEdit_relevancesearch"/>
         </item>
        </layout>
       </widget>
      </widget>
-     <widget class="QWidget" name="page_2">
+     <widget class="QWidget" name="page_particalsearch">
       <widget class="QWidget" name="layoutWidget_3">
        <property name="geometry">
         <rect>
@@ -165,14 +195,14 @@ QTabBar::tab{height:150}</string>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
           <item>
-           <widget class="QLineEdit" name="lineEdit_3">
+           <widget class="QLineEdit" name="lineEdit_particalsearch">
             <property name="placeholderText">
              <string>请输入关键字信息</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_5">
+           <widget class="QPushButton" name="pushButton_ps1">
             <property name="text">
              <string>搜索</string>
             </property>
@@ -181,7 +211,7 @@ QTabBar::tab{height:150}</string>
          </layout>
         </item>
         <item>
-         <widget class="QPlainTextEdit" name="plainTextEdit_3"/>
+         <widget class="QPlainTextEdit" name="plainTextEdit_particalsearch"/>
         </item>
        </layout>
       </widget>
@@ -198,21 +228,21 @@ QTabBar::tab{height:150}</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QPushButton" name="pushButton_top1">
+       <widget class="QPushButton" name="pushButton_basicsearch">
         <property name="text">
          <string>基本搜索</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="pushButton_relevancesearch">
         <property name="text">
          <string>相关搜索</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_3">
+       <widget class="QPushButton" name="pushButton_particalsearch">
         <property name="text">
          <string>部分匹配搜索</string>
         </property>
@@ -221,7 +251,7 @@ QTabBar::tab{height:150}</string>
      </layout>
     </widget>
    </widget>
-   <widget class="QWidget" name="tab_3">
+   <widget class="QWidget" name="Analysistab">
     <attribute name="title">
      <string>统计</string>
     </attribute>
@@ -237,8 +267,8 @@ QTabBar::tab{height:150}</string>
      <property name="currentIndex">
       <number>4</number>
      </property>
-     <widget class="QWidget" name="page_5"/>
-     <widget class="QWidget" name="page_6">
+     <widget class="QWidget" name="page_analysisnull"/>
+     <widget class="QWidget" name="page_authoranalysis">
       <widget class="QWidget" name="layoutWidget_6">
        <property name="geometry">
         <rect>
@@ -250,19 +280,19 @@ QTabBar::tab{height:150}</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_8">
         <item>
-         <widget class="QPushButton" name="pushButton_19">
+         <widget class="QPushButton" name="pushButton_aa1">
           <property name="text">
            <string>作者统计</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPlainTextEdit" name="plainTextEdit_6"/>
+         <widget class="QPlainTextEdit" name="plainTextEdit_authoranalysis"/>
         </item>
        </layout>
       </widget>
      </widget>
-     <widget class="QWidget" name="page_7">
+     <widget class="QWidget" name="page_hotspotanalysis">
       <widget class="QWidget" name="layoutWidget_7">
        <property name="geometry">
         <rect>
@@ -276,14 +306,14 @@ QTabBar::tab{height:150}</string>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_6">
           <item>
-           <widget class="QLineEdit" name="lineEdit_4">
+           <widget class="QLineEdit" name="lineEdit_hotspotanalysis">
             <property name="placeholderText">
              <string>请输入年份信息</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="pushButton_20">
+           <widget class="QPushButton" name="pushButton_hsa1">
             <property name="text">
              <string>热点分析</string>
             </property>
@@ -292,12 +322,12 @@ QTabBar::tab{height:150}</string>
          </layout>
         </item>
         <item>
-         <widget class="QPlainTextEdit" name="plainTextEdit_7"/>
+         <widget class="QPlainTextEdit" name="plainTextEdit_hotspotanalysis"/>
         </item>
        </layout>
       </widget>
      </widget>
-     <widget class="QWidget" name="page_8">
+     <widget class="QWidget" name="page_clusteranalysis">
       <widget class="QWidget" name="layoutWidget_8">
        <property name="geometry">
         <rect>
@@ -309,19 +339,19 @@ QTabBar::tab{height:150}</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_10">
         <item>
-         <widget class="QPushButton" name="pushButton_21">
+         <widget class="QPushButton" name="pushButton_ca1">
           <property name="text">
            <string>聚团分析</string>
           </property>
          </widget>
         </item>
         <item>
-         <widget class="QPlainTextEdit" name="plainTextEdit_8"/>
+         <widget class="QPlainTextEdit" name="plainTextEdit_clusteranalysis"/>
         </item>
        </layout>
       </widget>
      </widget>
-     <widget class="QWidget" name="page_9">
+     <widget class="QWidget" name="page_virtualanalysis">
       <widget class="QWidget" name="layoutWidget_9">
        <property name="geometry">
         <rect>
@@ -333,7 +363,7 @@ QTabBar::tab{height:150}</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_11">
         <item>
-         <widget class="QPushButton" name="pushButton_22">
+         <widget class="QPushButton" name="pushButton_va1">
           <property name="text">
            <string>可视化显示</string>
           </property>
@@ -342,10 +372,10 @@ QTabBar::tab{height:150}</string>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_7">
           <item>
-           <widget class="QPlainTextEdit" name="plainTextEdit_9"/>
+           <widget class="QPlainTextEdit" name="plainTextEdit_va1"/>
           </item>
           <item>
-           <widget class="QPlainTextEdit" name="plainTextEdit_10"/>
+           <widget class="QPlainTextEdit" name="plainTextEdit_va2"/>
           </item>
          </layout>
         </item>
@@ -364,28 +394,28 @@ QTabBar::tab{height:150}</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_7">
       <item>
-       <widget class="QPushButton" name="pushButton_18">
+       <widget class="QPushButton" name="pushButton_authoranalysis">
         <property name="text">
          <string>作者统计</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_16">
+       <widget class="QPushButton" name="pushButton_hotspotanalysis">
         <property name="text">
          <string>热点分析</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_15">
+       <widget class="QPushButton" name="pushButton_clusteranalysis">
         <property name="text">
          <string>聚团分析</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_17">
+       <widget class="QPushButton" name="pushButton_virtualanalysis">
         <property name="text">
          <string>可视化显示</string>
         </property>
