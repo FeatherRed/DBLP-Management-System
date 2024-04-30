@@ -61,12 +61,12 @@ class Ui_Form(object):
         self.stackedWidget = QStackedWidget(self.Searchtab)
         self.stackedWidget.setObjectName(u"stackedWidget")
         self.stackedWidget.setGeometry(QRect(30, 60, 391, 411))
-        self.page = QWidget()
-        self.page.setObjectName(u"page")
-        self.stackedWidget.addWidget(self.page)
-        self.page_3 = QWidget()
-        self.page_3.setObjectName(u"page_3")
-        self.layoutWidget = QWidget(self.page_3)
+        self.page_searchnull = QWidget()
+        self.page_searchnull.setObjectName(u"page_searchnull")
+        self.stackedWidget.addWidget(self.page_searchnull)
+        self.page_basicsearch = QWidget()
+        self.page_basicsearch.setObjectName(u"page_basicsearch")
+        self.layoutWidget = QWidget(self.page_basicsearch)
         self.layoutWidget.setObjectName(u"layoutWidget")
         self.layoutWidget.setGeometry(QRect(10, 100, 371, 261))
         self.verticalLayout_2 = QVBoxLayout(self.layoutWidget)
@@ -74,28 +74,28 @@ class Ui_Form(object):
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.lineEdit = QLineEdit(self.layoutWidget)
-        self.lineEdit.setObjectName(u"lineEdit")
+        self.lineEdit_basicsearch = QLineEdit(self.layoutWidget)
+        self.lineEdit_basicsearch.setObjectName(u"lineEdit_basicsearch")
 
-        self.horizontalLayout.addWidget(self.lineEdit)
+        self.horizontalLayout.addWidget(self.lineEdit_basicsearch)
 
-        self.pushButton = QPushButton(self.layoutWidget)
-        self.pushButton.setObjectName(u"pushButton")
+        self.pushButton_bs1 = QPushButton(self.layoutWidget)
+        self.pushButton_bs1.setObjectName(u"pushButton_bs1")
 
-        self.horizontalLayout.addWidget(self.pushButton)
+        self.horizontalLayout.addWidget(self.pushButton_bs1)
 
 
         self.verticalLayout_2.addLayout(self.horizontalLayout)
 
-        self.plainTextEdit = QPlainTextEdit(self.layoutWidget)
-        self.plainTextEdit.setObjectName(u"plainTextEdit")
+        self.plainTextEdit_basicsearch = QPlainTextEdit(self.layoutWidget)
+        self.plainTextEdit_basicsearch.setObjectName(u"plainTextEdit_basicsearch")
 
-        self.verticalLayout_2.addWidget(self.plainTextEdit)
+        self.verticalLayout_2.addWidget(self.plainTextEdit_basicsearch)
 
-        self.stackedWidget.addWidget(self.page_3)
-        self.page_4 = QWidget()
-        self.page_4.setObjectName(u"page_4")
-        self.layoutWidget_2 = QWidget(self.page_4)
+        self.stackedWidget.addWidget(self.page_basicsearch)
+        self.page_relevancesearch = QWidget()
+        self.page_relevancesearch.setObjectName(u"page_relevancesearch")
+        self.layoutWidget_2 = QWidget(self.page_relevancesearch)
         self.layoutWidget_2.setObjectName(u"layoutWidget_2")
         self.layoutWidget_2.setGeometry(QRect(30, 90, 321, 251))
         self.verticalLayout_3 = QVBoxLayout(self.layoutWidget_2)
@@ -103,28 +103,28 @@ class Ui_Form(object):
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_2 = QHBoxLayout()
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.lineEdit_2 = QLineEdit(self.layoutWidget_2)
-        self.lineEdit_2.setObjectName(u"lineEdit_2")
+        self.lineEdit_relevancesearch = QLineEdit(self.layoutWidget_2)
+        self.lineEdit_relevancesearch.setObjectName(u"lineEdit_2")
 
-        self.horizontalLayout_2.addWidget(self.lineEdit_2)
+        self.horizontalLayout_2.addWidget(self.lineEdit_relevancesearch)
 
-        self.pushButton_4 = QPushButton(self.layoutWidget_2)
-        self.pushButton_4.setObjectName(u"pushButton_4")
+        self.pushButton_rs1 = QPushButton(self.layoutWidget_2)
+        self.pushButton_rs1.setObjectName(u"pushButton_4")
 
-        self.horizontalLayout_2.addWidget(self.pushButton_4)
+        self.horizontalLayout_2.addWidget(self.pushButton_rs1)
 
 
         self.verticalLayout_3.addLayout(self.horizontalLayout_2)
 
-        self.plainTextEdit_2 = QPlainTextEdit(self.layoutWidget_2)
-        self.plainTextEdit_2.setObjectName(u"plainTextEdit_2")
+        self.plainTextEdit_relevancesearch = QPlainTextEdit(self.layoutWidget_2)
+        self.plainTextEdit_relevancesearch.setObjectName(u"plainTextEdit_relevancesearch")
 
-        self.verticalLayout_3.addWidget(self.plainTextEdit_2)
+        self.verticalLayout_3.addWidget(self.plainTextEdit_relevancesearch)
 
-        self.stackedWidget.addWidget(self.page_4)
-        self.page_2 = QWidget()
-        self.page_2.setObjectName(u"page_2")
-        self.layoutWidget_3 = QWidget(self.page_2)
+        self.stackedWidget.addWidget(self.page_relevancesearch)
+        self.page_particalsearch = QWidget()
+        self.page_particalsearch.setObjectName(u"page_particalsearch")
+        self.layoutWidget_3 = QWidget(self.page_particalsearch)
         self.layoutWidget_3.setObjectName(u"layoutWidget_3")
         self.layoutWidget_3.setGeometry(QRect(20, 80, 351, 321))
         self.verticalLayout_4 = QVBoxLayout(self.layoutWidget_3)
@@ -132,45 +132,45 @@ class Ui_Form(object):
         self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
-        self.lineEdit_3 = QLineEdit(self.layoutWidget_3)
-        self.lineEdit_3.setObjectName(u"lineEdit_3")
+        self.lineEdit_particalsearch = QLineEdit(self.layoutWidget_3)
+        self.lineEdit_particalsearch.setObjectName(u"lineEdit_particalsearch")
 
-        self.horizontalLayout_3.addWidget(self.lineEdit_3)
+        self.horizontalLayout_3.addWidget(self.lineEdit_particalsearch)
 
-        self.pushButton_5 = QPushButton(self.layoutWidget_3)
-        self.pushButton_5.setObjectName(u"pushButton_5")
+        self.pushButton_ps1 = QPushButton(self.layoutWidget_3)
+        self.pushButton_ps1.setObjectName(u"pushButton_ps1")
 
-        self.horizontalLayout_3.addWidget(self.pushButton_5)
+        self.horizontalLayout_3.addWidget(self.pushButton_ps1)
 
 
         self.verticalLayout_4.addLayout(self.horizontalLayout_3)
 
-        self.plainTextEdit_3 = QPlainTextEdit(self.layoutWidget_3)
-        self.plainTextEdit_3.setObjectName(u"plainTextEdit_3")
+        self.plainTextEdit_particalsearch = QPlainTextEdit(self.layoutWidget_3)
+        self.plainTextEdit_particalsearch.setObjectName(u"plainTextEdit_particalsearch")
 
-        self.verticalLayout_4.addWidget(self.plainTextEdit_3)
+        self.verticalLayout_4.addWidget(self.plainTextEdit_particalsearch)
 
-        self.stackedWidget.addWidget(self.page_2)
+        self.stackedWidget.addWidget(self.page_particalsearch)
         self.layoutWidget1 = QWidget(self.Searchtab)
         self.layoutWidget1.setObjectName(u"layoutWidget1")
         self.layoutWidget1.setGeometry(QRect(530, 230, 101, 103))
         self.verticalLayout = QVBoxLayout(self.layoutWidget1)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.pushButton_top1 = QPushButton(self.layoutWidget1)
-        self.pushButton_top1.setObjectName(u"pushButton_top1")
+        self.pushButton_basicsearch = QPushButton(self.layoutWidget1)
+        self.pushButton_basicsearch.setObjectName(u"pushButton_basicsearch")
 
-        self.verticalLayout.addWidget(self.pushButton_top1)
+        self.verticalLayout.addWidget(self.pushButton_basicsearch)
 
-        self.pushButton_2 = QPushButton(self.layoutWidget1)
-        self.pushButton_2.setObjectName(u"pushButton_2")
+        self.pushButton_relevancesearch = QPushButton(self.layoutWidget1)
+        self.pushButton_relevancesearch.setObjectName(u"pushButton_relevancesearch")
 
-        self.verticalLayout.addWidget(self.pushButton_2)
+        self.verticalLayout.addWidget(self.pushButton_relevancesearch)
 
-        self.pushButton_3 = QPushButton(self.layoutWidget1)
-        self.pushButton_3.setObjectName(u"pushButton_3")
+        self.pushButton_particalsearch = QPushButton(self.layoutWidget1)
+        self.pushButton_particalsearch.setObjectName(u"pushButton_particalsearch")
 
-        self.verticalLayout.addWidget(self.pushButton_3)
+        self.verticalLayout.addWidget(self.pushButton_particalsearch)
 
         self.MainWidget.addTab(self.Searchtab, "")
         self.Analysistab = QWidget()
@@ -178,31 +178,31 @@ class Ui_Form(object):
         self.stackedWidget_2 = QStackedWidget(self.Analysistab)
         self.stackedWidget_2.setObjectName(u"stackedWidget_2")
         self.stackedWidget_2.setGeometry(QRect(30, 40, 381, 411))
-        self.page_5 = QWidget()
-        self.page_5.setObjectName(u"page_5")
-        self.stackedWidget_2.addWidget(self.page_5)
-        self.page_6 = QWidget()
-        self.page_6.setObjectName(u"page_6")
-        self.layoutWidget_6 = QWidget(self.page_6)
+        self.page_analysisnull = QWidget()
+        self.page_analysisnull.setObjectName(u"page_analysisnull")
+        self.stackedWidget_2.addWidget(self.page_analysisnull)
+        self.page_authoranalysis = QWidget()
+        self.page_authoranalysis.setObjectName(u"page_authoranalysis")
+        self.layoutWidget_6 = QWidget(self.page_authoranalysis)
         self.layoutWidget_6.setObjectName(u"layoutWidget_6")
         self.layoutWidget_6.setGeometry(QRect(70, 100, 241, 241))
         self.verticalLayout_8 = QVBoxLayout(self.layoutWidget_6)
         self.verticalLayout_8.setObjectName(u"verticalLayout_8")
         self.verticalLayout_8.setContentsMargins(0, 0, 0, 0)
-        self.pushButton_19 = QPushButton(self.layoutWidget_6)
-        self.pushButton_19.setObjectName(u"pushButton_19")
+        self.pushButton_aa1 = QPushButton(self.layoutWidget_6)
+        self.pushButton_aa1.setObjectName(u"pushButton_aa1")
 
-        self.verticalLayout_8.addWidget(self.pushButton_19)
+        self.verticalLayout_8.addWidget(self.pushButton_aa1)
 
-        self.plainTextEdit_6 = QPlainTextEdit(self.layoutWidget_6)
-        self.plainTextEdit_6.setObjectName(u"plainTextEdit_6")
+        self.plainTextEdit_authoranalysis = QPlainTextEdit(self.layoutWidget_6)
+        self.plainTextEdit_authoranalysis.setObjectName(u"plainTextEdit_authoranalysis")
 
-        self.verticalLayout_8.addWidget(self.plainTextEdit_6)
+        self.verticalLayout_8.addWidget(self.plainTextEdit_authoranalysis)
 
-        self.stackedWidget_2.addWidget(self.page_6)
-        self.page_7 = QWidget()
-        self.page_7.setObjectName(u"page_7")
-        self.layoutWidget_7 = QWidget(self.page_7)
+        self.stackedWidget_2.addWidget(self.page_authoranalysis)
+        self.page_hotspotalalysis = QWidget()
+        self.page_hotspotalalysis.setObjectName(u"page_hotspotalalysis")
+        self.layoutWidget_7 = QWidget(self.page_hotspotalalysis)
         self.layoutWidget_7.setObjectName(u"layoutWidget_7")
         self.layoutWidget_7.setGeometry(QRect(10, 80, 361, 301))
         self.verticalLayout_9 = QVBoxLayout(self.layoutWidget_7)
@@ -210,98 +210,98 @@ class Ui_Form(object):
         self.verticalLayout_9.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_6 = QHBoxLayout()
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
-        self.lineEdit_4 = QLineEdit(self.layoutWidget_7)
-        self.lineEdit_4.setObjectName(u"lineEdit_4")
+        self.lineEdit_hotspotalalysis = QLineEdit(self.layoutWidget_7)
+        self.lineEdit_hotspotalalysis.setObjectName(u"lineEdit_hotspotalalysis")
 
-        self.horizontalLayout_6.addWidget(self.lineEdit_4)
+        self.horizontalLayout_6.addWidget(self.lineEdit_hotspotalalysis)
 
-        self.pushButton_20 = QPushButton(self.layoutWidget_7)
-        self.pushButton_20.setObjectName(u"pushButton_20")
+        self.pushButton_hsa1 = QPushButton(self.layoutWidget_7)
+        self.pushButton_hsa1.setObjectName(u"pushButton_hsa1")
 
-        self.horizontalLayout_6.addWidget(self.pushButton_20)
+        self.horizontalLayout_6.addWidget(self.pushButton_hsa1)
 
 
         self.verticalLayout_9.addLayout(self.horizontalLayout_6)
 
-        self.plainTextEdit_7 = QPlainTextEdit(self.layoutWidget_7)
-        self.plainTextEdit_7.setObjectName(u"plainTextEdit_7")
+        self.plainTextEdit_hotspotalalysis = QPlainTextEdit(self.layoutWidget_7)
+        self.plainTextEdit_hotspotalalysis.setObjectName(u"plainTextEdit_hotspotalalysis")
 
-        self.verticalLayout_9.addWidget(self.plainTextEdit_7)
+        self.verticalLayout_9.addWidget(self.plainTextEdit_hotspotalalysis)
 
-        self.stackedWidget_2.addWidget(self.page_7)
-        self.page_8 = QWidget()
-        self.page_8.setObjectName(u"page_8")
-        self.layoutWidget_8 = QWidget(self.page_8)
+        self.stackedWidget_2.addWidget(self.page_hotspotalalysis)
+        self.page_clusteranalysis = QWidget()
+        self.page_clusteranalysis.setObjectName(u"page_clusteranalysis")
+        self.layoutWidget_8 = QWidget(self.page_clusteranalysis)
         self.layoutWidget_8.setObjectName(u"layoutWidget_8")
         self.layoutWidget_8.setGeometry(QRect(30, 60, 311, 291))
         self.verticalLayout_10 = QVBoxLayout(self.layoutWidget_8)
         self.verticalLayout_10.setObjectName(u"verticalLayout_10")
         self.verticalLayout_10.setContentsMargins(0, 0, 0, 0)
-        self.pushButton_21 = QPushButton(self.layoutWidget_8)
-        self.pushButton_21.setObjectName(u"pushButton_21")
+        self.pushButton_ca1 = QPushButton(self.layoutWidget_8)
+        self.pushButton_ca1.setObjectName(u"pushButton_ca1")
 
-        self.verticalLayout_10.addWidget(self.pushButton_21)
+        self.verticalLayout_10.addWidget(self.pushButton_ca1)
 
-        self.plainTextEdit_8 = QPlainTextEdit(self.layoutWidget_8)
-        self.plainTextEdit_8.setObjectName(u"plainTextEdit_8")
+        self.plainTextEdit_clusteranalysis = QPlainTextEdit(self.layoutWidget_8)
+        self.plainTextEdit_clusteranalysis.setObjectName(u"plainTextEdit_clusteranalysis")
 
-        self.verticalLayout_10.addWidget(self.plainTextEdit_8)
+        self.verticalLayout_10.addWidget(self.plainTextEdit_clusteranalysis)
 
-        self.stackedWidget_2.addWidget(self.page_8)
-        self.page_9 = QWidget()
-        self.page_9.setObjectName(u"page_9")
-        self.layoutWidget_9 = QWidget(self.page_9)
+        self.stackedWidget_2.addWidget(self.page_clusteranalysis)
+        self.page_virtualanalysis = QWidget()
+        self.page_virtualanalysis.setObjectName(u"page_virtualanalysis")
+        self.layoutWidget_9 = QWidget(self.page_virtualanalysis)
         self.layoutWidget_9.setObjectName(u"layoutWidget_9")
         self.layoutWidget_9.setGeometry(QRect(20, 80, 331, 261))
         self.verticalLayout_11 = QVBoxLayout(self.layoutWidget_9)
         self.verticalLayout_11.setObjectName(u"verticalLayout_11")
         self.verticalLayout_11.setContentsMargins(0, 0, 0, 0)
-        self.pushButton_22 = QPushButton(self.layoutWidget_9)
-        self.pushButton_22.setObjectName(u"pushButton_22")
+        self.pushButton_va1 = QPushButton(self.layoutWidget_9)
+        self.pushButton_va1.setObjectName(u"pushButton_va1")
 
-        self.verticalLayout_11.addWidget(self.pushButton_22)
+        self.verticalLayout_11.addWidget(self.pushButton_va1)
 
         self.horizontalLayout_7 = QHBoxLayout()
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
-        self.plainTextEdit_9 = QPlainTextEdit(self.layoutWidget_9)
-        self.plainTextEdit_9.setObjectName(u"plainTextEdit_9")
+        self.plainTextEdit_va1 = QPlainTextEdit(self.layoutWidget_9)
+        self.plainTextEdit_va1.setObjectName(u"plainTextEdit_va1")
 
-        self.horizontalLayout_7.addWidget(self.plainTextEdit_9)
+        self.horizontalLayout_7.addWidget(self.plainTextEdit_va1)
 
-        self.plainTextEdit_10 = QPlainTextEdit(self.layoutWidget_9)
-        self.plainTextEdit_10.setObjectName(u"plainTextEdit_10")
+        self.plainTextEdit_va2 = QPlainTextEdit(self.layoutWidget_9)
+        self.plainTextEdit_va2.setObjectName(u"plainTextEdit_va2")
 
-        self.horizontalLayout_7.addWidget(self.plainTextEdit_10)
+        self.horizontalLayout_7.addWidget(self.plainTextEdit_va2)
 
 
         self.verticalLayout_11.addLayout(self.horizontalLayout_7)
 
-        self.stackedWidget_2.addWidget(self.page_9)
+        self.stackedWidget_2.addWidget(self.page_virtualanalysis)
         self.layoutWidget2 = QWidget(self.Analysistab)
         self.layoutWidget2.setObjectName(u"layoutWidget2")
         self.layoutWidget2.setGeometry(QRect(500, 190, 95, 139))
         self.verticalLayout_7 = QVBoxLayout(self.layoutWidget2)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
         self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
-        self.pushButton_18 = QPushButton(self.layoutWidget2)
-        self.pushButton_18.setObjectName(u"pushButton_18")
+        self.pushButton_authoranalysis = QPushButton(self.layoutWidget2)
+        self.pushButton_authoranalysis.setObjectName(u"pushButton_authoranalysis")
 
-        self.verticalLayout_7.addWidget(self.pushButton_18)
+        self.verticalLayout_7.addWidget(self.pushButton_authoranalysis)
 
-        self.pushButton_16 = QPushButton(self.layoutWidget2)
-        self.pushButton_16.setObjectName(u"pushButton_16")
+        self.pushButton_hotspotanalysis = QPushButton(self.layoutWidget2)
+        self.pushButton_hotspotanalysis.setObjectName(u"pushButton_hotspotanalysis")
 
-        self.verticalLayout_7.addWidget(self.pushButton_16)
+        self.verticalLayout_7.addWidget(self.pushButton_hotspotanalysis)
 
-        self.pushButton_15 = QPushButton(self.layoutWidget2)
-        self.pushButton_15.setObjectName(u"pushButton_15")
+        self.pushButton_clusteranalysis = QPushButton(self.layoutWidget2)
+        self.pushButton_clusteranalysis.setObjectName(u"pushButton_clusteranalysis")
 
-        self.verticalLayout_7.addWidget(self.pushButton_15)
+        self.verticalLayout_7.addWidget(self.pushButton_clusteranalysis)
 
-        self.pushButton_17 = QPushButton(self.layoutWidget2)
-        self.pushButton_17.setObjectName(u"pushButton_17")
+        self.pushButton_virtualanalysis = QPushButton(self.layoutWidget2)
+        self.pushButton_virtualanalysis.setObjectName(u"pushButton_virtualanalysis")
 
-        self.verticalLayout_7.addWidget(self.pushButton_17)
+        self.verticalLayout_7.addWidget(self.pushButton_virtualanalysis)
 
         self.MainWidget.addTab(self.Analysistab, "")
         self.tab_4 = QWidget()
@@ -317,8 +317,8 @@ class Ui_Form(object):
         self.retranslateUi(Form)
 
         self.MainWidget.setCurrentIndex(0)
-        self.stackedWidget.setCurrentIndex(3)
-        self.stackedWidget_2.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(0)
+        self.stackedWidget_2.setCurrentIndex(0)
 
 
         QMetaObject.connectSlotsByName(Form)
@@ -326,13 +326,13 @@ class Ui_Form(object):
         '-------------------------------控件设置处--------------------------------'
         self.label_openfile.setWordWrap(True)                                           #Qlabel Text自动换行
         '-------------------------------槽函数连接处-------------------------------'
-        self.pushButton_top1.clicked.connect(self.on_pushButton_top1_clicked)
-        self.pushButton_2.clicked.connect(self.on_pushButton_2_clicked)
-        self.pushButton_3.clicked.connect(self.on_pushButton_3_clicked)
-        self.pushButton_18.clicked.connect(self.on_pushButton_18_clicked)
-        self.pushButton_16.clicked.connect(self.on_pushButton_16_clicked)
-        self.pushButton_15.clicked.connect(self.on_pushButton_15_clicked)
-        self.pushButton_17.clicked.connect(self.on_pushButton_17_clicked)
+        self.pushButton_basicsearch.clicked.connect(self.on_pushButton_basicsearch_clicked)
+        self.pushButton_relevancesearch.clicked.connect(self.on_pushButton_relevancesearch_clicked)
+        self.pushButton_particalsearch.clicked.connect(self.on_pushButton_particalsearch_clicked)
+        self.pushButton_authoranalysis.clicked.connect(self.on_pushButton_authoranalysis_clicked)
+        self.pushButton_hotspotanalysis.clicked.connect(self.on_pushButton_hotspotanalysis_clicked)
+        self.pushButton_clusteranalysis.clicked.connect(self.on_pushButton_clusteranalysis_clicked)
+        self.pushButton_virtualanalysis.clicked.connect(self.on_pushButton_virtualanalysis_clicked)
         self.pushButton_db.clicked.connect(self.on_pushButton_builddatabse_clicked)
 
         '-------------------------------创建数据库连接处---------------------------'
@@ -346,56 +346,59 @@ class Ui_Form(object):
         self.label_openfile.setText("")
         self.pushButton_openfile.setText(QCoreApplication.translate("Form", u"\u6253\u5f00\u6587\u4ef6", None))
         self.MainWidget.setTabText(self.MainWidget.indexOf(self.DataBasetab), QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
-        self.lineEdit.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d\u6216\u5b8c\u6574\u8bba\u6587\u9898\u76ee", None))
-        self.pushButton.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
-        self.plainTextEdit.setPlaceholderText("")
-        self.lineEdit_2.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d", None))
-        self.pushButton_4.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
-        self.lineEdit_3.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5173\u952e\u5b57\u4fe1\u606f", None))
-        self.pushButton_5.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
-        self.pushButton_top1.setText(QCoreApplication.translate("Form", u"\u57fa\u672c\u641c\u7d22", None))
-        self.pushButton_2.setText(QCoreApplication.translate("Form", u"\u76f8\u5173\u641c\u7d22", None))
-        self.pushButton_3.setText(QCoreApplication.translate("Form", u"\u90e8\u5206\u5339\u914d\u641c\u7d22", None))
+        self.lineEdit_basicsearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d\u6216\u5b8c\u6574\u8bba\u6587\u9898\u76ee", None))
+        self.pushButton_bs1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
+        self.plainTextEdit_basicsearch.setPlaceholderText("")
+        self.lineEdit_relevancesearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d", None))
+        self.pushButton_rs1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
+        self.lineEdit_particalsearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5173\u952e\u5b57\u4fe1\u606f", None))
+        self.pushButton_ps1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
+        self.pushButton_basicsearch.setText(QCoreApplication.translate("Form", u"\u57fa\u672c\u641c\u7d22", None))
+        self.pushButton_relevancesearch.setText(QCoreApplication.translate("Form", u"\u76f8\u5173\u641c\u7d22", None))
+        self.pushButton_particalsearch.setText(QCoreApplication.translate("Form", u"\u90e8\u5206\u5339\u914d\u641c\u7d22", None))
         self.MainWidget.setTabText(self.MainWidget.indexOf(self.Searchtab), QCoreApplication.translate("Form", u"\u641c\u7d22", None))
-        self.pushButton_19.setText(QCoreApplication.translate("Form", u"\u4f5c\u8005\u7edf\u8ba1", None))
-        self.lineEdit_4.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5e74\u4efd\u4fe1\u606f", None))
-        self.pushButton_20.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
-        self.pushButton_21.setText(QCoreApplication.translate("Form", u"\u805a\u56e2\u5206\u6790", None))
-        self.pushButton_22.setText(QCoreApplication.translate("Form", u"\u53ef\u89c6\u5316\u663e\u793a", None))
-        self.pushButton_18.setText(QCoreApplication.translate("Form", u"\u4f5c\u8005\u7edf\u8ba1", None))
-        self.pushButton_16.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
-        self.pushButton_15.setText(QCoreApplication.translate("Form", u"\u805a\u56e2\u5206\u6790", None))
-        self.pushButton_17.setText(QCoreApplication.translate("Form", u"\u53ef\u89c6\u5316\u663e\u793a", None))
+        self.pushButton_aa1.setText(QCoreApplication.translate("Form", u"\u4f5c\u8005\u7edf\u8ba1", None))
+        self.lineEdit_hotspotalalysis.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5e74\u4efd\u4fe1\u606f", None))
+        self.pushButton_hsa1.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
+        self.pushButton_ca1.setText(QCoreApplication.translate("Form", u"\u805a\u56e2\u5206\u6790", None))
+        self.pushButton_va1.setText(QCoreApplication.translate("Form", u"\u53ef\u89c6\u5316\u663e\u793a", None))
+        self.pushButton_authoranalysis.setText(QCoreApplication.translate("Form", u"\u4f5c\u8005\u7edf\u8ba1", None))
+        self.pushButton_hotspotanalysis.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
+        self.pushButton_clusteranalysis.setText(QCoreApplication.translate("Form", u"\u805a\u56e2\u5206\u6790", None))
+        self.pushButton_virtualanalysis.setText(QCoreApplication.translate("Form", u"\u53ef\u89c6\u5316\u663e\u793a", None))
         self.MainWidget.setTabText(self.MainWidget.indexOf(self.Analysistab), QCoreApplication.translate("Form", u"\u7edf\u8ba1", None))
         self.pushButton_exit.setText(QCoreApplication.translate("Form", u"Exit", None))
         self.MainWidget.setTabText(self.MainWidget.indexOf(self.tab_4), QCoreApplication.translate("Form", u"\u9000\u51fa", None))
     # retranslateUi
     '--------------------------函数处--------------------------------'
 
-    def on_pushButton_top1_clicked(self):
+    def on_pushButton_basicsearch_clicked(self):
         self.stackedWidget.setCurrentIndex(1)
 
         # 按钮二：打开第二个面板
-    def on_pushButton_2_clicked(self):
+    def on_pushButton_relevancesearch_clicked(self):
         self.stackedWidget.setCurrentIndex(2)
 
         # 按钮三：打开第三个面板
-    def on_pushButton_3_clicked(self):
+    def on_pushButton_particalsearch_clicked(self):
         self.stackedWidget.setCurrentIndex(3)
 
         # 按钮一：打开第一个面板
-    def on_pushButton_18_clicked(self):
+    def on_pushButton_authoranalysis_clicked(self):
         self.stackedWidget_2.setCurrentIndex(1)
 
             # 按钮二：打开第二个面板
-    def on_pushButton_16_clicked(self):
+    def on_pushButton_hotspotanalysis_clicked(self):
         self.stackedWidget_2.setCurrentIndex(2)
 
             # 按钮三：打开第三个面板
-    def on_pushButton_15_clicked(self):
+    def on_pushButton_clusteranalysis_clicked(self):
         self.stackedWidget_2.setCurrentIndex(3)
-    def on_pushButton_17_clicked(self):
+
+        # 按钮四：打开第四个面板
+    def on_pushButton_virtualanalysis_clicked(self):
         self.stackedWidget_2.setCurrentIndex(4)
+    
     def on_pushButton_builddatabse_clicked(self):
         self.stackedWidget_2.setCurrentIndex(0)
         self.stackedWidget.setCurrentIndex(0)
