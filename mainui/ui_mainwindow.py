@@ -14,12 +14,12 @@ from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
 from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
+    QPalette, QPixmap, QRadialGradient, QTransform, QIntValidator, QStandardItem, QStandardItemModel)
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLineEdit, QPlainTextEdit,
     QPushButton, QSizePolicy, QStackedWidget, QTabWidget,
     QVBoxLayout, QWidget, QLabel, QDialog, QFileDialog, QMessageBox, QTableView,
-    QAbstractItemView)
-import os, create, Datain
+    QAbstractItemView, QHeaderView)
+import os, create, Datain, Function_index
 class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
@@ -182,10 +182,15 @@ class Ui_Form(object):
         self.page_authoranalysis.setObjectName(u"page_authoranalysis")
         self.layoutWidget_6 = QWidget(self.page_authoranalysis)
         self.layoutWidget_6.setObjectName(u"layoutWidget_6")
-        self.layoutWidget_6.setGeometry(QRect(70, 100, 241, 241))
+        self.layoutWidget_6.setGeometry(QRect(0, 20, 371, 371))
         self.verticalLayout_8 = QVBoxLayout(self.layoutWidget_6)
         self.verticalLayout_8.setObjectName(u"verticalLayout_8")
         self.verticalLayout_8.setContentsMargins(0, 0, 0, 0)
+        self.lineEdit_authoranalysis = QLineEdit(self.layoutWidget_6)
+        self.lineEdit_authoranalysis.setObjectName(u"lineEdit_authoranalysis")
+
+        self.verticalLayout_8.addWidget(self.lineEdit_authoranalysis)
+
         self.pushButton_aa1 = QPushButton(self.layoutWidget_6)
         self.pushButton_aa1.setObjectName(u"pushButton_aa1")
 
@@ -324,6 +329,8 @@ class Ui_Form(object):
     # setupUi
         '-------------------------------控件设置处--------------------------------'
         self.label_openfile.setWordWrap(True)                                           #Qlabel Text自动换行
+        self.lineEdit_authoranalysis.setValidator(QIntValidator(1,105))                 #设置作者统计只能为int类型
+        self.tableView_authoranalysis.verticalHeader().setVisible(False)                #隐藏行号
         '-------------------------------槽函数连接处-------------------------------'
         self.pushButton_basicsearch.clicked.connect(self.on_pushButton_basicsearch_clicked)
         self.pushButton_relevancesearch.clicked.connect(self.on_pushButton_relevancesearch_clicked)
@@ -337,6 +344,9 @@ class Ui_Form(object):
         '-------------------------------创建数据库连接处---------------------------'
         self.pushButton_openfile.clicked.connect(self.msg)
         self.pushButton_db.clicked.connect(self.createdb)
+
+        '--------------------------------作者分析连接处---------------------------'
+        self.pushButton_aa1.clicked.connect(self.authoranalysis)
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.pushButton_db.setText(QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
@@ -461,11 +471,11 @@ class Ui_Form(object):
                 print("该文件已处理完毕，正构建pkl")
                 file_name = file_name[:4]
                 #存在_deal删掉
-            #判断是否有json
-            json_path = file_name + ".pkl"
-            self.path = json_path
-            print(json_path)
-            if(os.path.exists(json_path)):
+            #判断是否有pkl
+            pkl_path = file_name + ".pkl"
+            self.path = pkl_path
+            print(pkl_path)
+            if(os.path.exists(pkl_path)):
                 #存在pkl了 直接读就行
                 print("直接读pkl")
             else:
@@ -473,6 +483,27 @@ class Ui_Form(object):
                 record = create.read_records_from_xml(file_name + "_deal.xml")
                 create.createpkl(record,file_name)
                 del record
+            self.author_to_titles, self.title_to_info, self.buckets = Function_index.build_index(self.path)
+
+    def authoranalysis(self):
+        #获得数量
+        Len = int(self.lineEdit_authoranalysis.text())
+        self.tableView_authoranalysis.setModel(None)
+        self.tableView_authoranalysis_model = QStandardItemModel(Len,2)
+        self.tableView_authoranalysis_model.setHorizontalHeaderLabels(["作者","文章数"])
+        cnt = 0
+        buckets = self.buckets
+        for i in range(32766,0,-1):
+            if len(buckets[i]) == 0:
+                continue
+            if cnt < Len:
+                for author in buckets[i]:
+                    if cnt < Len:
+                        self.tableView_authoranalysis_model.setItem(cnt,0,QStandardItem(author))
+                        self.tableView_authoranalysis_model.setItem(cnt,1,QStandardItem(str(i)))
+                    cnt += 1
+        self.tableView_authoranalysis.setModel(self.tableView_authoranalysis_model)
+        self.tableView_authoranalysis.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
 if __name__ == "__main__":
     import sys
