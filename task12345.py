@@ -1,17 +1,17 @@
-import  json
 import pickle
 import re
+from collections import defaultdict
 
 def split_sentence(sentence):
     # 使用正则表达式匹配句子中的单词
     words = re.findall(r'\b\w+\b', sentence)
     return words
-from collections import defaultdict
-type_name = ["article" , "book" , "www" , "inproceedings" , "mastersthesis" , "incollection" , "proceedings" , "phdthesis"]
-edge_author = defaultdict(list)
+
 def build_index(filename):#建立作者到标题、标题到内容的索引
-    author_to_titles = {}
-    title_to_info = {}
+    type_name = ["article", "book", "www", "inproceedings", "mastersthesis", "incollection", "proceedings", "phdthesis"]
+    edge_author = defaultdict(list)
+    author_to_titles = defaultdict(list)
+    title_to_info = defaultdict(list)
     with open(filename, 'rb') as file:
         data = pickle.load(file)
         for tname in type_name:
@@ -37,7 +37,10 @@ def build_index(filename):#建立作者到标题、标题到内容的索引
                     else:
                         author_to_titles[author] = [title]
             # 构建文献标题到文献信息的映射
-                title_to_info[title] = publication
+                if title in title_to_info:
+                    title_to_info[title].append(publication)
+                else:
+                    title_to_info[title] = [publication]
                 for author1 in authors:
                     #if author1 not in edge_author:
                     #    edge_author[author1] = []
@@ -47,78 +50,27 @@ def build_index(filename):#建立作者到标题、标题到内容的索引
                         if author2 in edge_author[author1]:
                             continue
                         edge_author[author1].append(author2)
+    buckets = [[] for _ in range(32767)]
+    for author in author_to_titles:
+        buckets[len(author_to_titles[author])].append(author)
+    return author_to_titles, title_to_info, buckets
 
-    return author_to_titles, title_to_info
+def print_pre_n_author(x,buckets):#输出最多的前n个作者
+    cnt = 0
 
-filename = 'dblp.pkl'
-author_to_titles, title_to_info = build_index(filename)
-buckets = [[] for _ in range(32767)]
-for author in author_to_titles:
-    buckets[len(author_to_titles[author])].append(author)
-def print_pre_n_author(x):#输出最多的前n个作者
-    cnt=0
     for i in range(32766,0,-1):
-        if len(buckets[i])==0:
+        if len(buckets[i]) == 0:
             continue
-        if cnt<=x:
+        if cnt <= x:
             for author in buckets[i]:
-                cnt+=1
-                if cnt<=x:
+                cnt += 1
+                if cnt <= x:
                     print(f"{author}: {i} publications")
         else:
             break
-print("finished building title index")
-blocked_word_list = ["via","it","-","of","for","in","and","or","is","the","are","a","an","on","with","to","using","by","from","where","into","within","onto","this","that","based","can","be","have","still","how","but","as","should"]
-keywords_per_year = defaultdict(list)
-inverted_index = {}
-for title, info in title_to_info.items():#建立倒排索引
-    words = split_sentence(title)  # 将文献标题拆分为单词
-    bj = {}
-    for word in words:
-        word = word.lower()
-        if "year" in info:
-            year = info["year"]
-            if word not in blocked_word_list:
-                keywords_per_year[year].append(word)
-        if word in bj:
-            continue
-        bj[word] = 1
-        if word in inverted_index:
-            inverted_index[word].append(title)
-        else:
-            inverted_index[word] = [title]
 
 
-def top_n_keywords_per_year(n):
-    #桶排序计算每年前n的关键词
-    top_n_keywords = defaultdict(list)
-    for year, keywords in keywords_per_year.items():
-        # 计算词频
-        word_count = defaultdict(int)
-        for word in keywords:
-            word_count[word] += 1
 
-        # 构建桶
-        max_count = 62000
-        buckets_words = [[] for _ in range(max_count + 1)]
-        for word, count in word_count.items():
-            if count > max_count:
-                print(word,count,year)
-            else:
-                buckets_words[count].append(word)
-
-        # 找出排名前若干位的关键词
-        top_n = min(n, len(keywords))
-        count = 0
-        for i in range(max_count, 0, -1):
-            for word in buckets_words[i]:
-                top_n_keywords[year].append((word, i))
-                count += 1
-                if count >= top_n:
-                    break
-            if count >= top_n:
-                break
-    return top_n_keywords
 def find_author():
     s = input("please input author")
     if s in author_to_titles:
@@ -127,10 +79,11 @@ def find_author():
     else:
         print("invalid author name")
 
-def find_title ():
+def find_title():
     s = input("please input title")
     if s in title_to_info:
-        print(title_to_info[s])
+        for publication in title_to_info[s]:
+            print(publication)
     else:
         print("invalid article name")
 
@@ -157,8 +110,6 @@ def fuzzy_search(query_words0):
     else:
         print("找不到与所有输入单词相关的文献.")
 
-top_n_keywords = top_n_keywords_per_year(100)
-
 def top_keyword_per_year():#用于输出某年的词频
     year = input("please input year")
     cnt = 0
@@ -168,31 +119,62 @@ def top_keyword_per_year():#用于输出某年的词频
         if cnt == 10:
             break
 
-while True :
-    opt = eval(input("please input your choice: "))
-    if opt == 1:
-        opt1 = eval(input("please input"))
-        if opt1 == 1:
-            find_author()
-        else:
-            find_title()
-    if opt == 3:
-        pren = eval(input("please input"))
-        print_pre_n_author(pren)
-    if opt == 4:
-        year = input("please input year")
-        cnt = 0
-        for keywords in top_n_keywords[year]:
-            cnt = cnt + 1
-            print(keywords)
-            if cnt == 10 :
+def build_inverted_index(title_to_info):
+    blocked_word_list = ["via", "it", "-", "of", "for", "in", "and", "or", "is", "the", "are", "a", "an", "on", "with",
+                         "to", "using", "by", "from", "where", "into", "within", "onto", "this", "that", "based", "can",
+                         "be", "have", "still", "how", "but", "as", "should"]
+    keywords_per_year = defaultdict(list)
+    inverted_index = defaultdict(list)
+
+    for title in title_to_info:  # 建立倒排索引
+        for info in title_to_info[title]:
+            words = split_sentence(title)  # 将文献标题拆分为单词
+            bj = {}
+            for word in words:
+                word = word.lower()
+                if "year" in info:
+                    year = info["year"]
+                    if word not in blocked_word_list:
+                        keywords_per_year[year].append(word)
+                if word in bj:
+                    continue
+                bj[word] = 1
+                if word in inverted_index:
+                    inverted_index[word].append(title)
+                else:
+                    inverted_index[word] = [title]
+    top_n_keywords = defaultdict(list)
+    for year, keywords in keywords_per_year.items():
+        # 计算词频
+        word_count = defaultdict(int)
+        for word in keywords:
+            word_count[word] += 1
+
+        # 构建桶
+        max_count = 67000
+        buckets_words = [[] for _ in range(max_count + 1)]
+        for word, count in word_count.items():
+            if count > max_count:
+                print(word, count, year)
+            else:
+                buckets_words[count].append(word)
+
+        # 找出排名前若干位的关键词
+        top_n = min(100, len(keywords))
+        count = 0
+        for i in range(max_count, 0, -1):
+            for word in buckets_words[i]:
+                top_n_keywords[year].append((word, i))
+                count += 1
+                if count >= top_n:
+                    break
+            if count >= top_n:
                 break
-    if opt == 5:
-        s = input("please input words")
-        fuzzy_search(s)
-    if opt == 2:
-        s = input("please input author")
-        if s not in edge_author:
-            print("invalid author")
-        for author in edge_author[s]:
-            print(author)
+    return  top_n_keywords, inverted_index
+if __name__ == "__main__":
+    type_name = ["article" , "book" , "www" , "inproceedings" , "mastersthesis" , "incollection" , "proceedings" , "phdthesis"]
+    edge_author = defaultdict(list)
+    filename = 'dblp.pkl'
+    author_to_titles, title_to_info , buckets= build_index(filename)
+    print("finished building title index")
+    top_n_keywords, inverted_index = build_inverted_index(title_to_info)
