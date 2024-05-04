@@ -44,7 +44,6 @@ class DetailsWindow(object):
         self.tableView.horizontalHeader().setVisible(False)
         #点击exit关闭
         self.pushButton.clicked.connect(Widget.close)
-        self.tableView.setm
         self.retranslateUi(Widget)
         QMetaObject.connectSlotsByName(Widget)
     # setupUi
