@@ -29,13 +29,19 @@ def build_index(filename):#建立作者到标题、标题到内容的索引
                     if "editor" in publication:
                         authors = publication["editor"]
                     else:
-                        authors = []
+                        if "author" in publication:
+                            authors = publication["author"]
+                        else:
+                            if "editors" in publication:
+                                authors = publication["editors"]
+                            else:
+                                authors = []
             # 构建作者到文献标题的映射
                 for author in authors:
                     if author in author_to_titles:
-                        author_to_titles[author].append(title)
+                        author_to_titles[author].append(publication)
                     else:
-                        author_to_titles[author] = [title]
+                        author_to_titles[author] = [publication]
             # 构建文献标题到文献信息的映射
                 if title in title_to_info:
                     title_to_info[title].append(publication)
@@ -53,7 +59,7 @@ def build_index(filename):#建立作者到标题、标题到内容的索引
     buckets = [[] for _ in range(32767)]
     for author in author_to_titles:
         buckets[len(author_to_titles[author])].append(author)
-    return author_to_titles, title_to_info, buckets
+    return author_to_titles, title_to_info, buckets, edge_author
 
 def print_pre_n_author(x,buckets):#输出最多的前n个作者
     cnt = 0
@@ -71,23 +77,32 @@ def print_pre_n_author(x,buckets):#输出最多的前n个作者
 
 
 
-def find_author():
-    s = input("please input author")
+def find_author(s, author_to_titles):#返回值为标题列表，文献详细信息列表
+    titlelist = []
+    publicationlist = []
     if s in author_to_titles:
-        for title in author_to_titles[s]:
-            print(title)
-    else:
-        print("invalid author name")
+        print("yes")
+        for publication in author_to_titles[s]:
+            if "title" in publication:
+                title = publication["title"]
+            else:
+                if "booktitle" in publication:
+                    title = publication["booktitle"]
+                else:
+                    title = ""
+            titlelist.append(title)
+            publicationlist.append(publication)
+    return titlelist, publicationlist
 
-def find_title():
-    s = input("please input title")
+def find_title(s, title_to_info):#返回值为文献详细信息列表
+    publicationlist = []
     if s in title_to_info:
         for publication in title_to_info[s]:
-            print(publication)
-    else:
-        print("invalid article name")
+            tot += 1
+            publicationlist.append(publication)
+    return publicationlist
 
-def fuzzy_search(query_words0):
+def fuzzy_search(query_words0, inverted_index, title_to_info):#返回值为标题列表，文献详细信息列表
     # 将用户输入的多个单词拆分成列表
     query_words = split_sentence(query_words0)
     # 初始化结果为 None
@@ -95,29 +110,30 @@ def fuzzy_search(query_words0):
     for word in query_words:
         word = word.lower()
         if word in inverted_index:
+            print(inverted_index[word])
             titles = set(inverted_index[word])
             # 如果结果为 None，将结果初始化为第一个单词的结果，否则取当前单词结果与之前结果的交集
             if result_titles is None:
                 result_titles = titles
             else:
                 result_titles = result_titles.intersection(titles)
-    if result_titles:
-        print("模糊搜索结果:")
-        for title in result_titles:
-            print(title)
-            # 输出文献的其他信息
-            print(title_to_info[title])
-    else:
-        print("找不到与所有输入单词相关的文献.")
+    titlelist = []
+    publicationlist = []
+    for title in result_titles:
+        for publication in title_to_info[title]:
+            titlelist.append(title)
+            publicationlist.append(publication)
+    return titlelist, publicationlist
 
-def top_keyword_per_year():#用于输出某年的词频
-    year = input("please input year")
+def top_keyword_per_year(year,top_n_keywords):#用于输出某年的词频
     cnt = 0
+    keywords_list = []
     for keywords in top_n_keywords[year]:
         cnt = cnt + 1
-        print(keywords)
+        keywords_list.append(keywords)
         if cnt == 10:
-            break
+            return keywords_list
+    return keywords_list
 
 def build_inverted_index(title_to_info):
     blocked_word_list = ["via", "it", "-", "of", "for", "in", "and", "or", "is", "the", "are", "a", "an", "on", "with",
@@ -173,8 +189,19 @@ def build_inverted_index(title_to_info):
     return  top_n_keywords, inverted_index
 if __name__ == "__main__":
     type_name = ["article" , "book" , "www" , "inproceedings" , "mastersthesis" , "incollection" , "proceedings" , "phdthesis"]
-    edge_author = defaultdict(list)
+
     filename = 'dblp.pkl'
-    author_to_titles, title_to_info , buckets= build_index(filename)
-    print("finished building title index")
+    author_to_titles, title_to_info , buckets, edge_author= build_index(filename)
     top_n_keywords, inverted_index = build_inverted_index(title_to_info)
+    print("finished building title index")
+    #for author in author_to_titles:
+    #    bj = defaultdict(int)
+    #    for title in author_to_titles[author]:
+    #        if title in bj:
+    #            print(author, title)
+    #        else:
+    #            bj[title] = 1
+
+    titlelist, publicationlist = fuzzy_search("meltdown",inverted_index,title_to_info)
+    for i in range(len(titlelist)):
+        print(titlelist[i],publicationlist[i])
