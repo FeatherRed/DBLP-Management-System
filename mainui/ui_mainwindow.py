@@ -476,12 +476,13 @@ class Ui_Form(object):
         title = Table.currentIndex().data()     #获得标题
         row = Table.currentIndex().row()        #获得行号
         column = Table.currentIndex().column()  #获得列号
-        print("index",index)
-        print(self.title_to_info[title])
+        #print("index",index)
+        #print(self.title_to_info[title])
         match index:
             case 0: self.dewidget = DEWidget(title,self.basicsearch_info[row])
         self.dewidget.show()
     def basicsearch(self):
+        self.tableView_basicsearch_model = None
         #查看combobox是什么
         choice = self.comboBox_basicsearch.currentIndex()
         searchtext = self.lineEdit_basicsearch.text()
@@ -491,6 +492,9 @@ class Ui_Form(object):
             self.basicsearch_author(searchtext)
         else:
             self.basicsearch_title(searchtext)
+        self.tableView_basicsearch.setModel(self.tableView_basicsearch_model)
+        self.tableView_basicsearch.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.tableView_basicsearch.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
     def basicsearch_author(self,searchtext):
         self.tableView_basicsearch.setModel(None)
         author_title,self.basicsearch_info = Function_index.find_author(searchtext,self.author_to_titles)
@@ -502,8 +506,6 @@ class Ui_Form(object):
         self.tableView_basicsearch_model.setHorizontalHeaderLabels(["论文标题"])
         for i,title in enumerate(author_title):
             self.tableView_basicsearch_model.setItem(i,0,QStandardItem(title))
-        self.tableView_basicsearch.setModel(self.tableView_basicsearch_model)
-        self.tableView_basicsearch.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     def basicsearch_title(self,searchtext):
         self.tableView_basicsearch.setModel(None)
@@ -517,8 +519,6 @@ class Ui_Form(object):
         self.tableView_basicsearch_model.setHorizontalHeaderLabels(["论文标题"])
         for i in range(Len):
             self.tableView_basicsearch_model.setItem(i,0,QStandardItem(searchtext))
-        self.tableView_basicsearch.setModel(self.tableView_basicsearch_model)
-        self.tableView_basicsearch.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     def authoranalysis(self):
         #获得数量
