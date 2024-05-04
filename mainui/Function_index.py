@@ -10,8 +10,8 @@ def split_sentence(sentence):
 def build_index(filename):#建立作者到标题、标题到内容的索引
     type_name = ["article", "book", "www", "inproceedings", "mastersthesis", "incollection", "proceedings", "phdthesis"]
     edge_author = defaultdict(list)
-    author_to_titles = {}
-    title_to_info = {}
+    author_to_titles = defaultdict(list)
+    title_to_info = defaultdict(list)
     with open(filename, 'rb') as file:
         data = pickle.load(file)
         for tname in type_name:
@@ -29,15 +29,24 @@ def build_index(filename):#建立作者到标题、标题到内容的索引
                     if "editor" in publication:
                         authors = publication["editor"]
                     else:
-                        authors = []
+                        if "author" in publication:
+                            authors = publication["author"]
+                        else:
+                            if "editors" in publication:
+                                authors = publication["editors"]
+                            else:
+                                authors = []
             # 构建作者到文献标题的映射
                 for author in authors:
                     if author in author_to_titles:
-                        author_to_titles[author].append(title)
+                        author_to_titles[author].append(publication)
                     else:
-                        author_to_titles[author] = [title]
+                        author_to_titles[author] = [publication]
             # 构建文献标题到文献信息的映射
-                title_to_info[title] = publication
+                if title in title_to_info:
+                    title_to_info[title].append(publication)
+                else:
+                    title_to_info[title] = [publication]
                 for author1 in authors:
                     #if author1 not in edge_author:
                     #    edge_author[author1] = []
@@ -50,11 +59,11 @@ def build_index(filename):#建立作者到标题、标题到内容的索引
     buckets = [[] for _ in range(32767)]
     for author in author_to_titles:
         buckets[len(author_to_titles[author])].append(author)
-    return author_to_titles, title_to_info, buckets
+    return author_to_titles, title_to_info, buckets, edge_author
 
 def print_pre_n_author(x,buckets):#输出最多的前n个作者
     cnt = 0
-
+    authors = []
     for i in range(32766,0,-1):
         if len(buckets[i]) == 0:
             continue
@@ -62,9 +71,10 @@ def print_pre_n_author(x,buckets):#输出最多的前n个作者
             for author in buckets[i]:
                 cnt += 1
                 if cnt <= x:
-                    print(f"{author}: {i} publications")
+                    authors.append(author)
         else:
-            break
+            return authors
+    return authors
 
 def top_n_keywords_per_year(n):
     #桶排序计算每年前n的关键词
@@ -97,20 +107,31 @@ def top_n_keywords_per_year(n):
                 break
     return top_n_keywords
 
-def find_author():
-    s = input("please input author")
+def find_author(s, author_to_titles):#返回值为标题列表，文献详细信息列表
+    author_title = []
+    publicationlist = []
     if s in author_to_titles:
-        for title in author_to_titles[s]:
-            print(title)
-    else:
-        print("invalid author name")
+        print("yes")
+        for publication in author_to_titles[s]:
+            if "title" in publication:
+                title = publication["title"]
+            else:
+                if "booktitle" in publication:
+                    title = publication["booktitle"]
+                else:
+                    title = ""
+            author_title.append(title)
+            publicationlist.append(publication)
+    return author_title, publicationlist
 
-def find_title():
-    s = input("please input title")
+def find_title(s,title_to_info):
+    #s = input("please input title")
+    all_title = []
     if s in title_to_info:
-        print(title_to_info[s])
-    else:
-        print("invalid article name")
+        for info in title_to_info[s]:
+            all_title.append(info)
+    print(all_title)
+    return all_title
 
 def fuzzy_search(query_words0):
     # 将用户输入的多个单词拆分成列表

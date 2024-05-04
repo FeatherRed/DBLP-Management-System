@@ -18,8 +18,11 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLineEdit, QPlainTextEdit,
     QPushButton, QSizePolicy, QStackedWidget, QTabWidget,
     QVBoxLayout, QWidget, QLabel, QDialog, QFileDialog, QMessageBox, QTableView,
-    QAbstractItemView, QHeaderView)
+    QAbstractItemView, QHeaderView, QComboBox, QSpacerItem)
 import os, create, Datain, Function_index
+from ui_Title import DetailsWindow,DEWidget
+from functools import partial
+
 class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
@@ -57,7 +60,7 @@ class Ui_Form(object):
         self.Searchtab.setObjectName(u"Searchtab")
         self.stackedWidget = QStackedWidget(self.Searchtab)
         self.stackedWidget.setObjectName(u"stackedWidget")
-        self.stackedWidget.setGeometry(QRect(30, 60, 391, 411))
+        self.stackedWidget.setGeometry(QRect(20, 60, 501, 431))
         self.page_searchnull = QWidget()
         self.page_searchnull.setObjectName(u"page_searchnull")
         self.stackedWidget.addWidget(self.page_searchnull)
@@ -65,14 +68,24 @@ class Ui_Form(object):
         self.pagebasicsearch.setObjectName(u"pagebasicsearch")
         self.layoutWidget = QWidget(self.pagebasicsearch)
         self.layoutWidget.setObjectName(u"layoutWidget")
-        self.layoutWidget.setGeometry(QRect(10, 100, 371, 261))
+        self.layoutWidget.setGeometry(QRect(0, 50, 491, 311))
         self.verticalLayout_2 = QVBoxLayout(self.layoutWidget)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout = QHBoxLayout()
         self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.comboBox_basicsearch = QComboBox(self.layoutWidget)
+        self.comboBox_basicsearch.addItem("")
+        self.comboBox_basicsearch.addItem("")
+        self.comboBox_basicsearch.setObjectName(u"comboBox_basicsearch")
+        self.comboBox_basicsearch.setEnabled(True)
+        self.comboBox_basicsearch.setFrame(True)
+
+        self.horizontalLayout.addWidget(self.comboBox_basicsearch)
+
         self.lineEdit_basicsearch = QLineEdit(self.layoutWidget)
         self.lineEdit_basicsearch.setObjectName(u"lineEdit_basicsearch")
+        self.lineEdit_basicsearch.setFrame(True)
 
         self.horizontalLayout.addWidget(self.lineEdit_basicsearch)
 
@@ -84,10 +97,10 @@ class Ui_Form(object):
 
         self.verticalLayout_2.addLayout(self.horizontalLayout)
 
-        self.plainTextEdit_basicsearch = QPlainTextEdit(self.layoutWidget)
-        self.plainTextEdit_basicsearch.setObjectName(u"plainTextEdit_basicsearch")
+        self.tableView_basicsearch = QTableView(self.layoutWidget)
+        self.tableView_basicsearch.setObjectName(u"tableView_basicsearch")
 
-        self.verticalLayout_2.addWidget(self.plainTextEdit_basicsearch)
+        self.verticalLayout_2.addWidget(self.tableView_basicsearch)
 
         self.stackedWidget.addWidget(self.pagebasicsearch)
         self.page_relevancesearch = QWidget()
@@ -321,7 +334,7 @@ class Ui_Form(object):
         self.retranslateUi(Form)
 
         self.MainWidget.setCurrentIndex(0)
-        self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(0)
         self.stackedWidget_2.setCurrentIndex(1)
 
 
@@ -331,6 +344,7 @@ class Ui_Form(object):
         self.label_openfile.setWordWrap(True)                                           #Qlabel Text自动换行
         self.lineEdit_authoranalysis.setValidator(QIntValidator(1,105))                 #设置作者统计只能为int类型
         self.tableView_authoranalysis.verticalHeader().setVisible(False)                #隐藏行号
+        self.tableView_basicsearch.verticalHeader().setVisible(False)                   #隐藏行号
         '-------------------------------槽函数连接处-------------------------------'
         self.pushButton_basicsearch.clicked.connect(self.on_pushButton_basicsearch_clicked)
         self.pushButton_relevancesearch.clicked.connect(self.on_pushButton_relevancesearch_clicked)
@@ -340,11 +354,13 @@ class Ui_Form(object):
         self.pushButton_clusteranalysis.clicked.connect(self.on_pushButton_clusteranalysis_clicked)
         self.pushButton_virtualanalysis.clicked.connect(self.on_pushButton_virtualanalysis_clicked)
         self.pushButton_db.clicked.connect(self.on_pushButton_builddatabse_clicked)
-
         '-------------------------------创建数据库连接处---------------------------'
         self.pushButton_openfile.clicked.connect(self.msg)
         self.pushButton_db.clicked.connect(self.createdb)
 
+        '--------------------------------基本搜索连接处---------------------------'
+        self.pushButton_bs1.clicked.connect(self.basicsearch)
+        self.tableView_basicsearch.doubleClicked.connect(partial(self.show_info,self.tableView_basicsearch,0))
         '--------------------------------作者分析连接处---------------------------'
         self.pushButton_aa1.clicked.connect(self.authoranalysis)
     def retranslateUi(self, Form):
@@ -352,10 +368,11 @@ class Ui_Form(object):
         self.pushButton_db.setText(QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
         self.label_openfile.setText("")
         self.pushButton_openfile.setText(QCoreApplication.translate("Form", u"\u6253\u5f00\u6587\u4ef6", None))
-        self.MainWidget.setTabText(self.MainWidget.indexOf(self.DataBasetab), QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
-        self.lineEdit_basicsearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d\u6216\u5b8c\u6574\u8bba\u6587\u9898\u76ee", None))
+        self.MainWidget.setTabText(self.MainWidget.indexOf(self.DataBasetab),QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
+        self.lineEdit_basicsearch.setPlaceholderText(QCoreApplication.translate("Form",u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d\u6216\u5b8c\u6574\u8bba\u6587\u9898\u76ee",None))
+        self.comboBox_basicsearch.setItemText(0, QCoreApplication.translate("Form", u"\u4f5c\u8005", None))
+        self.comboBox_basicsearch.setItemText(1, QCoreApplication.translate("Form", u"\u8bba\u6587", None))
         self.pushButton_bs1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
-        self.plainTextEdit_basicsearch.setPlaceholderText("")
         self.lineEdit_relevancesearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d", None))
         self.pushButton_rs1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
         self.lineEdit_particalsearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5173\u952e\u5b57\u4fe1\u606f", None))
@@ -363,7 +380,7 @@ class Ui_Form(object):
         self.pushButton_basicsearch.setText(QCoreApplication.translate("Form", u"\u57fa\u672c\u641c\u7d22", None))
         self.pushButton_relevancesearch.setText(QCoreApplication.translate("Form", u"\u76f8\u5173\u641c\u7d22", None))
         self.pushButton_particalsearch.setText(QCoreApplication.translate("Form", u"\u90e8\u5206\u5339\u914d\u641c\u7d22", None))
-        self.MainWidget.setTabText(self.MainWidget.indexOf(self.Searchtab), QCoreApplication.translate("Form", u"\u641c\u7d22", None))
+        self.MainWidget.setTabText(self.MainWidget.indexOf(self.Searchtab),QCoreApplication.translate("Form", u"\u641c\u7d22", None))
         self.pushButton_aa1.setText(QCoreApplication.translate("Form", u"\u4f5c\u8005\u7edf\u8ba1", None))
         self.lineEdit_hotspotanalysis.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5e74\u4efd\u4fe1\u606f", None))
         self.pushButton_hsa1.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
@@ -373,39 +390,9 @@ class Ui_Form(object):
         self.pushButton_hotspotanalysis.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
         self.pushButton_clusteranalysis.setText(QCoreApplication.translate("Form", u"\u805a\u56e2\u5206\u6790", None))
         self.pushButton_virtualanalysis.setText(QCoreApplication.translate("Form", u"\u53ef\u89c6\u5316\u663e\u793a", None))
-        self.MainWidget.setTabText(self.MainWidget.indexOf(self.Analysistab), QCoreApplication.translate("Form", u"\u7edf\u8ba1", None))
+        self.MainWidget.setTabText(self.MainWidget.indexOf(self.Analysistab),QCoreApplication.translate("Form", u"\u7edf\u8ba1", None))
         self.pushButton_exit.setText(QCoreApplication.translate("Form", u"Exit", None))
-        self.MainWidget.setTabText(self.MainWidget.indexOf(self.tab_4), QCoreApplication.translate("Form", u"\u9000\u51fa", None))
-    # retranslateUi
-    def retranslateUi(self, Form):
-        Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.pushButton_db.setText(QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
-        self.label_openfile.setText("")
-        self.pushButton_openfile.setText(QCoreApplication.translate("Form", u"\u6253\u5f00\u6587\u4ef6", None))
-        self.MainWidget.setTabText(self.MainWidget.indexOf(self.DataBasetab), QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
-        self.lineEdit_basicsearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d\u6216\u5b8c\u6574\u8bba\u6587\u9898\u76ee", None))
-        self.pushButton_bs1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
-        self.plainTextEdit_basicsearch.setPlaceholderText("")
-        self.lineEdit_relevancesearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d", None))
-        self.pushButton_rs1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
-        self.lineEdit_particalsearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5173\u952e\u5b57\u4fe1\u606f", None))
-        self.pushButton_ps1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
-        self.pushButton_basicsearch.setText(QCoreApplication.translate("Form", u"\u57fa\u672c\u641c\u7d22", None))
-        self.pushButton_relevancesearch.setText(QCoreApplication.translate("Form", u"\u76f8\u5173\u641c\u7d22", None))
-        self.pushButton_particalsearch.setText(QCoreApplication.translate("Form", u"\u90e8\u5206\u5339\u914d\u641c\u7d22", None))
-        self.MainWidget.setTabText(self.MainWidget.indexOf(self.Searchtab), QCoreApplication.translate("Form", u"\u641c\u7d22", None))
-        self.pushButton_aa1.setText(QCoreApplication.translate("Form", u"\u4f5c\u8005\u7edf\u8ba1", None))
-        self.lineEdit_hotspotanalysis.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5e74\u4efd\u4fe1\u606f", None))
-        self.pushButton_hsa1.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
-        self.pushButton_ca1.setText(QCoreApplication.translate("Form", u"\u805a\u56e2\u5206\u6790", None))
-        self.pushButton_va1.setText(QCoreApplication.translate("Form", u"\u53ef\u89c6\u5316\u663e\u793a", None))
-        self.pushButton_authoranalysis.setText(QCoreApplication.translate("Form", u"\u4f5c\u8005\u7edf\u8ba1", None))
-        self.pushButton_hotspotanalysis.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
-        self.pushButton_clusteranalysis.setText(QCoreApplication.translate("Form", u"\u805a\u56e2\u5206\u6790", None))
-        self.pushButton_virtualanalysis.setText(QCoreApplication.translate("Form", u"\u53ef\u89c6\u5316\u663e\u793a", None))
-        self.MainWidget.setTabText(self.MainWidget.indexOf(self.Analysistab), QCoreApplication.translate("Form", u"\u7edf\u8ba1", None))
-        self.pushButton_exit.setText(QCoreApplication.translate("Form", u"Exit", None))
-        self.MainWidget.setTabText(self.MainWidget.indexOf(self.tab_4), QCoreApplication.translate("Form", u"\u9000\u51fa", None))
+        self.MainWidget.setTabText(self.MainWidget.indexOf(self.tab_4),QCoreApplication.translate("Form", u"\u9000\u51fa", None))
     # retranslateUi
 
     '--------------------------函数处--------------------------------'
@@ -483,7 +470,55 @@ class Ui_Form(object):
                 record = create.read_records_from_xml(file_name + "_deal.xml")
                 create.createpkl(record,file_name)
                 del record
-            self.author_to_titles, self.title_to_info, self.buckets = Function_index.build_index(self.path)
+            self.author_to_titles, self.title_to_info, self.buckets, self.edge_author = Function_index.build_index(self.path)
+
+    def show_info(self,Table,index,Index):
+        title = Table.currentIndex().data()     #获得标题
+        row = Table.currentIndex().row()        #获得行号
+        column = Table.currentIndex().column()  #获得列号
+        print("index",index)
+        print(self.title_to_info[title])
+        match index:
+            case 0: self.dewidget = DEWidget(title,self.basicsearch_info[row])
+        self.dewidget.show()
+    def basicsearch(self):
+        #查看combobox是什么
+        choice = self.comboBox_basicsearch.currentIndex()
+        searchtext = self.lineEdit_basicsearch.text()
+        #choice = 0 作者
+        #choice = 1 论文
+        if choice == 0:
+            self.basicsearch_author(searchtext)
+        else:
+            self.basicsearch_title(searchtext)
+    def basicsearch_author(self,searchtext):
+        self.tableView_basicsearch.setModel(None)
+        author_title,self.basicsearch_info = Function_index.find_author(searchtext,self.author_to_titles)
+        Len = len(author_title)
+        if Len == 0:
+            QMessageBox.warning(self.Searchtab,"没有找到","作者{}未发表论文".format(searchtext))
+            return
+        self.tableView_basicsearch_model = QStandardItemModel(Len,1)
+        self.tableView_basicsearch_model.setHorizontalHeaderLabels(["论文标题"])
+        for i,title in enumerate(author_title):
+            self.tableView_basicsearch_model.setItem(i,0,QStandardItem(title))
+        self.tableView_basicsearch.setModel(self.tableView_basicsearch_model)
+        self.tableView_basicsearch.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
+    def basicsearch_title(self,searchtext):
+        self.tableView_basicsearch.setModel(None)
+        self.basicsearch_info = self.title_to_info[searchtext]
+        all_title = Function_index.find_title(searchtext,self.title_to_info)
+        Len = len(all_title)
+        if Len == 0:
+            QMessageBox.warning(self.Searchtab,"没有找到","找不到论文{}".format(searchtext))
+            return
+        self.tableView_basicsearch_model = QStandardItemModel(Len,1)
+        self.tableView_basicsearch_model.setHorizontalHeaderLabels(["论文标题"])
+        for i in range(Len):
+            self.tableView_basicsearch_model.setItem(i,0,QStandardItem(searchtext))
+        self.tableView_basicsearch.setModel(self.tableView_basicsearch_model)
+        self.tableView_basicsearch.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
     def authoranalysis(self):
         #获得数量
