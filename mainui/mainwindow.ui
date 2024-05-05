@@ -97,31 +97,54 @@ border-radius: 5px;</string>
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="geometry">
       <rect>
-       <x>30</x>
+       <x>20</x>
        <y>60</y>
-       <width>391</width>
-       <height>411</height>
+       <width>501</width>
+       <height>431</height>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>3</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="page_searchnull"/>
      <widget class="QWidget" name="pagebasicsearch">
       <widget class="QWidget" name="layoutWidget">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>100</y>
-         <width>371</width>
-         <height>261</height>
+         <x>0</x>
+         <y>50</y>
+         <width>491</width>
+         <height>311</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
+           <widget class="QComboBox" name="comboBox_basicsearch">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="frame">
+             <bool>true</bool>
+            </property>
+            <item>
+             <property name="text">
+              <string>作者</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>论文</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
            <widget class="QLineEdit" name="lineEdit_basicsearch">
+            <property name="frame">
+             <bool>true</bool>
+            </property>
             <property name="placeholderText">
              <string>请输入作者姓名或完整论文题目</string>
             </property>
@@ -137,11 +160,7 @@ border-radius: 5px;</string>
          </layout>
         </item>
         <item>
-         <widget class="QPlainTextEdit" name="plainTextEdit_basicsearch">
-          <property name="placeholderText">
-           <string/>
-          </property>
-         </widget>
+         <widget class="QTableView" name="tableView_basicsearch"/>
         </item>
        </layout>
       </widget>
@@ -150,10 +169,10 @@ border-radius: 5px;</string>
       <widget class="QWidget" name="layoutWidget_2">
        <property name="geometry">
         <rect>
-         <x>30</x>
-         <y>90</y>
-         <width>321</width>
-         <height>251</height>
+         <x>0</x>
+         <y>50</y>
+         <width>491</width>
+         <height>311</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -176,7 +195,7 @@ border-radius: 5px;</string>
          </layout>
         </item>
         <item>
-         <widget class="QPlainTextEdit" name="plainTextEdit_relevancesearch"/>
+         <widget class="QTableView" name="tableView_relevancesearch"/>
         </item>
        </layout>
       </widget>
