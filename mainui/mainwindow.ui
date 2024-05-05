@@ -32,6 +32,79 @@ QTabBar::tab{height:150}</string>
    <property name="currentIndex">
     <number>0</number>
    </property>
+   <widget class="QWidget" name="tab_4">
+    <attribute name="title">
+     <string>首页</string>
+    </attribute>
+    <widget class="QLabel" name="label_main1">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>180</y>
+       <width>261</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 9pt &quot;华文行楷&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:18pt; font-weight:700;&quot;&gt;科学文献管理系统&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_exit">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>470</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>退出</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_name2">
+     <property name="geometry">
+      <rect>
+       <x>550</x>
+       <y>470</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>邵弈</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_name3">
+     <property name="geometry">
+      <rect>
+       <x>550</x>
+       <y>490</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>潘泽轩</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_name1">
+     <property name="geometry">
+      <rect>
+       <x>550</x>
+       <y>450</y>
+       <width>54</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>马思捷</string>
+     </property>
+    </widget>
+   </widget>
    <widget class="QWidget" name="DataBasetab">
     <attribute name="title">
      <string>建立数据库</string>
@@ -284,7 +357,7 @@ border-radius: 5px;</string>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="page_analysisnull"/>
      <widget class="QWidget" name="page_authoranalysis">
@@ -451,34 +524,6 @@ border-radius: 5px;</string>
        </widget>
       </item>
      </layout>
-    </widget>
-   </widget>
-   <widget class="QWidget" name="tab_4">
-    <attribute name="title">
-     <string>退出</string>
-    </attribute>
-    <widget class="QPushButton" name="pushButton_exit">
-     <property name="geometry">
-      <rect>
-       <x>500</x>
-       <y>210</y>
-       <width>75</width>
-       <height>23</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Exit</string>
-     </property>
-    </widget>
-    <widget class="QPlainTextEdit" name="plainTextEdit_exit">
-     <property name="geometry">
-      <rect>
-       <x>50</x>
-       <y>110</y>
-       <width>331</width>
-       <height>221</height>
-      </rect>
-     </property>
     </widget>
    </widget>
   </widget>
