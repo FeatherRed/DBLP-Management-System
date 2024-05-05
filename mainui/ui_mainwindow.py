@@ -107,7 +107,7 @@ class Ui_Form(object):
         self.page_relevancesearch.setObjectName(u"page_relevancesearch")
         self.layoutWidget_2 = QWidget(self.page_relevancesearch)
         self.layoutWidget_2.setObjectName(u"layoutWidget_2")
-        self.layoutWidget_2.setGeometry(QRect(30, 90, 321, 251))
+        self.layoutWidget_2.setGeometry(QRect(0, 50, 491, 311))
         self.verticalLayout_3 = QVBoxLayout(self.layoutWidget_2)
         self.verticalLayout_3.setObjectName(u"verticalLayout_3")
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
@@ -126,10 +126,10 @@ class Ui_Form(object):
 
         self.verticalLayout_3.addLayout(self.horizontalLayout_2)
 
-        self.plainTextEdit_relevancesearch = QPlainTextEdit(self.layoutWidget_2)
-        self.plainTextEdit_relevancesearch.setObjectName(u"plainTextEdit_relevancesearch")
+        self.tableView_relevancesearch = QTableView(self.layoutWidget_2)
+        self.tableView_relevancesearch.setObjectName(u"tableView_relevancesearch")
 
-        self.verticalLayout_3.addWidget(self.plainTextEdit_relevancesearch)
+        self.verticalLayout_3.addWidget(self.tableView_relevancesearch)
 
         self.stackedWidget.addWidget(self.page_relevancesearch)
         self.page_particalsearch = QWidget()
@@ -345,6 +345,9 @@ class Ui_Form(object):
         self.lineEdit_authoranalysis.setValidator(QIntValidator(1,105))                 #设置作者统计只能为int类型
         self.tableView_authoranalysis.verticalHeader().setVisible(False)                #隐藏行号
         self.tableView_basicsearch.verticalHeader().setVisible(False)                   #隐藏行号
+        self.tableView_basicsearch.setEditTriggers(QTableView.NoEditTriggers)           #不可编辑
+        self.tableView_relevancesearch.verticalHeader().setVisible(False)               #隐藏行号
+        self.tableView_relevancesearch.setEditTriggers(QTableView.NoEditTriggers)       #不可编辑
         '-------------------------------槽函数连接处-------------------------------'
         self.pushButton_basicsearch.clicked.connect(self.on_pushButton_basicsearch_clicked)
         self.pushButton_relevancesearch.clicked.connect(self.on_pushButton_relevancesearch_clicked)
@@ -361,6 +364,9 @@ class Ui_Form(object):
         '--------------------------------基本搜索连接处---------------------------'
         self.pushButton_bs1.clicked.connect(self.basicsearch)
         self.tableView_basicsearch.doubleClicked.connect(partial(self.show_info,self.tableView_basicsearch,0))
+
+        '--------------------------------相关搜索连接处---------------------------'
+        self.pushButton_rs1.clicked.connect(self.relevanacesearch)
         '--------------------------------作者分析连接处---------------------------'
         self.pushButton_aa1.clicked.connect(self.authoranalysis)
     def retranslateUi(self, Form):
@@ -369,9 +375,9 @@ class Ui_Form(object):
         self.label_openfile.setText("")
         self.pushButton_openfile.setText(QCoreApplication.translate("Form", u"\u6253\u5f00\u6587\u4ef6", None))
         self.MainWidget.setTabText(self.MainWidget.indexOf(self.DataBasetab),QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
-        self.lineEdit_basicsearch.setPlaceholderText(QCoreApplication.translate("Form",u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d\u6216\u5b8c\u6574\u8bba\u6587\u9898\u76ee",None))
         self.comboBox_basicsearch.setItemText(0, QCoreApplication.translate("Form", u"\u4f5c\u8005", None))
         self.comboBox_basicsearch.setItemText(1, QCoreApplication.translate("Form", u"\u8bba\u6587", None))
+        self.lineEdit_basicsearch.setPlaceholderText(QCoreApplication.translate("Form",u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d\u6216\u5b8c\u6574\u8bba\u6587\u9898\u76ee",None))
         self.pushButton_bs1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
         self.lineEdit_relevancesearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d", None))
         self.pushButton_rs1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
@@ -501,6 +507,7 @@ class Ui_Form(object):
         Len = len(author_title)
         if Len == 0:
             QMessageBox.warning(self.Searchtab,"没有找到","作者{}未发表论文".format(searchtext))
+            self.lineEdit_basicsearch.clear()
             return
         self.tableView_basicsearch_model = QStandardItemModel(Len,1)
         self.tableView_basicsearch_model.setHorizontalHeaderLabels(["论文标题"])
@@ -514,11 +521,31 @@ class Ui_Form(object):
         Len = len(all_title)
         if Len == 0:
             QMessageBox.warning(self.Searchtab,"没有找到","找不到论文{}".format(searchtext))
+            self.lineEdit_basicsearch.clear()
             return
         self.tableView_basicsearch_model = QStandardItemModel(Len,1)
         self.tableView_basicsearch_model.setHorizontalHeaderLabels(["论文标题"])
         for i in range(Len):
             self.tableView_basicsearch_model.setItem(i,0,QStandardItem(searchtext))
+
+    def relevanacesearch(self):
+        search_author = self.lineEdit_relevancesearch.text()
+        self.tableView_relevancesearch.setModel(None)
+        #获得
+        authors = self.edge_author[search_author]
+        #print(authors)
+        Len = len(authors)
+        if Len == 0:
+            QMessageBox.warning(self.Searchtab,"没有找到","没有作者和{}有合作关系".format(search_author))
+            self.lineEdit_relevancesearch.clear()
+            return
+        self.tableView_relevancesearch_model = QStandardItemModel(Len,1)
+        self.tableView_relevancesearch_model.setHorizontalHeaderLabels(["合作作者"])
+        for i,author in enumerate(authors):
+            self.tableView_relevancesearch_model.setItem(i,0,QStandardItem(author))
+        self.tableView_relevancesearch.setModel(self.tableView_relevancesearch_model)
+        self.tableView_relevancesearch.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.tableView_relevancesearch.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
     def authoranalysis(self):
         #获得数量
