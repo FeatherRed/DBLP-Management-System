@@ -11,11 +11,11 @@ def create_record_element(element, tag):
     for child in element:
         # 根据子元素的标签进行处理
         if child.tag == 'author':
-            record_info.setdefault('authors', []).append(html.unescape(child.text).encode('latin1').decode('utf-8'))
+            record_info.setdefault('authors', []).append(html.unescape(child.text))
         elif child.tag == 'editor':
-            record_info.setdefault('editors', []).append(html.unescape(child.text).encode('latin1').decode('utf-8'))
+            record_info.setdefault('editors', []).append(html.unescape(child.text))
         else:
-            record_info[child.tag] = html.unescape(child.text).encode('latin1').decode('utf-8')
+            record_info[child.tag] = html.unescape(child.text)
     # 根据记录类型返回相应的记录对象
     match tag:
         case "article": return Article(**record_info)
