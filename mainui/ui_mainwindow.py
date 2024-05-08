@@ -10,11 +10,11 @@
 
 from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
+    QSize, QTime, QUrl, Qt, QRegularExpression)
 from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform, QIntValidator, QStandardItem, QStandardItemModel)
+    QPalette, QPixmap, QRadialGradient, QTransform, QIntValidator, QStandardItem, QStandardItemModel, QRegularExpressionValidator)
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLineEdit, QPlainTextEdit,
     QPushButton, QSizePolicy, QStackedWidget, QTabWidget,
     QVBoxLayout, QWidget, QLabel, QDialog, QFileDialog, QMessageBox, QTableView,
@@ -22,7 +22,6 @@ from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLineEdit, QPlainTextE
 import os, create, Datain, Function_index
 from ui_Title import DetailsWindow,DEWidget
 from functools import partial
-
 class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
@@ -206,7 +205,7 @@ class Ui_Form(object):
         self.Analysistab.setObjectName(u"Analysistab")
         self.stackedWidget_2 = QStackedWidget(self.Analysistab)
         self.stackedWidget_2.setObjectName(u"stackedWidget_2")
-        self.stackedWidget_2.setGeometry(QRect(30, 40, 381, 411))
+        self.stackedWidget_2.setGeometry(QRect(30, 40, 381, 431))
         self.page_analysisnull = QWidget()
         self.page_analysisnull.setObjectName(u"page_analysisnull")
         self.stackedWidget_2.addWidget(self.page_analysisnull)
@@ -240,7 +239,7 @@ class Ui_Form(object):
         self.page_hotspotanalysis.setObjectName(u"page_hotspotanalysis")
         self.layoutWidget_7 = QWidget(self.page_hotspotanalysis)
         self.layoutWidget_7.setObjectName(u"layoutWidget_7")
-        self.layoutWidget_7.setGeometry(QRect(10, 80, 361, 301))
+        self.layoutWidget_7.setGeometry(QRect(0, 20, 371, 411))
         self.verticalLayout_9 = QVBoxLayout(self.layoutWidget_7)
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
         self.verticalLayout_9.setContentsMargins(0, 0, 0, 0)
@@ -259,10 +258,15 @@ class Ui_Form(object):
 
         self.verticalLayout_9.addLayout(self.horizontalLayout_6)
 
-        self.plainTextEdit_hotspotanalysis = QPlainTextEdit(self.layoutWidget_7)
-        self.plainTextEdit_hotspotanalysis.setObjectName(u"plainTextEdit_hotspotanalysis")
+        self.tableView_hotspotanalysis = QTableView(self.layoutWidget_7)
+        self.tableView_hotspotanalysis.setObjectName(u"tableView_hotspotanalysis")
 
-        self.verticalLayout_9.addWidget(self.plainTextEdit_hotspotanalysis)
+        self.verticalLayout_9.addWidget(self.tableView_hotspotanalysis)
+
+        self.pushButton_wordcloud = QPushButton(self.layoutWidget_7)
+        self.pushButton_wordcloud.setObjectName(u"pushButton_wordcloud")
+
+        self.verticalLayout_9.addWidget(self.pushButton_wordcloud)
 
         self.stackedWidget_2.addWidget(self.page_hotspotanalysis)
         self.page_clusteranalysis = QWidget()
@@ -352,12 +356,16 @@ class Ui_Form(object):
     # setupUi
         '-------------------------------控件设置处--------------------------------'
         self.label_openfile.setWordWrap(True)  # Qlabel Text自动换行
-        self.lineEdit_authoranalysis.setValidator(QIntValidator(1, 105))  # 设置作者统计只能为int类型
-        self.tableView_authoranalysis.verticalHeader().setVisible(False)  # 隐藏行号
-        self.tableView_basicsearch.verticalHeader().setVisible(False)  # 隐藏行号
-        self.tableView_basicsearch.setEditTriggers(QTableView.NoEditTriggers)  # 不可编辑
-        self.tableView_relevancesearch.verticalHeader().setVisible(False)  # 隐藏行号
-        self.tableView_relevancesearch.setEditTriggers(QTableView.NoEditTriggers)  # 不可编辑
+        self.lineEdit_authoranalysis.setValidator(QIntValidator(1,100))                         # 设置作者统计只能为int类型
+        regex = QRegularExpression(r"(19[0-9]{2}|20[0-1][0-9]|202[0-4])")                       # 正则表达式1900~2024
+        self.lineEdit_hotspotanalysis.setValidator(QRegularExpressionValidator(regex))          # 设置输入范围
+        self.tableView_authoranalysis.verticalHeader().setVisible(False)                        # 隐藏行号
+        self.tableView_basicsearch.verticalHeader().setVisible(False)                           # 隐藏行号
+        self.tableView_basicsearch.setEditTriggers(QTableView.NoEditTriggers)                   # 不可编辑
+        self.tableView_relevancesearch.verticalHeader().setVisible(False)                       # 隐藏行号
+        self.tableView_relevancesearch.setEditTriggers(QTableView.NoEditTriggers)               # 不可编辑
+        self.tableView_hotspotanalysis.verticalHeader().setVisible(False)                       # 隐藏行号
+        self.tableView_hotspotanalysis.setEditTriggers(QTableView.NoEditTriggers)               # 不可编辑
         '-------------------------------槽函数连接处-------------------------------'
         self.pushButton_basicsearch.clicked.connect(self.on_pushButton_basicsearch_clicked)
         self.pushButton_relevancesearch.clicked.connect(self.on_pushButton_relevancesearch_clicked)
@@ -379,230 +387,243 @@ class Ui_Form(object):
         self.pushButton_rs1.clicked.connect(self.relevanacesearch)
         '--------------------------------作者分析连接处---------------------------'
         self.pushButton_aa1.clicked.connect(self.authoranalysis)
+        '--------------------------------年热频词连接处---------------------------'
+        self.pushButton_hsa1.clicked.connect(self.hotspotanalysis)
     def retranslateUi(self, Form):
-        Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-        self.label_main1.setText(QCoreApplication.translate("Form", u"<html><head/><body><p align=\"center\"><span style=\" font-size:18pt; font-weight:700;\">\u79d1\u5b66\u6587\u732e\u7ba1\u7406\u7cfb\u7edf</span></p></body></html>", None))
-        self.pushButton_exit.setText(QCoreApplication.translate("Form", u"\u9000\u51fa", None))
-        self.label_name2.setText(QCoreApplication.translate("Form", u"\u90b5\u5f08", None))
-        self.label_name3.setText(QCoreApplication.translate("Form", u"\u6f58\u6cfd\u8f69", None))
-        self.label_name1.setText(QCoreApplication.translate("Form", u"\u9a6c\u601d\u6377", None))
-        self.MainWidget.setTabText(self.MainWidget.indexOf(self.tab_4), QCoreApplication.translate("Form", u"\u9996\u9875", None))
-        self.pushButton_db.setText(QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
-        self.label_openfile.setText("")
-        self.pushButton_openfile.setText(QCoreApplication.translate("Form", u"\u6253\u5f00\u6587\u4ef6", None))
-        self.MainWidget.setTabText(self.MainWidget.indexOf(self.DataBasetab), QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
-        self.comboBox_basicsearch.setItemText(0, QCoreApplication.translate("Form", u"\u4f5c\u8005", None))
-        self.comboBox_basicsearch.setItemText(1, QCoreApplication.translate("Form", u"\u8bba\u6587", None))
-
-        self.lineEdit_basicsearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d\u6216\u5b8c\u6574\u8bba\u6587\u9898\u76ee", None))
-        self.pushButton_bs1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
-        self.lineEdit_relevancesearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d", None))
-        self.pushButton_rs1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
-        self.lineEdit_particalsearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5173\u952e\u5b57\u4fe1\u606f", None))
-        self.pushButton_ps1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
-        self.pushButton_basicsearch.setText(QCoreApplication.translate("Form", u"\u57fa\u672c\u641c\u7d22", None))
-        self.pushButton_relevancesearch.setText(QCoreApplication.translate("Form", u"\u76f8\u5173\u641c\u7d22", None))
-        self.pushButton_particalsearch.setText(QCoreApplication.translate("Form", u"\u90e8\u5206\u5339\u914d\u641c\u7d22", None))
-        self.MainWidget.setTabText(self.MainWidget.indexOf(self.Searchtab), QCoreApplication.translate("Form", u"\u641c\u7d22", None))
-        self.pushButton_aa1.setText(QCoreApplication.translate("Form", u"\u4f5c\u8005\u7edf\u8ba1", None))
-        self.lineEdit_hotspotanalysis.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5e74\u4efd\u4fe1\u606f", None))
-        self.pushButton_hsa1.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
-        self.pushButton_ca1.setText(QCoreApplication.translate("Form", u"\u805a\u56e2\u5206\u6790", None))
-        self.pushButton_va1.setText(QCoreApplication.translate("Form", u"\u53ef\u89c6\u5316\u663e\u793a", None))
-        self.pushButton_authoranalysis.setText(QCoreApplication.translate("Form", u"\u4f5c\u8005\u7edf\u8ba1", None))
-        self.pushButton_hotspotanalysis.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
-        self.pushButton_clusteranalysis.setText(QCoreApplication.translate("Form", u"\u805a\u56e2\u5206\u6790", None))
-        self.pushButton_virtualanalysis.setText(QCoreApplication.translate("Form", u"\u53ef\u89c6\u5316\u663e\u793a", None))
-        self.MainWidget.setTabText(self.MainWidget.indexOf(self.Analysistab), QCoreApplication.translate("Form", u"\u7edf\u8ba1", None))
+            Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
+            self.label_main1.setText(QCoreApplication.translate("Form",u"<html><head/><body><p align=\"center\"><span style=\" font-size:18pt; font-weight:700;\">\u79d1\u5b66\u6587\u732e\u7ba1\u7406\u7cfb\u7edf</span></p></body></html>",None))
+            self.pushButton_exit.setText(QCoreApplication.translate("Form", u"\u9000\u51fa", None))
+            self.label_name2.setText(QCoreApplication.translate("Form", u"\u90b5\u5f08", None))
+            self.label_name3.setText(QCoreApplication.translate("Form", u"\u6f58\u6cfd\u8f69", None))
+            self.label_name1.setText(QCoreApplication.translate("Form", u"\u9a6c\u601d\u6377", None))
+            self.MainWidget.setTabText(self.MainWidget.indexOf(self.tab_4),QCoreApplication.translate("Form", u"\u9996\u9875", None))
+            self.pushButton_db.setText(QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
+            self.label_openfile.setText("")
+            self.pushButton_openfile.setText(QCoreApplication.translate("Form", u"\u6253\u5f00\u6587\u4ef6", None))
+            self.MainWidget.setTabText(self.MainWidget.indexOf(self.DataBasetab),QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
+            self.comboBox_basicsearch.setItemText(0, QCoreApplication.translate("Form", u"\u4f5c\u8005", None))
+            self.comboBox_basicsearch.setItemText(1, QCoreApplication.translate("Form", u"\u8bba\u6587", None))
+            self.lineEdit_basicsearch.setPlaceholderText(QCoreApplication.translate("Form",u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d\u6216\u5b8c\u6574\u8bba\u6587\u9898\u76ee",None))
+            self.pushButton_bs1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
+            self.lineEdit_relevancesearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d", None))
+            self.pushButton_rs1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
+            self.lineEdit_particalsearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5173\u952e\u5b57\u4fe1\u606f", None))
+            self.pushButton_ps1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
+            self.pushButton_basicsearch.setText(QCoreApplication.translate("Form", u"\u57fa\u672c\u641c\u7d22", None))
+            self.pushButton_relevancesearch.setText(QCoreApplication.translate("Form", u"\u76f8\u5173\u641c\u7d22", None))
+            self.pushButton_particalsearch.setText(QCoreApplication.translate("Form", u"\u90e8\u5206\u5339\u914d\u641c\u7d22", None))
+            self.MainWidget.setTabText(self.MainWidget.indexOf(self.Searchtab),QCoreApplication.translate("Form", u"\u641c\u7d22", None))
+            self.lineEdit_authoranalysis.setText("")
+            self.lineEdit_authoranalysis.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u4e2a\u6570", None))
+            self.pushButton_aa1.setText(QCoreApplication.translate("Form", u"\u4f5c\u8005\u7edf\u8ba1", None))
+            self.lineEdit_hotspotanalysis.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5e74\u4efd\u4fe1\u606f", None))
+            self.pushButton_hsa1.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
+            self.pushButton_wordcloud.setText(QCoreApplication.translate("Form", u"\u751f\u6210\u8bcd\u4e91\u56fe", None))
+            self.pushButton_ca1.setText(QCoreApplication.translate("Form", u"\u805a\u56e2\u5206\u6790", None))
+            self.pushButton_va1.setText(QCoreApplication.translate("Form", u"\u53ef\u89c6\u5316\u663e\u793a", None))
+            self.pushButton_authoranalysis.setText(QCoreApplication.translate("Form", u"\u4f5c\u8005\u7edf\u8ba1", None))
+            self.pushButton_hotspotanalysis.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
+            self.pushButton_clusteranalysis.setText(QCoreApplication.translate("Form", u"\u805a\u56e2\u5206\u6790", None))
+            self.pushButton_virtualanalysis.setText(QCoreApplication.translate("Form", u"\u53ef\u89c6\u5316\u663e\u793a", None))
+            self.MainWidget.setTabText(self.MainWidget.indexOf(self.Analysistab),QCoreApplication.translate("Form", u"\u7edf\u8ba1", None))
     # retranslateUi
 
     '--------------------------函数处--------------------------------'
 
     def on_pushButton_basicsearch_clicked(self):
-            self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(1)
 
-            # 按钮二：打开第二个面板
-
+        # 按钮二：打开第二个面板
     def on_pushButton_relevancesearch_clicked(self):
-            self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(2)
 
-            # 按钮三：打开第三个面板
-
+        # 按钮三：打开第三个面板
     def on_pushButton_particalsearch_clicked(self):
-            self.stackedWidget.setCurrentIndex(3)
+        self.stackedWidget.setCurrentIndex(3)
 
-            # 按钮一：打开第一个面板
-
+        # 按钮一：打开第一个面板
     def on_pushButton_authoranalysis_clicked(self):
-            self.stackedWidget_2.setCurrentIndex(1)
+        self.stackedWidget_2.setCurrentIndex(1)
 
             # 按钮二：打开第二个面板
-
     def on_pushButton_hotspotanalysis_clicked(self):
-            self.stackedWidget_2.setCurrentIndex(2)
+        self.stackedWidget_2.setCurrentIndex(2)
 
             # 按钮三：打开第三个面板
-
     def on_pushButton_clusteranalysis_clicked(self):
-            self.stackedWidget_2.setCurrentIndex(3)
+        self.stackedWidget_2.setCurrentIndex(3)
 
-            # 按钮四：打开第四个面板
-
+        # 按钮四：打开第四个面板
     def on_pushButton_virtualanalysis_clicked(self):
-            self.stackedWidget_2.setCurrentIndex(4)
+        self.stackedWidget_2.setCurrentIndex(4)
 
     def on_pushButton_builddatabse_clicked(self):
-            self.stackedWidget_2.setCurrentIndex(0)
-            self.stackedWidget.setCurrentIndex(0)
-
+        self.stackedWidget_2.setCurrentIndex(0)
+        self.stackedWidget.setCurrentIndex(0)
     '-------------------------创建数据库函数-------------------------'
 
     'openfile'
-
-    def msg(self, Filepath):
-            self.label_openfile.clear()
-            current_dir = os.path.dirname(os.path.abspath(__file__))
-            file, _ = QFileDialog.getOpenFileName(self.pushButton_openfile, "选取文件", current_dir,
-                                                  "Xml Files (*.xml)")  # 文件扩展名用双分号间隔
-            # 判断该file是否为空
-            if not file:
-                    return
-            else:
-                    print(file)
-                    ##设置文本框
-                    self.label_openfile.setText(file)
-
+    def msg(self,Filepath):
+        self.label_openfile.clear()
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        file, _ = QFileDialog.getOpenFileName(self.pushButton_openfile, "选取文件", current_dir, "Xml Files (*.xml)")  # 文件扩展名用双分号间隔
+        #判断该file是否为空
+        if not file:
+            return
+        else:
+            print(file)
+            ##设置文本框
+            self.label_openfile.setText(file)
     'createdatabase'
-
     def createdb(self):
-            # 先判断是否有路径
-            file = self.label_openfile.text()
-            if not file:
-                    QMessageBox.information(self.pushButton_db, "警告", "未找到路径，请重新打开路径")
+        #先判断是否有路径
+        file = self.label_openfile.text()
+        if not file:
+            QMessageBox.information(self.pushButton_db, "警告", "未找到路径，请重新打开路径")
+        else:
+            #判断当前是否已经处理好文件
+            file_name = os.path.splitext(os.path.basename(file))[0]
+            #判断该文件名有无deal
+            if "_deal" not in file_name:
+                Datain.preprocessing(file)
+                print("已经处理完毕，正构建pkl")
             else:
-                    # 判断当前是否已经处理好文件
-                    file_name = os.path.splitext(os.path.basename(file))[0]
-                    # 判断该文件名有无deal
-                    if "_deal" not in file_name:
-                            Datain.preprocessing(file)
-                            print("已经处理完毕，正构建pkl")
-                    else:
-                            print("该文件已处理完毕，正构建pkl")
-                            file_name = file_name[:4]
-                            # 存在_deal删掉
-                    # 判断是否有pkl
-                    pkl_path = file_name + ".pkl"
-                    self.path = pkl_path
-                    print(pkl_path)
-                    if (os.path.exists(pkl_path)):
-                            # 存在pkl了 直接读就行
-                            print("直接读pkl")
-                    else:
-                            # 不存在pkl 还得生成pkl并且保存跑后的record
-                            record = create.read_records_from_xml(file_name + "_deal.xml")
-                            create.createpkl(record, file_name)
-                            del record
-                    self.author_to_titles, self.title_to_info, self.buckets, self.edge_author = Function_index.build_index(
-                            self.path)
+                print("该文件已处理完毕，正构建pkl")
+                file_name = file_name[:4]
+                #存在_deal删掉
+            #判断是否有pkl
+            pkl_path = file_name + ".pkl"
+            self.path = pkl_path
+            print(pkl_path)
+            if(os.path.exists(pkl_path)):
+                #存在pkl了 直接读就行
+                print("直接读pkl")
+            else:
+                #不存在pkl 还得生成pkl并且保存跑后的record
+                record = create.read_records_from_xml(file_name + "_deal.xml")
+                create.createpkl(record,file_name)
+                del record
+            self.author_to_titles, self.title_to_info, self.buckets, self.edge_author = Function_index.build_index(self.path)
+            self.top_n_keywords, self.inverted_index = Function_index.build_inverted_index(self.title_to_info)
 
-    def show_info(self, Table, index, Index):
-            title = Table.currentIndex().data()  # 获得标题
-            row = Table.currentIndex().row()  # 获得行号
-            column = Table.currentIndex().column()  # 获得列号
-            # print("index",index)
-            # print(self.title_to_info[title])
-            match index:
-                    case 0: self.dewidget = DEWidget(title, self.basicsearch_info[row])
-            self.dewidget.show()
-
+    def show_info(self,Table,index,Index):
+        title = Table.currentIndex().data()     #获得标题
+        row = Table.currentIndex().row()        #获得行号
+        column = Table.currentIndex().column()  #获得列号
+        #print("index",index)
+        #print(self.title_to_info[title])
+        match index:
+            case 0: self.dewidget = DEWidget(title,self.basicsearch_info[row])
+        self.dewidget.show()
     def basicsearch(self):
-            self.tableView_basicsearch_model = None
-            # 查看combobox是什么
-            choice = self.comboBox_basicsearch.currentIndex()
-            searchtext = self.lineEdit_basicsearch.text()
-            # choice = 0 作者
-            # choice = 1 论文
-            if choice == 0:
-                    self.basicsearch_author(searchtext)
-            else:
-                    self.basicsearch_title(searchtext)
-            self.tableView_basicsearch.setModel(self.tableView_basicsearch_model)
-            self.tableView_basicsearch.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-            self.tableView_basicsearch.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        self.tableView_basicsearch_model = None
+        #查看combobox是什么
+        choice = self.comboBox_basicsearch.currentIndex()
+        searchtext = self.lineEdit_basicsearch.text()
+        #choice = 0 作者
+        #choice = 1 论文
+        if choice == 0:
+            self.basicsearch_author(searchtext)
+        else:
+            self.basicsearch_title(searchtext)
+        self.tableView_basicsearch.setModel(self.tableView_basicsearch_model)
+        self.tableView_basicsearch.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.tableView_basicsearch.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+    def basicsearch_author(self,searchtext):
+        self.tableView_basicsearch.setModel(None)
+        author_title,self.basicsearch_info = Function_index.find_author(searchtext,self.author_to_titles)
+        Len = len(author_title)
+        if Len == 0:
+            QMessageBox.warning(self.Searchtab,"没有找到","作者{}未发表论文".format(searchtext))
+            self.lineEdit_basicsearch.clear()
+            return
+        self.tableView_basicsearch_model = QStandardItemModel(Len,1)
+        self.tableView_basicsearch_model.setHorizontalHeaderLabels(["论文标题"])
+        for i,title in enumerate(author_title):
+            self.tableView_basicsearch_model.setItem(i,0,QStandardItem(title))
 
-    def basicsearch_author(self, searchtext):
-            self.tableView_basicsearch.setModel(None)
-            author_title, self.basicsearch_info = Function_index.find_author(searchtext, self.author_to_titles)
-            Len = len(author_title)
-            if Len == 0:
-                    QMessageBox.warning(self.Searchtab, "没有找到", "作者{}未发表论文".format(searchtext))
-                    self.lineEdit_basicsearch.clear()
-                    return
-            self.tableView_basicsearch_model = QStandardItemModel(Len, 1)
-            self.tableView_basicsearch_model.setHorizontalHeaderLabels(["论文标题"])
-            for i, title in enumerate(author_title):
-                    self.tableView_basicsearch_model.setItem(i, 0, QStandardItem(title))
-
-    def basicsearch_title(self, searchtext):
-            self.tableView_basicsearch.setModel(None)
-            self.basicsearch_info = self.title_to_info[searchtext]
-            all_title = Function_index.find_title(searchtext, self.title_to_info)
-            Len = len(all_title)
-            if Len == 0:
-                    QMessageBox.warning(self.Searchtab, "没有找到", "找不到论文{}".format(searchtext))
-                    self.lineEdit_basicsearch.clear()
-                    return
-            self.tableView_basicsearch_model = QStandardItemModel(Len, 1)
-            self.tableView_basicsearch_model.setHorizontalHeaderLabels(["论文标题"])
-            for i in range(Len):
-                    self.tableView_basicsearch_model.setItem(i, 0, QStandardItem(searchtext))
+    def basicsearch_title(self,searchtext):
+        self.tableView_basicsearch.setModel(None)
+        self.basicsearch_info = self.title_to_info[searchtext]
+        all_title = Function_index.find_title(searchtext,self.title_to_info)
+        Len = len(all_title)
+        if Len == 0:
+            QMessageBox.warning(self.Searchtab,"没有找到","找不到论文{}".format(searchtext))
+            self.lineEdit_basicsearch.clear()
+            return
+        self.tableView_basicsearch_model = QStandardItemModel(Len,1)
+        self.tableView_basicsearch_model.setHorizontalHeaderLabels(["论文标题"])
+        for i in range(Len):
+            self.tableView_basicsearch_model.setItem(i,0,QStandardItem(searchtext))
 
     def relevanacesearch(self):
-            search_author = self.lineEdit_relevancesearch.text()
-            self.tableView_relevancesearch.setModel(None)
-            # 获得
-            authors = self.edge_author[search_author]
-            # print(authors)
-            Len = len(authors)
-            if Len == 0:
-                    QMessageBox.warning(self.Searchtab, "没有找到", "没有作者和{}有合作关系".format(search_author))
-                    self.lineEdit_relevancesearch.clear()
-                    return
-            self.tableView_relevancesearch_model = QStandardItemModel(Len, 1)
-            self.tableView_relevancesearch_model.setHorizontalHeaderLabels(["合作作者"])
-            for i, author in enumerate(authors):
-                    self.tableView_relevancesearch_model.setItem(i, 0, QStandardItem(author))
-            self.tableView_relevancesearch.setModel(self.tableView_relevancesearch_model)
-            self.tableView_relevancesearch.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
-            self.tableView_relevancesearch.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+        search_author = self.lineEdit_relevancesearch.text()
+        self.tableView_relevancesearch.setModel(None)
+        #获得
+        authors = self.edge_author[search_author]
+        #print(authors)
+        Len = len(authors)
+        if Len == 0:
+            QMessageBox.warning(self.Searchtab,"没有找到","没有作者和{}有合作关系".format(search_author))
+            self.lineEdit_relevancesearch.clear()
+            return
+        self.tableView_relevancesearch_model = QStandardItemModel(Len,1)
+        self.tableView_relevancesearch_model.setHorizontalHeaderLabels(["合作作者"])
+        for i,author in enumerate(authors):
+            self.tableView_relevancesearch_model.setItem(i,0,QStandardItem(author))
+        self.tableView_relevancesearch.setModel(self.tableView_relevancesearch_model)
+        self.tableView_relevancesearch.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.tableView_relevancesearch.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
     def authoranalysis(self):
-            # 获得数量
-            Len = int(self.lineEdit_authoranalysis.text())
-            self.tableView_authoranalysis.setModel(None)
-            self.tableView_authoranalysis_model = QStandardItemModel(Len, 2)
-            self.tableView_authoranalysis_model.setHorizontalHeaderLabels(["作者", "文章数"])
-            cnt = 0
-            buckets = self.buckets
-            for i in range(32766, 0, -1):
-                    if len(buckets[i]) == 0:
-                            continue
+        #获得数量
+        Len = int(self.lineEdit_authoranalysis.text())
+        self.tableView_authoranalysis.setModel(None)
+        self.tableView_authoranalysis_model = QStandardItemModel(Len,2)
+        self.tableView_authoranalysis_model.setHorizontalHeaderLabels(["作者","文章数"])
+        cnt = 0
+        buckets = self.buckets
+        for i in range(32766,0,-1):
+            if len(buckets[i]) == 0:
+                continue
+            if cnt < Len:
+                for author in buckets[i]:
                     if cnt < Len:
-                            for author in buckets[i]:
-                                    if cnt < Len:
-                                            self.tableView_authoranalysis_model.setItem(cnt, 0, QStandardItem(author))
-                                            self.tableView_authoranalysis_model.setItem(cnt, 1, QStandardItem(str(i)))
-                                    cnt += 1
-            self.tableView_authoranalysis.setModel(self.tableView_authoranalysis_model)
-            self.tableView_authoranalysis.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+                        self.tableView_authoranalysis_model.setItem(cnt,0,QStandardItem(author))
+                        self.tableView_authoranalysis_model.setItem(cnt,1,QStandardItem(str(i)))
+                    cnt += 1
+        self.tableView_authoranalysis.setModel(self.tableView_authoranalysis_model)
+        self.tableView_authoranalysis.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+    def hotspotanalysis(self):
+        self.tableView_hotspotanalysis.setModel(None)
+        #先获得第几年
+        analysis_year = self.lineEdit_hotspotanalysis.text()
+        #调用函数得到列表
+        keywords_list = Function_index.top_keyword_per_year(analysis_year,self.top_n_keywords)
+        if not keywords_list:
+            QMessageBox.information(self.Analysistab, "没有找到", "本年没有热点词频")
+            return
+        #开始可视化
+        Len = len(keywords_list)
+        self.tableView_hotspotanalysis_model = QStandardItemModel(Len,2)
+        self.tableView_hotspotanalysis_model.setHorizontalHeaderLabels(["热点词","频数"])
+        for i,word in enumerate(keywords_list):
+            item_word = QStandardItem(word[0])
+            item_word.setTextAlignment(Qt.AlignCenter)
+            item_fre = QStandardItem(str(word[1]))
+            item_fre.setTextAlignment(Qt.AlignCenter)
+            self.tableView_hotspotanalysis_model.setItem(i,0,item_word)
+            self.tableView_hotspotanalysis_model.setItem(i,1,item_fre)
+        self.tableView_hotspotanalysis.setModel(self.tableView_hotspotanalysis_model)
+        self.tableView_hotspotanalysis.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.tableView_hotspotanalysis.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
 
 if __name__ == "__main__":
-        import sys
-
-        app = QApplication(sys.argv)
-        Form = QWidget()
-        ui = Ui_Form()
-        ui.setupUi(Form)
-        Form.show()
-        sys.exit(app.exec())
+    import sys
+    app = QApplication(sys.argv)
+    Form = QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec())

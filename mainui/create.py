@@ -15,7 +15,7 @@ def create_record_element(element, tag):
         elif child.tag == 'editor':
             record_info.setdefault('editors', []).append(html.unescape(child.text))
         else:
-            record_info[child.tag] = html.unescape(child.text)
+            record_info[child.tag] = child.text
     # 根据记录类型返回相应的记录对象
     match tag:
         case "article": return Article(**record_info)
