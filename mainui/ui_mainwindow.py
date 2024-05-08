@@ -354,6 +354,9 @@ class Ui_Form(object):
 
         QMetaObject.connectSlotsByName(Form)
     # setupUi
+        '-------------------------------页面设置处--------------------------------'
+        self.MainWidget.setTabEnabled(2,False)
+        self.MainWidget.setTabEnabled(3, False)
         '-------------------------------控件设置处--------------------------------'
         self.label_openfile.setWordWrap(True)  # Qlabel Text自动换行
         self.lineEdit_authoranalysis.setValidator(QIntValidator(1,100))                         # 设置作者统计只能为int类型
@@ -367,6 +370,7 @@ class Ui_Form(object):
         self.tableView_hotspotanalysis.verticalHeader().setVisible(False)                       # 隐藏行号
         self.tableView_hotspotanalysis.setEditTriggers(QTableView.NoEditTriggers)               # 不可编辑
         '-------------------------------槽函数连接处-------------------------------'
+        self.pushButton_exit.clicked.connect(Form.close)
         self.pushButton_basicsearch.clicked.connect(self.on_pushButton_basicsearch_clicked)
         self.pushButton_relevancesearch.clicked.connect(self.on_pushButton_relevancesearch_clicked)
         self.pushButton_particalsearch.clicked.connect(self.on_pushButton_particalsearch_clicked)
@@ -480,32 +484,34 @@ class Ui_Form(object):
         file = self.label_openfile.text()
         if not file:
             QMessageBox.information(self.pushButton_db, "警告", "未找到路径，请重新打开路径")
+            return
+        #判断当前是否已经处理好文件
+        file_name = os.path.splitext(os.path.basename(file))[0]
+        #判断该文件名有无deal
+        if "_deal" not in file_name:
+            Datain.preprocessing(file)
+            print("已经处理完毕，正构建pkl")
         else:
-            #判断当前是否已经处理好文件
-            file_name = os.path.splitext(os.path.basename(file))[0]
-            #判断该文件名有无deal
-            if "_deal" not in file_name:
-                Datain.preprocessing(file)
-                print("已经处理完毕，正构建pkl")
-            else:
-                print("该文件已处理完毕，正构建pkl")
-                file_name = file_name[:4]
-                #存在_deal删掉
-            #判断是否有pkl
-            pkl_path = file_name + ".pkl"
-            self.path = pkl_path
-            print(pkl_path)
-            if(os.path.exists(pkl_path)):
-                #存在pkl了 直接读就行
-                print("直接读pkl")
-            else:
-                #不存在pkl 还得生成pkl并且保存跑后的record
-                record = create.read_records_from_xml(file_name + "_deal.xml")
-                create.createpkl(record,file_name)
-                del record
-            self.author_to_titles, self.title_to_info, self.buckets, self.edge_author = Function_index.build_index(self.path)
-            self.top_n_keywords, self.inverted_index = Function_index.build_inverted_index(self.title_to_info)
-
+            print("该文件已处理完毕，正构建pkl")
+            file_name = file_name[:4]
+            #存在_deal删掉
+        #判断是否有pkl
+        pkl_path = file_name + ".pkl"
+        self.path = pkl_path
+        print(pkl_path)
+        if(os.path.exists(pkl_path)):
+            #存在pkl了 直接读就行
+            print("直接读pkl")
+        else:
+            #不存在pkl 还得生成pkl并且保存跑后的record
+            record = create.read_records_from_xml(file_name + "_deal.xml")
+            create.createpkl(record,file_name)
+            del record
+        self.author_to_titles, self.title_to_info, self.buckets, self.edge_author = Function_index.build_index(self.path)
+        self.top_n_keywords, self.inverted_index = Function_index.build_inverted_index(self.title_to_info)
+        #创建完数据库或者得到路径后，打开功能
+        self.MainWidget.setTabEnabled(2, True)
+        self.MainWidget.setTabEnabled(3, True)
     def show_info(self,Table,index,Index):
         title = Table.currentIndex().data()     #获得标题
         row = Table.currentIndex().row()        #获得行号
