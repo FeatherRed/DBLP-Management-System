@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE dblp SYSTEM "dblp.dtd">
+<dblp>
+<article mdate="2020-06-25" key="tr/meltdown/s18" publtype="informal">
+<author>Paul Kocher</author>
+<author>Daniel Genkin</author>
+<author>Daniel Gruss</author>
+<author>Werner Haas 0004</author>
+<author>Mike Hamburg</author>
+<author>Moritz Lipp</author>
+<author>Stefan Mangard</author>
+<author>Thomas Prescher 0002</author>
+<author>Michael Schwarz 0001</author>
+<author>Yuval Yarom</author>
+<title>Spectre Attacks: Exploiting Speculative Execution.</title>
+<journal>meltdownattack.com</journal>
+<year>2018</year>
+<ee type="oa">https://spectreattack.com/spectre.pdf</ee>
+</article>
+<article mdate="2020-06-25" key="tr/meltdown/m18" publtype="informal">
+<author>Moritz Lipp</author>
+<author>Michael Schwarz 0001</author>
+<author>Daniel Gruss</author>
+<author>Thomas Prescher 0002</author>
+<author>Werner Haas 0004</author>
+<author>Stefan Mangard</author>
+<author>Paul Kocher</author>
+<author>Daniel Genkin</author>
+<author>Yuval Yarom</author>
+<author>Mike Hamburg</author>
+<title>Meltdown</title>
+<journal>meltdownattack.com</journal>
+<ee type="oa">https://meltdownattack.com/meltdown.pdf</ee>
+<year>2018</year>
+</article>
+<book mdate="2023-08-31" key="tr/ac/50">
+<editor>Helen Bolke-Hermanns</editor>
+<editor>Joost-Pieter Katoen</editor>
+<editor>Klaus Indermark</editor>
+<editor>Stefan Kowalewski</editor>
+<editor>Thomas Noll 0001</editor>
+<editor>Wolfgang Thomas</editor>
+<title>50 Jahre Studiengang Informatik an der RWTH</title>
+<publisher>RWTH Aachen, Fachgruppe Informatik in der Fakultät für Mathematik, Informatik und Naturwissenschaften, Germany</publisher>
+<year>2022</year>
+<ee>https://www.informatik.rwth-aachen.de/cms/informatik/Fachgruppe/Profil/~wjosq/50-Jahre-Informatik/</ee>
+<ee>https://publications.rwth-aachen.de/record/853722</ee>
+</book></dblp>
