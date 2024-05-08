@@ -1,7 +1,8 @@
 import pickle
 import re
 from collections import defaultdict
-
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
 def split_sentence(sentence):
     # 使用正则表达式匹配句子中的单词
     words = re.findall(r'\b\w+\b', sentence)
@@ -98,7 +99,6 @@ def find_title(s, title_to_info):#返回值为文献详细信息列表
     publicationlist = []
     if s in title_to_info:
         for publication in title_to_info[s]:
-            tot += 1
             publicationlist.append(publication)
     return publicationlist
 
@@ -134,6 +134,16 @@ def top_keyword_per_year(year,top_n_keywords):#用于输出某年的词频
         if cnt == 10:
             return keywords_list
     return keywords_list
+
+def word_cloud(year, top_n_keywords):
+    word_frequance = {key: value for key, value in top_n_keywords[year]}
+    wordcloud = WordCloud(width=800, height=400, background_color="white").generate_from_frequencies(word_frequance)
+
+    # 可视化词云
+    plt.figure(figsize=(10, 5))
+    plt.imshow(wordcloud, interpolation='bilinear')
+    plt.axis("off")
+    plt.show()
 
 def build_inverted_index(title_to_info):
     blocked_word_list = ["via", "it", "-", "of", "for", "in", "and", "or", "is", "the", "are", "a", "an", "on", "with",
@@ -201,7 +211,3 @@ if __name__ == "__main__":
     #            print(author, title)
     #        else:
     #            bj[title] = 1
-
-    titlelist, publicationlist = fuzzy_search("meltdown",inverted_index,title_to_info)
-    for i in range(len(titlelist)):
-        print(titlelist[i],publicationlist[i])
