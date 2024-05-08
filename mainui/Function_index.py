@@ -1,7 +1,8 @@
 import pickle
 import re
 from collections import defaultdict
-
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
 def split_sentence(sentence):
     # 使用正则表达式匹配句子中的单词
     words = re.findall(r'\b\w+\b', sentence)
@@ -63,6 +64,7 @@ def build_index(filename):#建立作者到标题、标题到内容的索引
 
 def print_pre_n_author(x,buckets):#输出最多的前n个作者
     cnt = 0
+
     for i in range(32766,0,-1):
         if len(buckets[i]) == 0:
             continue
@@ -74,8 +76,10 @@ def print_pre_n_author(x,buckets):#输出最多的前n个作者
         else:
             break
 
+
+
 def find_author(s, author_to_titles):#返回值为标题列表，文献详细信息列表
-    author_title = []
+    titlelist = []
     publicationlist = []
     if s in author_to_titles:
         print("yes")
@@ -87,18 +91,16 @@ def find_author(s, author_to_titles):#返回值为标题列表，文献详细信
                     title = publication["booktitle"]
                 else:
                     title = ""
-            author_title.append(title)
+            titlelist.append(title)
             publicationlist.append(publication)
-    return author_title, publicationlist
+    return titlelist, publicationlist
 
-def find_title(s,title_to_info):
-    #s = input("please input title")
-    all_title = []
+def find_title(s, title_to_info):#返回值为文献详细信息列表
+    publicationlist = []
     if s in title_to_info:
-        for info in title_to_info[s]:
-            all_title.append(info)
-    print(all_title)
-    return all_title
+        for publication in title_to_info[s]:
+            publicationlist.append(publication)
+    return publicationlist
 
 def fuzzy_search(query_words0, inverted_index, title_to_info):#返回值为标题列表，文献详细信息列表
     # 将用户输入的多个单词拆分成列表
@@ -123,7 +125,7 @@ def fuzzy_search(query_words0, inverted_index, title_to_info):#返回值为标�
             publicationlist.append(publication)
     return titlelist, publicationlist
 
-def top_keyword_per_year(year,top_n_keywords,num):#用于输出某年的词频
+def top_keyword_per_year(year,top_n_keywords, num):#用于输出某年的词频
     cnt = 0
     keywords_list = []
     for keywords in top_n_keywords[year]:
@@ -132,6 +134,16 @@ def top_keyword_per_year(year,top_n_keywords,num):#用于输出某年的词频
         if cnt == num:
             return keywords_list
     return keywords_list
+
+def word_cloud(year, top_n_keywords):
+    word_frequance = {key: value for key, value in top_n_keywords[year]}
+    wordcloud = WordCloud(width=800, height=400, background_color="white").generate_from_frequencies(word_frequance)
+
+    # 可视化词云
+    plt.figure(figsize=(10, 5))
+    plt.imshow(wordcloud, interpolation='bilinear')
+    plt.axis("off")
+    plt.show()
 
 def build_inverted_index(title_to_info):
     blocked_word_list = ["via", "it", "-", "of", "for", "in", "and", "or", "is", "the", "are", "a", "an", "on", "with",
@@ -199,7 +211,6 @@ if __name__ == "__main__":
     #            print(author, title)
     #        else:
     #            bj[title] = 1
-
-    titlelist, publicationlist = fuzzy_search("meltdown",inverted_index,title_to_info)
-    for i in range(len(titlelist)):
-        print(titlelist[i],publicationlist[i])
+    while True:
+        year=input("Enter year: ")
+        word_cloud(year, top_n_keywords)

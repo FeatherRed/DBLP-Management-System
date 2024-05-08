@@ -395,6 +395,7 @@ class Ui_Form(object):
         self.pushButton_aa1.clicked.connect(self.authoranalysis)
         '--------------------------------年热频词连接处---------------------------'
         self.pushButton_hsa1.clicked.connect(self.hotspotanalysis)
+        self.pushButton_wordcloud.clicked.connect(self.word_cloud_generation)
     def retranslateUi(self, Form):
             Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
             self.label_main1.setText(QCoreApplication.translate("Form",u"<html><head/><body><p align=\"center\"><span style=\" font-size:18pt; font-weight:700;\">\u79d1\u5b66\u6587\u732e\u7ba1\u7406\u7cfb\u7edf</span></p></body></html>",None))
@@ -639,6 +640,13 @@ class Ui_Form(object):
         self.tableView_hotspotanalysis.setModel(self.tableView_hotspotanalysis_model)
         self.tableView_hotspotanalysis.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.tableView_hotspotanalysis.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+    def word_cloud_generation(self):
+        # 先获得第几年
+        if not self.lineEdit_hotspotanalysis.text():
+            QMessageBox.warning(self.Analysistab, "错误", "请输入年份信息")
+            return
+        analysis_year = self.lineEdit_hotspotanalysis.text()
+        Function_index.word_cloud(analysis_year, self.top_n_keywords)
 
 
 if __name__ == "__main__":
