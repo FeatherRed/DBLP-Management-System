@@ -177,7 +177,7 @@ border-radius: 5px;</string>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="page_searchnull"/>
      <widget class="QWidget" name="pagebasicsearch">
@@ -418,6 +418,16 @@ border-radius: 5px;</string>
            <widget class="QLineEdit" name="lineEdit_hotspotanalysis">
             <property name="placeholderText">
              <string>请输入年份信息</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="lineEdit_hotspotanalysis1">
+            <property name="text">
+             <string/>
+            </property>
+            <property name="placeholderText">
+             <string>请输入热点词个数</string>
             </property>
            </widget>
           </item>
