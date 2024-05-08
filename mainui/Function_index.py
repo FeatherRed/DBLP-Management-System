@@ -123,13 +123,13 @@ def fuzzy_search(query_words0, inverted_index, title_to_info):#返回值为标�
             publicationlist.append(publication)
     return titlelist, publicationlist
 
-def top_keyword_per_year(year,top_n_keywords):#用于输出某年的词频
+def top_keyword_per_year(year,top_n_keywords,num):#用于输出某年的词频
     cnt = 0
     keywords_list = []
     for keywords in top_n_keywords[year]:
         cnt = cnt + 1
         keywords_list.append(keywords)
-        if cnt == 10:
+        if cnt == num:
             return keywords_list
     return keywords_list
 

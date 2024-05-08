@@ -250,6 +250,11 @@ class Ui_Form(object):
 
         self.horizontalLayout_6.addWidget(self.lineEdit_hotspotanalysis)
 
+        self.lineEdit_hotspotanalysis1 = QLineEdit(self.layoutWidget_7)
+        self.lineEdit_hotspotanalysis1.setObjectName(u"lineEdit_hotspotanalysis1")
+
+        self.horizontalLayout_6.addWidget(self.lineEdit_hotspotanalysis1)
+
         self.pushButton_hsa1 = QPushButton(self.layoutWidget_7)
         self.pushButton_hsa1.setObjectName(u"pushButton_hsa1")
 
@@ -350,9 +355,6 @@ class Ui_Form(object):
         self.MainWidget.setCurrentIndex(0)
         self.stackedWidget.setCurrentIndex(0)
         self.stackedWidget_2.setCurrentIndex(0)
-
-
-        QMetaObject.connectSlotsByName(Form)
     # setupUi
         '-------------------------------页面设置处--------------------------------'
         self.MainWidget.setTabEnabled(2,False)
@@ -421,6 +423,8 @@ class Ui_Form(object):
             self.lineEdit_authoranalysis.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u4e2a\u6570", None))
             self.pushButton_aa1.setText(QCoreApplication.translate("Form", u"\u4f5c\u8005\u7edf\u8ba1", None))
             self.lineEdit_hotspotanalysis.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5e74\u4efd\u4fe1\u606f", None))
+            self.lineEdit_hotspotanalysis1.setText("")
+            self.lineEdit_hotspotanalysis1.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u70ed\u70b9\u8bcd\u4e2a\u6570", None))
             self.pushButton_hsa1.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
             self.pushButton_wordcloud.setText(QCoreApplication.translate("Form", u"\u751f\u6210\u8bcd\u4e91\u56fe", None))
             self.pushButton_ca1.setText(QCoreApplication.translate("Form", u"\u805a\u56e2\u5206\u6790", None))
@@ -583,6 +587,9 @@ class Ui_Form(object):
 
     def authoranalysis(self):
         #获得数量
+        if not self.lineEdit_authoranalysis.text():
+            QMessageBox.warning(self.Analysistab, "错误", "请输入作者个数")
+            return
         Len = int(self.lineEdit_authoranalysis.text())
         self.tableView_authoranalysis.setModel(None)
         self.tableView_authoranalysis_model = QStandardItemModel(Len,2)
@@ -603,14 +610,23 @@ class Ui_Form(object):
     def hotspotanalysis(self):
         self.tableView_hotspotanalysis.setModel(None)
         #先获得第几年
+        if not self.lineEdit_hotspotanalysis.text():
+            QMessageBox.warning(self.Analysistab, "错误", "请输入年份信息")
+            return
+        if not self.lineEdit_hotspotanalysis1.text():
+            QMessageBox.warning(self.Analysistab, "错误", "请输入热点词个数")
+            return
         analysis_year = self.lineEdit_hotspotanalysis.text()
+        analysis_num = int(self.lineEdit_hotspotanalysis1.text())
         #调用函数得到列表
-        keywords_list = Function_index.top_keyword_per_year(analysis_year,self.top_n_keywords)
+        keywords_list = Function_index.top_keyword_per_year(analysis_year,self.top_n_keywords,analysis_num)
         if not keywords_list:
             QMessageBox.information(self.Analysistab, "没有找到", "本年没有热点词频")
             return
         #开始可视化
         Len = len(keywords_list)
+        if Len < analysis_num:
+            QMessageBox.information(self.Analysistab, "分析结果", "该年热点词频只有{}个".format(Len))
         self.tableView_hotspotanalysis_model = QStandardItemModel(Len,2)
         self.tableView_hotspotanalysis_model.setHorizontalHeaderLabels(["热点词","频数"])
         for i,word in enumerate(keywords_list):
