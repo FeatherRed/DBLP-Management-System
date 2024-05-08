@@ -353,7 +353,7 @@ border-radius: 5px;</string>
        <x>30</x>
        <y>40</y>
        <width>381</width>
-       <height>411</height>
+       <height>431</height>
       </rect>
      </property>
      <property name="currentIndex">
@@ -372,7 +372,14 @@ border-radius: 5px;</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_8">
         <item>
-         <widget class="QLineEdit" name="lineEdit_authoranalysis"/>
+         <widget class="QLineEdit" name="lineEdit_authoranalysis">
+          <property name="text">
+           <string/>
+          </property>
+          <property name="placeholderText">
+           <string>请输入作者个数</string>
+          </property>
+         </widget>
         </item>
         <item>
          <widget class="QPushButton" name="pushButton_aa1">
@@ -398,10 +405,10 @@ border-radius: 5px;</string>
       <widget class="QWidget" name="layoutWidget_7">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>80</y>
-         <width>361</width>
-         <height>301</height>
+         <x>0</x>
+         <y>20</y>
+         <width>371</width>
+         <height>411</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_9">
@@ -424,7 +431,14 @@ border-radius: 5px;</string>
          </layout>
         </item>
         <item>
-         <widget class="QPlainTextEdit" name="plainTextEdit_hotspotanalysis"/>
+         <widget class="QTableView" name="tableView_hotspotanalysis"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton_wordcloud">
+          <property name="text">
+           <string>生成词云图</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
