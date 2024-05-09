@@ -153,9 +153,10 @@ def word_cloud(year, top_n_keywords):
     print(word_frequance)
     wordcloud = WordCloud(width=800, height=400, background_color="white").generate_from_frequencies(word_frequance)
     # 可视化词云
-    plt.imshow(wordcloud, interpolation='bilinear')
-    plt.axis("off")
-    plt.show()
+    return wordcloud
+    # plt.imshow(wordcloud, interpolation='bilinear')
+    # plt.axis("off")
+    # plt.show()
 
 def build_inverted_index(title_to_info):
     blocked_word_list = ["via", "it", "-", "of", "for", "in", "and", "or", "is", "the", "are", "a", "an", "on", "with",

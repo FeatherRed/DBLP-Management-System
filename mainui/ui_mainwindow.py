@@ -21,6 +21,7 @@ from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLineEdit, QPlainTextE
     QAbstractItemView, QHeaderView, QComboBox, QSpacerItem)
 import os, create, Datain, Function_index
 from ui_Title import DetailsWindow,DEWidget
+from ui_wordcloud import WordCloudWindow,WordCloud
 from functools import partial
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -427,7 +428,7 @@ class Ui_Form(object):
             self.lineEdit_hotspotanalysis1.setText("")
             self.lineEdit_hotspotanalysis1.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u70ed\u70b9\u8bcd\u4e2a\u6570", None))
             self.pushButton_hsa1.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
-            self.pushButton_wordcloud.setText(QCoreApplication.translate("Form", u"\u751f\u6210\u8bcd\u4e91\u56fe", None))
+            self.pushButton_wordcloud.setText(QCoreApplication.translate("Form", u"\u751f\u6210\u8be5\u5e74\u4efd\u8bcd\u4e91\u56fe", None))
             self.pushButton_ca1.setText(QCoreApplication.translate("Form", u"\u805a\u56e2\u5206\u6790", None))
             self.pushButton_va1.setText(QCoreApplication.translate("Form", u"\u53ef\u89c6\u5316\u663e\u793a", None))
             self.pushButton_authoranalysis.setText(QCoreApplication.translate("Form", u"\u4f5c\u8005\u7edf\u8ba1", None))
@@ -502,6 +503,7 @@ class Ui_Form(object):
             #存在_deal删掉
         #判断是否有pkl
         pkl_path = file_name + ".pkl"
+        self.filename = file_name
         self.path = pkl_path
         print(pkl_path)
         if(os.path.exists(pkl_path)):
@@ -651,8 +653,12 @@ class Ui_Form(object):
             QMessageBox.warning(self.Analysistab, "错误", "请输入年份信息")
             return
         analysis_year = self.lineEdit_hotspotanalysis.text()
-        Function_index.word_cloud(analysis_year, self.top_n_keywords)
-
+        self.wordcloud = Function_index.word_cloud(analysis_year, self.top_n_keywords)
+        #首先保存图片
+        wordcloud_path = self.filename + analysis_year + ".png"
+        self.wordcloud.to_file(wordcloud_path)
+        self.wordcloudwindow = WordCloudWindow(wordcloud_path)
+        self.wordcloudwindow.show()
 
 if __name__ == "__main__":
     import sys
