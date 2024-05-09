@@ -177,7 +177,7 @@ border-radius: 5px;</string>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>2</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="page_searchnull"/>
      <widget class="QWidget" name="pagebasicsearch">
@@ -446,7 +446,7 @@ border-radius: 5px;</string>
         <item>
          <widget class="QPushButton" name="pushButton_wordcloud">
           <property name="text">
-           <string>生成词云图</string>
+           <string>生成该年份词云图</string>
           </property>
          </widget>
         </item>
