@@ -3,64 +3,77 @@ import re
 from collections import defaultdict
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
+
+class Allindex:
+    def __init__(self,author_to_title,title_to_info,buckets,edge_author,top_n_keywords,inverted_index):
+        self.author_to_title = author_to_title
+        self.title_to_info = title_to_info
+        self.buckets = buckets
+        self.edge_author = edge_author
+        self.top_n_keywords = top_n_keywords
+        self.inverted_index = inverted_index
+    def reset(self):
+        return self.author_to_title,self.title_to_info,\
+               self.buckets,self.edge_author,\
+               self.top_n_keywords,self.inverted_index
 def split_sentence(sentence):
     # 使用正则表达式匹配句子中的单词
     words = re.findall(r'\b\w+\b', sentence)
     return words
 
-def build_index(filename):#建立作者到标题、标题到内容的索引
+def build_index(data):#建立作者到标题、标题到内容的索引
     type_name = ["article", "book", "www", "inproceedings", "mastersthesis", "incollection", "proceedings", "phdthesis"]
     edge_author = defaultdict(list)
     author_to_titles = defaultdict(list)
     title_to_info = defaultdict(list)
-    with open(filename, 'rb') as file:
-        data = pickle.load(file)
-        for tname in type_name:
-            for publication in data[tname]:
-                if "title" in publication:
-                    title = publication["title"]
+    for tname in type_name:
+        for publication in data[tname]:
+            if "title" in publication:
+                title = publication["title"]
+            else:
+                if "booktitle" in publication:
+                    title = publication["booktitle"]
                 else:
-                    if "booktitle" in publication:
-                        title = publication["booktitle"]
-                    else:
-                        title = ""
-                if "authors" in publication:
-                    authors = publication["authors"]
+                    title = ""
+            if "authors" in publication:
+                authors = publication["authors"]
+            else:
+                if "editor" in publication:
+                    authors = publication["editor"]
                 else:
-                    if "editor" in publication:
-                        authors = publication["editor"]
+                    if "author" in publication:
+                        authors = publication["author"]
                     else:
-                        if "author" in publication:
-                            authors = publication["author"]
+                        if "editors" in publication:
+                            authors = publication["editors"]
                         else:
-                            if "editors" in publication:
-                                authors = publication["editors"]
-                            else:
-                                authors = []
+                            authors = []
             # 构建作者到文献标题的映射
-                for author in authors:
-                    if author in author_to_titles:
-                        author_to_titles[author].append(publication)
-                    else:
-                        author_to_titles[author] = [publication]
-            # 构建文献标题到文献信息的映射
-                if title in title_to_info:
-                    title_to_info[title].append(publication)
+            for author in authors:
+                if author in author_to_titles:
+                    author_to_titles[author].append(publication)
                 else:
-                    title_to_info[title] = [publication]
-                for author1 in authors:
-                    #if author1 not in edge_author:
-                    #    edge_author[author1] = []
-                    for author2 in authors:
-                        if author2 == author1:
-                            continue
-                        if author2 in edge_author[author1]:
-                            continue
-                        edge_author[author1].append(author2)
+                    author_to_titles[author] = [publication]
+            # 构建文献标题到文献信息的映射
+            if title in title_to_info:
+                title_to_info[title].append(publication)
+            else:
+                title_to_info[title] = [publication]
+            for author1 in authors:
+                # if author1 not in edge_author:
+                #    edge_author[author1] = []
+                for author2 in authors:
+                    if author2 == author1:
+                        continue
+                    if author2 in edge_author[author1]:
+                        continue
+                    edge_author[author1].append(author2)
     buckets = [[] for _ in range(32767)]
     for author in author_to_titles:
         buckets[len(author_to_titles[author])].append(author)
-    return author_to_titles, title_to_info, buckets, edge_author
+    top_n_keywords, inverted_index = build_inverted_index(title_to_info)
+    Index = Allindex(author_to_titles,title_to_info,buckets,edge_author,top_n_keywords,inverted_index)
+    return Index
 
 def print_pre_n_author(x,buckets):#输出最多的前n个作者
     cnt = 0
@@ -137,10 +150,9 @@ def top_keyword_per_year(year,top_n_keywords, num):#用于输出某年的词频
 
 def word_cloud(year, top_n_keywords):
     word_frequance = {key: value for key, value in top_n_keywords[year]}
+    print(word_frequance)
     wordcloud = WordCloud(width=800, height=400, background_color="white").generate_from_frequencies(word_frequance)
-
     # 可视化词云
-    plt.figure(figsize=(10, 5))
     plt.imshow(wordcloud, interpolation='bilinear')
     plt.axis("off")
     plt.show()
@@ -200,7 +212,7 @@ def build_inverted_index(title_to_info):
 if __name__ == "__main__":
     type_name = ["article" , "book" , "www" , "inproceedings" , "mastersthesis" , "incollection" , "proceedings" , "phdthesis"]
 
-    filename = 'dblp.pkl'
+    filename = 'test.pkl'
     author_to_titles, title_to_info , buckets, edge_author= build_index(filename)
     top_n_keywords, inverted_index = build_inverted_index(title_to_info)
     print("finished building title index")

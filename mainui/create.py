@@ -2,8 +2,8 @@
 from lxml import etree  # 用于XML解析
 import html  # 用于HTML实体转义
 import pickle   #存record
+import Function_index
 from Record_class import Article, Book, WWW, Inproceedings, Mastersthesis, Incollection, Proceedings, Phdthesis
-
 # 创建记录元素的函数
 def create_record_element(element, tag):
     record_info = {}  # 用于存储记录信息的字典
@@ -53,8 +53,14 @@ def createpkl(records,filename):
         records[key] = [item.to_dict() for item in value]
     # 将记录字典写入pkl文件
     output_file = filename + ".pkl"
+    Index = Function_index.build_index(records)
     with open(output_file, 'wb') as f:
-        pickle.dump(records, f, protocol=pickle.HIGHEST_PROTOCOL)
+        pickle.dump(Index,f)
+    return Index
+def readpkl(filepath):
+    with open(filepath, "rb") as f:
+        allindex = pickle.load(f)
+    return allindex
 
 # 定义记录类型列表和XML文件路径
 if __name__ == "__main__":

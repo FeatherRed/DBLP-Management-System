@@ -507,13 +507,18 @@ class Ui_Form(object):
         if(os.path.exists(pkl_path)):
             #存在pkl了 直接读就行
             print("直接读pkl")
+            self.allindex = create.readpkl(pkl_path)
         else:
-            #不存在pkl 还得生成pkl并且保存跑后的record
+            # 不存在pkl 还得生成pkl并且保存跑后的record
+            # record = create.read_records_from_xml(file_name + "_deal.xml")
+            # create.createpkl(record,file_name)
+            # del record
+            # 保存成索引值
             record = create.read_records_from_xml(file_name + "_deal.xml")
-            create.createpkl(record,file_name)
-            del record
-        self.author_to_titles, self.title_to_info, self.buckets, self.edge_author = Function_index.build_index(self.path)
-        self.top_n_keywords, self.inverted_index = Function_index.build_inverted_index(self.title_to_info)
+            self.allindex = create.createpkl(record,file_name)
+            #保存类
+        #修改成保存索引值
+        self.author_to_titles, self.title_to_info, self.buckets, self.edge_author, self.top_n_keywords, self.inverted_index = self.allindex.reset()
         #创建完数据库或者得到路径后，打开功能
         self.MainWidget.setTabEnabled(2, True)
         self.MainWidget.setTabEnabled(3, True)
