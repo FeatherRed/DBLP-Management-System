@@ -3,6 +3,7 @@ import re
 from collections import defaultdict
 from wordcloud import WordCloud
 import matplotlib.pyplot as plt
+import create
 
 class Allindex:
     def __init__(self,author_to_title,title_to_info,buckets,edge_author,top_n_keywords,inverted_index):
@@ -115,7 +116,7 @@ def find_title(s, title_to_info):#返回值为文献详细信息列表
             publicationlist.append(publication)
     return publicationlist
 
-def fuzzy_search(query_words0, inverted_index, title_to_info):#返回值为标题列表，文献详细信息列表
+def keywords_search(query_words0, inverted_index, title_to_info):#返回值为标题列表，文献详细信息列表
     # 将用户输入的多个单词拆分成列表
     query_words = split_sentence(query_words0)
     # 初始化结果为 None
@@ -123,7 +124,6 @@ def fuzzy_search(query_words0, inverted_index, title_to_info):#返回值为标�
     for word in query_words:
         word = word.lower()
         if word in inverted_index:
-            print(inverted_index[word])
             titles = set(inverted_index[word])
             # 如果结果为 None，将结果初始化为第一个单词的结果，否则取当前单词结果与之前结果的交集
             if result_titles is None:
@@ -147,6 +147,44 @@ def top_keyword_per_year(year,top_n_keywords, num):#用于输出某年的词频
         if cnt == num:
             return keywords_list
     return keywords_list
+
+def count_matches(query_words, title):
+    title = title.lower()
+    title = split_sentence(title)
+    cnt = 0
+    for word in title:
+        if word in query_words:
+            cnt += 1
+    return cnt
+
+def fuzzy_search(query_words0, inverted_index, title_to_info):
+    query_words0 = query_words0.lower()
+    query_words = split_sentence(query_words0)
+    result_titles = None
+    titlelist = []
+    publicationlist = []
+    for word in query_words:
+        if word in inverted_index:
+            titles = set(inverted_index[word])
+            # 如果结果为 None，将结果初始化为第一个单词的结果，否则取当前单词结果与之前结果的交集
+            if result_titles is None:
+                result_titles = titles
+            else:
+                result_titles = result_titles.union(titles)
+    maxmatch = 30
+    frequence_buckets = [[] for _ in range(maxmatch+1)]
+    if result_titles is None:
+        return titlelist, publicationlist
+    for title in result_titles:
+        frequence_buckets[count_matches(query_words, title)].append(title)
+    for i in range(maxmatch,0,-1):
+        if len(frequence_buckets[i]) == 0:
+            continue
+        for title in frequence_buckets[i]:
+            for publication in title_to_info[title]:
+                titlelist.append(title)
+                publicationlist.append(publication)
+    return titlelist, publicationlist
 
 def word_cloud(year, top_n_keywords):
     word_frequance = {key: value for key, value in top_n_keywords[year]}
@@ -213,9 +251,9 @@ def build_inverted_index(title_to_info):
 if __name__ == "__main__":
     type_name = ["article" , "book" , "www" , "inproceedings" , "mastersthesis" , "incollection" , "proceedings" , "phdthesis"]
 
-    filename = 'test.pkl'
-    author_to_titles, title_to_info , buckets, edge_author= build_index(filename)
-    top_n_keywords, inverted_index = build_inverted_index(title_to_info)
+    #filename = 'dblp.pkl'
+    allindex = create.readpkl("dblp.pkl")
+    author_to_titles, title_to_info , buckets, edge_author, top_n_keywords, inverted_index= allindex.reset()
     print("finished building title index")
     #for author in author_to_titles:
     #    bj = defaultdict(int)
@@ -224,6 +262,3 @@ if __name__ == "__main__":
     #            print(author, title)
     #        else:
     #            bj[title] = 1
-    while True:
-        year=input("Enter year: ")
-        word_cloud(year, top_n_keywords)
