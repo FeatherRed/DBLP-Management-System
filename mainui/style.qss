@@ -1,0 +1,121 @@
+/* 设置全局字体和背景色 */
+* {
+    font-family: "Arial", sans-serif;
+    background-color: #f5f5f5;
+}
+
+/* 设置窗口样式 */
+QMainWindow {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    background-color: #ffffff;
+}
+
+/* 设置窗口标题栏样式 */
+QMainWindow::titleBar {
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #dddddd;
+}
+
+/* 设置窗口标题栏按钮样式 */
+QMainWindow::closeButton,
+QMainWindow::minimizeButton,
+QMainWindow::maximizeButton {
+    background-color: transparent;
+    border: none;
+}
+
+QMainWindow::closeButton:hover,
+QMainWindow::minimizeButton:hover,
+QMainWindow::maximizeButton:hover {
+    background-color: #ff0000;
+}
+
+/* 设置选项卡样式 */
+QTabBar::tab {
+    font-size: 20px;
+    background-color: #4285f4;
+    color: white;
+    border: none;
+}
+
+QTabBar::tab:selected {
+    background-color: #ff5722;
+}
+
+QTabBar::tab:hover {
+    background-color: #3367d6;
+}
+
+/* 设置按钮样式 */
+QPushButton {
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    padding: 5px 10px;
+}
+
+QPushButton:hover {
+    background-color: #FFB800;
+}
+
+QPushButton:pressed {
+    background-color: #388e3c;
+    border-style: inset;
+}
+
+/* 设置标签样式 */
+QLabel {
+    font-size: 15px;
+    color: #333333;
+}
+
+/* 设置输入框样式 */
+QLineEdit {
+    padding: 5px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    background-color: #e7d8d8;
+}
+
+/* 设置下拉框样式 */
+QComboBox {
+    padding: 5px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    background-color: #ffffff;
+}
+
+/* 设置滚动条样式 */
+QScrollBar {
+    background-color: #dddddd;
+    width: 10px;
+}
+
+QScrollBar::handle {
+    background-color: #999999;
+    border-radius: 5px;
+}
+
+QScrollBar::handle:hover {
+    background-color: #777777;
+}
+
+QScrollBar::add-page,
+QScrollBar::sub-page {
+    background: none;
+}
+
+QScrollBar::add-line,
+QScrollBar::sub-line {
+    background-color: #dddddd;
+}
+
+QScrollBar::add-line:hover,
+QScrollBar::sub-line:hover {
+    background-color: #bbbbbb;
+}
