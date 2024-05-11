@@ -18,5 +18,7 @@ class Widget(QWidget):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     widget = Widget()
+    with open("style.qss",encoding="utf-8") as f:
+        app.setStyleSheet(f.read())
     widget.show()
     sys.exit(app.exec())

@@ -253,7 +253,7 @@ if __name__ == "__main__":
 
     #filename = 'dblp.pkl'
     allindex = create.readpkl("dblp.pkl")
-    author_to_titles, title_to_info , buckets, edge_author, top_n_keywords, inverted_index= allindex.reset()
+    author_to_titles, title_to_info , buckets, edge_author, top_n_keywords, inverted_index = allindex.reset()
     print("finished building title index")
     #for author in author_to_titles:
     #    bj = defaultdict(int)

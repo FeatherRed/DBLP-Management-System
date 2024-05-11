@@ -18,10 +18,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLineEdit, QPlainTextEdit,
     QPushButton, QSizePolicy, QStackedWidget, QTabWidget,
     QVBoxLayout, QWidget, QLabel, QDialog, QFileDialog, QMessageBox, QTableView,
-    QAbstractItemView, QHeaderView, QComboBox, QSpacerItem)
+    QAbstractItemView, QHeaderView, QComboBox, QSpacerItem, QRadioButton)
 import os, create, Datain, Function_index
-from ui_Title import DetailsWindow,DEWidget
-from ui_wordcloud import WordCloudWindow,WordCloud
+from ui_Title import DEWidget
+from ui_wordcloud import WordCloudWindow
 from functools import partial
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -155,12 +155,17 @@ class Ui_Form(object):
         self.page_particalsearch.setObjectName(u"page_particalsearch")
         self.layoutWidget_3 = QWidget(self.page_particalsearch)
         self.layoutWidget_3.setObjectName(u"layoutWidget_3")
-        self.layoutWidget_3.setGeometry(QRect(20, 80, 351, 321))
+        self.layoutWidget_3.setGeometry(QRect(0, 50, 491, 311))
         self.verticalLayout_4 = QVBoxLayout(self.layoutWidget_3)
         self.verticalLayout_4.setObjectName(u"verticalLayout_4")
         self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_3 = QHBoxLayout()
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
+        self.radioButton_particalsearch = QRadioButton(self.layoutWidget_3)
+        self.radioButton_particalsearch.setObjectName(u"radioButton_particalsearch")
+
+        self.horizontalLayout_3.addWidget(self.radioButton_particalsearch)
+
         self.lineEdit_particalsearch = QLineEdit(self.layoutWidget_3)
         self.lineEdit_particalsearch.setObjectName(u"lineEdit_particalsearch")
 
@@ -174,10 +179,10 @@ class Ui_Form(object):
 
         self.verticalLayout_4.addLayout(self.horizontalLayout_3)
 
-        self.plainTextEdit_particalsearch = QPlainTextEdit(self.layoutWidget_3)
-        self.plainTextEdit_particalsearch.setObjectName(u"plainTextEdit_particalsearch")
+        self.tableView_particalsearch = QTableView(self.layoutWidget_3)
+        self.tableView_particalsearch.setObjectName(u"tableView_particalsearch")
 
-        self.verticalLayout_4.addWidget(self.plainTextEdit_particalsearch)
+        self.verticalLayout_4.addWidget(self.tableView_particalsearch)
 
         self.stackedWidget.addWidget(self.page_particalsearch)
         self.layoutWidget1 = QWidget(self.Searchtab)
@@ -372,6 +377,8 @@ class Ui_Form(object):
         self.tableView_relevancesearch.setEditTriggers(QTableView.NoEditTriggers)               # 不可编辑
         self.tableView_hotspotanalysis.verticalHeader().setVisible(False)                       # 隐藏行号
         self.tableView_hotspotanalysis.setEditTriggers(QTableView.NoEditTriggers)               # 不可编辑
+        self.tableView_particalsearch.verticalHeader().setVisible(False)                        # 隐藏行号
+        self.tableView_particalsearch.setEditTriggers(QTableView.NoEditTriggers)                # 不可编辑
         '-------------------------------槽函数连接处-------------------------------'
         self.pushButton_exit.clicked.connect(Form.close)
         self.pushButton_basicsearch.clicked.connect(self.on_pushButton_basicsearch_clicked)
@@ -392,6 +399,9 @@ class Ui_Form(object):
 
         '--------------------------------相关搜索连接处---------------------------'
         self.pushButton_rs1.clicked.connect(self.relevanacesearch)
+        '--------------------------------关键词搜索连接处---------------------------'
+        self.pushButton_ps1.clicked.connect(self.particalsearch)
+        self.tableView_particalsearch.doubleClicked.connect(partial(self.show_info, self.tableView_particalsearch, 1))
         '--------------------------------作者分析连接处---------------------------'
         self.pushButton_aa1.clicked.connect(self.authoranalysis)
         '--------------------------------年热频词连接处---------------------------'
@@ -415,6 +425,7 @@ class Ui_Form(object):
             self.pushButton_bs1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
             self.lineEdit_relevancesearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d", None))
             self.pushButton_rs1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
+            self.radioButton_particalsearch.setText(QCoreApplication.translate("Form", u"\u7cbe\u786e\u641c\u7d22", None))
             self.lineEdit_particalsearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5173\u952e\u5b57\u4fe1\u606f", None))
             self.pushButton_ps1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
             self.pushButton_basicsearch.setText(QCoreApplication.translate("Form", u"\u57fa\u672c\u641c\u7d22", None))
@@ -509,7 +520,7 @@ class Ui_Form(object):
         if(os.path.exists(pkl_path)):
             #存在pkl了 直接读就行
             print("直接读pkl")
-            self.allindex = create.readpkl(pkl_path)
+            allindex = create.readpkl(pkl_path)
         else:
             # 不存在pkl 还得生成pkl并且保存跑后的record
             # record = create.read_records_from_xml(file_name + "_deal.xml")
@@ -517,10 +528,11 @@ class Ui_Form(object):
             # del record
             # 保存成索引值
             record = create.read_records_from_xml(file_name + "_deal.xml")
-            self.allindex = create.createpkl(record,file_name)
+            allindex = create.createpkl(record,file_name)
             #保存类
         #修改成保存索引值
-        self.author_to_titles, self.title_to_info, self.buckets, self.edge_author, self.top_n_keywords, self.inverted_index = self.allindex.reset()
+        self.author_to_titles, self.title_to_info, self.buckets, self.edge_author, self.top_n_keywords, self.inverted_index = allindex.reset()
+        del allindex
         #创建完数据库或者得到路径后，打开功能
         self.MainWidget.setTabEnabled(2, True)
         self.MainWidget.setTabEnabled(3, True)
@@ -532,6 +544,7 @@ class Ui_Form(object):
         #print(self.title_to_info[title])
         match index:
             case 0: self.dewidget = DEWidget(title,self.basicsearch_info[row])
+            case 1: self.dewidget = DEWidget(title,self.partical_publicationlist[row])
         self.dewidget.show()
     def basicsearch(self):
         self.tableView_basicsearch_model = None
@@ -592,6 +605,33 @@ class Ui_Form(object):
         self.tableView_relevancesearch.setModel(self.tableView_relevancesearch_model)
         self.tableView_relevancesearch.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.tableView_relevancesearch.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+
+    def particalsearch(self):
+        self.tableView_particalsearch.setModel(None)
+        #获得输入单词列表
+        if not self.lineEdit_particalsearch.text():
+            QMessageBox.warning(self.Searchtab,"错误","请输入关键词")
+            return
+        search_word = self.lineEdit_particalsearch.text()
+        #判断是模糊搜索还是精确搜索
+        choice = self.radioButton_particalsearch.isChecked()
+        # 0 模糊 1 精确
+        match choice:
+            case 0:self.partical_titlelist,self.partical_publicationlist = Function_index.fuzzy_search(search_word,self.inverted_index,self.title_to_info)
+            case 1:self.partical_titlelist,self.partical_publicationlist = Function_index.keywords_search(search_word,self.inverted_index,self.title_to_info)
+        if not self.partical_titlelist:
+            QMessageBox.information(self.Searchtab, "没有找到", "未找到匹配的文章")
+            return 0
+        #print(self.partical_titlelist,self.partical_publicationlist)
+        #设置表格
+        Len = len(self.partical_titlelist)
+        self.tableView_particalsearch_model = QStandardItemModel(Len,1)
+        self.tableView_particalsearch_model.setHorizontalHeaderLabels(["标题"])
+        for i,title in enumerate(self.partical_titlelist):
+            self.tableView_particalsearch_model.setItem(i,0,QStandardItem(title))
+        self.tableView_particalsearch.setModel(self.tableView_particalsearch_model)
+        self.tableView_particalsearch.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.tableView_particalsearch.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
     def authoranalysis(self):
         #获得数量
