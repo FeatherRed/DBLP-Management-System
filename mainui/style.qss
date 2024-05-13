@@ -1,7 +1,9 @@
 /* 设置全局字体和背景色 */
 * {
     font-family: "Arial", sans-serif;
-    background-color: #f5f5f5;
+    background: #4CD0FB;
+    border-radius: 10px;
+    font-weight: bold;
 }
 
 /* 设置窗口样式 */
@@ -47,7 +49,7 @@ QTabBar::tab:selected {
 }
 
 QTabBar::tab:hover {
-    background-color: #3367d6;
+    background-color: #264DA1;
 }
 
 /* 设置按钮样式 */
@@ -72,10 +74,19 @@ QPushButton:pressed {
 QLabel {
     font-size: 15px;
     color: #333333;
+    background: transparent;
 }
 
 /* 设置输入框样式 */
 QLineEdit {
+    padding: 5px;
+    border: 1px solid #dddddd;
+    border-radius: 3px;
+    background-color: #e7d8d8;
+}
+
+/* 设置输入框样式 */
+QTableView {
     padding: 5px;
     border: 1px solid #dddddd;
     border-radius: 3px;
@@ -118,4 +129,46 @@ QScrollBar::sub-line {
 QScrollBar::add-line:hover,
 QScrollBar::sub-line:hover {
     background-color: #bbbbbb;
+}
+
+/* 设置RadioButton样式 */
+QRadioButton {
+    spacing: 5px;
+}
+
+QRadioButton::indicator {
+    width: 15px;
+    height: 15px;
+    border-radius: 7px;
+    border: 2px solid #dddddd;
+}
+
+QRadioButton::indicator:checked {
+    background-color: #4CAF50; /* 将选中时的背景颜色修改为绿色 */
+    border-color: #666666;
+}
+
+QRadioButton::indicator:checked:hover {
+    background-color: #FFCA40;
+    border-color: #FFCA40;
+}
+
+QRadioButton::indicator:unchecked:hover {
+    border-color: #333333;
+}
+
+QRadioButton::indicator:unchecked:pressed,
+QRadioButton::indicator:checked:pressed {
+    border-style: inset;
+}
+
+QRadioButton::indicator:unchecked:disabled,
+QRadioButton::indicator:checked:disabled {
+    background-color: #dddddd;
+    border-color: #dddddd;
+    border-style: solid;
+}
+
+QStackedWidget {
+    background: transparent;
 }
