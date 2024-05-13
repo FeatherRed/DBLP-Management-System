@@ -1,7 +1,7 @@
 /* 设置全局字体和背景色 */
 * {
     font-family: "Arial", sans-serif;
-    background: #4CD0FB;
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #DEB0FF, stop:1 #4CD0FB);
     border-radius: 10px;
     font-weight: bold;
 }
@@ -56,7 +56,7 @@ QTabBar::tab:hover {
 QPushButton {
     background-color: #ff5722;
     color: white;
-    border: none;
+    border: 1px solid #404040;
     border-radius: 3px;
     padding: 5px 10px;
 }
@@ -104,6 +104,7 @@ QComboBox {
 /* 设置滚动条样式 */
 QScrollBar {
     background-color: #dddddd;
+    border: 1px solid #404040;
     width: 10px;
 }
 
