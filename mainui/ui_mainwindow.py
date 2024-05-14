@@ -425,6 +425,8 @@ class Ui_Form(object):
         '--------------------------------年热频词连接处---------------------------'
         self.pushButton_hsa1.clicked.connect(self.hotspotanalysis)
         self.pushButton_wordcloud.clicked.connect(self.word_cloud_generation)
+        '--------------------------------作者关系分析连接处---------------------------'
+        self.lineEdit_va1.textChanged.connect(self.set_combobox)
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.label_main1.setText(QCoreApplication.translate("Form", u"<html><head/><body><p align=\"center\"><span style=\" font-size:28pt; font-weight:700;\">\u79d1\u5b66\u6587\u732e\u7ba1\u7406\u7cfb\u7edf</span></p></body></html>", None))
@@ -515,6 +517,7 @@ class Ui_Form(object):
             print(file)
             ##设置文本框
             self.label_openfile.setText(file)
+
     'createdatabase'
     def createdb(self):
         #先判断是否有路径
@@ -621,7 +624,7 @@ class Ui_Form(object):
         self.tableView_relevancesearch_model = QStandardItemModel(Len,1)
         self.tableView_relevancesearch_model.setHorizontalHeaderLabels(["合作作者"])
         for i,author in enumerate(authors):
-            self.tableView_relevancesearch_model.setItem(i,0,QStandardItem(author))
+            self.tableView_relevancesearch_model.setItem(i,0,QStandardItem(author[0]))
         self.tableView_relevancesearch.setModel(self.tableView_relevancesearch_model)
         self.tableView_relevancesearch.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.tableView_relevancesearch.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
@@ -719,6 +722,16 @@ class Ui_Form(object):
         self.wordcloud.to_file(wordcloud_path)
         self.wordcloudwindow = WordCloudWindow(wordcloud_path)
         self.wordcloudwindow.show()
+
+    def set_combobox(self):
+        self.comboBox_virtualanalysis.clear()
+        author_a = self.lineEdit_va1.text()
+        if not author_a:
+            return
+        author_b = self.edge_author[author_a]
+        #print(author_b)
+        for author in author_b:
+            self.comboBox_virtualanalysis.addItem(author)
 
 if __name__ == "__main__":
     import sys
