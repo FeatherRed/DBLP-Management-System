@@ -259,25 +259,15 @@ def build_inverted_index(title_to_info):
                 break
     return  top_n_keywords, inverted_index
 
-<<<<<<< HEAD
 def Bron_Kerbosch(R, P, X, graph, cliques):#B-K算法
-=======
-def Bron_Kerbosch(R, P, X, graph, cliques):
->>>>>>> origin/ui
     if not P and not X:
         if len(R) not in cliques:
             cliques[len(R)] = 1
         else:
             cliques[len(R)] += 1
-<<<<<<< HEAD
         return
 
     for v in list(P):  # 将集合转换为列表
-=======
-        return cliques
-
-    for v in list(P):
->>>>>>> origin/ui
         Bron_Kerbosch(
             R | {v},
             P & set(graph[v]),
@@ -288,11 +278,7 @@ def Bron_Kerbosch(R, P, X, graph, cliques):
         P.remove(v)
         X.add(v)
 
-<<<<<<< HEAD
 def clique_analysis(year, title_to_info):#给出年份，得到这一年的聚团分析
-=======
-def clique_analysis(year, title_to_info):
->>>>>>> origin/ui
     clique_edge = defaultdict(list)
     for title in title_to_info:
         for publication in title_to_info[title]:
@@ -332,15 +318,10 @@ def clique_analysis(year, title_to_info):
             edge[num[author]] = []
         for author2 in clique_edge[author]:
             edge[num[author]].append(num[author2])
-<<<<<<< HEAD
     cliques = defaultdict(int)
     #print(cnt)
     Bron_Kerbosch(set(), set(edge.keys()), set(), edge, cliques)
     return cliques
-=======
-    clique = defaultdict(int)
-    return Bron_Kerbosch(set(), set(edge.keys()), set(), edge, clique)
->>>>>>> origin/ui
 
 if __name__ == "__main__":
     #type_name = ["article" , "book" , "www" , "inproceedings" , "mastersthesis" , "incollection" , "proceedings" , "phdthesis"]
@@ -356,8 +337,4 @@ if __name__ == "__main__":
     #            print(author, title)
     #        else:
     #            bj[title] = 1
-<<<<<<< HEAD
     #print(clique_analysis("2021", title_to_info))
-=======
-    print(clique_analysis("1955", title_to_info))
->>>>>>> origin/ui
