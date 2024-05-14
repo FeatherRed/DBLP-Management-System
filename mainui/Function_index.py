@@ -323,6 +323,18 @@ def clique_analysis(year, title_to_info):#给出年份，得到这一年的聚�
     Bron_Kerbosch(set(), set(edge.keys()), set(), edge, cliques)
     return cliques
 
+def corperation(author1, author2, author_to_titles):
+    titlelist1, publicationlist1 = find_author(author1, author_to_titles)
+    titlelist2, publicationlist2 = find_author(author2, author_to_titles)
+    titlelist3 = []
+    publicationlist3 = []
+    for title in titlelist1:
+        if title in titlelist2:
+            if publicationlist1[titlelist1.index(title)] == publicationlist2[titlelist2.index(title)]:
+                titlelist3.append(title)
+                publicationlist3.append(publicationlist1[titlelist1.index(title)])
+    return titlelist3, publicationlist3
+
 if __name__ == "__main__":
     #type_name = ["article" , "book" , "www" , "inproceedings" , "mastersthesis" , "incollection" , "proceedings" , "phdthesis"]
 
@@ -337,4 +349,6 @@ if __name__ == "__main__":
     #            print(author, title)
     #        else:
     #            bj[title] = 1
-    #print(clique_analysis("2021", title_to_info))
+    #result_titles, result_publication = corperation("Paul Kocher", "Daniel Genkin", author_to_titles)
+    #print(result_titles)
+    #print(result_publication)
