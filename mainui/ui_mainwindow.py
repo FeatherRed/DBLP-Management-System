@@ -731,7 +731,7 @@ class Ui_Form(object):
         author_b = self.edge_author[author_a]
         #print(author_b)
         for author in author_b:
-            self.comboBox_virtualanalysis.addItem(author)
+            self.comboBox_virtualanalysis.addItem(author[0])
 
 if __name__ == "__main__":
     import sys
