@@ -23,6 +23,7 @@ import os, create, Datain, Function_index
 from ui_Title import DEWidget
 from ui_wordcloud import WordCloudWindow
 from functools import partial
+
 class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
@@ -38,7 +39,7 @@ class Ui_Form(object):
         self.tab_4.setObjectName(u"tab_4")
         self.label_main1 = QLabel(self.tab_4)
         self.label_main1.setObjectName(u"label_main1")
-        self.label_main1.setGeometry(QRect(210, 180, 261, 51))
+        self.label_main1.setGeometry(QRect(170, 170, 351, 81))
         self.label_main1.setStyleSheet(u"font: 9pt \"\u534e\u6587\u884c\u6977\";")
         self.pushButton_exit = QPushButton(self.tab_4)
         self.pushButton_exit.setObjectName(u"pushButton_exit")
@@ -57,7 +58,7 @@ class Ui_Form(object):
         self.DataBasetab.setObjectName(u"DataBasetab")
         self.pushButton_db = QPushButton(self.DataBasetab)
         self.pushButton_db.setObjectName(u"pushButton_db")
-        self.pushButton_db.setGeometry(QRect(440, 420, 121, 61))
+        self.pushButton_db.setGeometry(QRect(420, 400, 121, 61))
         self.label_openfile = QLabel(self.DataBasetab)
         self.label_openfile.setObjectName(u"label_openfile")
         self.label_openfile.setEnabled(False)
@@ -73,7 +74,7 @@ class Ui_Form(object):
 "border-radius: 5px;")
         self.pushButton_openfile = QPushButton(self.DataBasetab)
         self.pushButton_openfile.setObjectName(u"pushButton_openfile")
-        self.pushButton_openfile.setGeometry(QRect(130, 420, 121, 61))
+        self.pushButton_openfile.setGeometry(QRect(100, 400, 121, 61))
         self.MainWidget.addTab(self.DataBasetab, "")
         self.Searchtab = QWidget()
         self.Searchtab.setObjectName(u"Searchtab")
@@ -211,7 +212,7 @@ class Ui_Form(object):
         self.Analysistab.setObjectName(u"Analysistab")
         self.stackedWidget_2 = QStackedWidget(self.Analysistab)
         self.stackedWidget_2.setObjectName(u"stackedWidget_2")
-        self.stackedWidget_2.setGeometry(QRect(30, 40, 381, 431))
+        self.stackedWidget_2.setGeometry(QRect(30, 40, 471, 501))
         self.page_analysisnull = QWidget()
         self.page_analysisnull.setObjectName(u"page_analysisnull")
         self.stackedWidget_2.addWidget(self.page_analysisnull)
@@ -219,7 +220,7 @@ class Ui_Form(object):
         self.page_authoranalysis.setObjectName(u"page_authoranalysis")
         self.layoutWidget_6 = QWidget(self.page_authoranalysis)
         self.layoutWidget_6.setObjectName(u"layoutWidget_6")
-        self.layoutWidget_6.setGeometry(QRect(0, 20, 371, 371))
+        self.layoutWidget_6.setGeometry(QRect(0, 20, 451, 421))
         self.verticalLayout_8 = QVBoxLayout(self.layoutWidget_6)
         self.verticalLayout_8.setObjectName(u"verticalLayout_8")
         self.verticalLayout_8.setContentsMargins(0, 0, 0, 0)
@@ -245,7 +246,7 @@ class Ui_Form(object):
         self.page_hotspotanalysis.setObjectName(u"page_hotspotanalysis")
         self.layoutWidget_7 = QWidget(self.page_hotspotanalysis)
         self.layoutWidget_7.setObjectName(u"layoutWidget_7")
-        self.layoutWidget_7.setGeometry(QRect(0, 20, 371, 411))
+        self.layoutWidget_7.setGeometry(QRect(0, 20, 451, 421))
         self.verticalLayout_9 = QVBoxLayout(self.layoutWidget_7)
         self.verticalLayout_9.setObjectName(u"verticalLayout_9")
         self.verticalLayout_9.setContentsMargins(0, 0, 0, 0)
@@ -301,36 +302,53 @@ class Ui_Form(object):
         self.stackedWidget_2.addWidget(self.page_clusteranalysis)
         self.page_virtualanalysis = QWidget()
         self.page_virtualanalysis.setObjectName(u"page_virtualanalysis")
-        self.layoutWidget_9 = QWidget(self.page_virtualanalysis)
-        self.layoutWidget_9.setObjectName(u"layoutWidget_9")
-        self.layoutWidget_9.setGeometry(QRect(20, 80, 331, 261))
-        self.verticalLayout_11 = QVBoxLayout(self.layoutWidget_9)
-        self.verticalLayout_11.setObjectName(u"verticalLayout_11")
-        self.verticalLayout_11.setContentsMargins(0, 0, 0, 0)
-        self.pushButton_va1 = QPushButton(self.layoutWidget_9)
+        self.layoutWidget_4 = QWidget(self.page_virtualanalysis)
+        self.layoutWidget_4.setObjectName(u"layoutWidget_4")
+        self.layoutWidget_4.setGeometry(QRect(0, 20, 451, 421))
+        self.verticalLayout_5 = QVBoxLayout(self.layoutWidget_4)
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_4 = QHBoxLayout()
+        self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
+        self.lineEdit_va1 = QLineEdit(self.layoutWidget_4)
+        self.lineEdit_va1.setObjectName(u"lineEdit_va1")
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.lineEdit_va1.sizePolicy().hasHeightForWidth())
+        self.lineEdit_va1.setSizePolicy(sizePolicy)
+
+        self.horizontalLayout_4.addWidget(self.lineEdit_va1)
+
+        self.comboBox_virtualanalysis = QComboBox(self.layoutWidget_4)
+        self.comboBox_virtualanalysis.setObjectName(u"comboBox_virtualanalysis")
+        sizePolicy.setHeightForWidth(self.comboBox_virtualanalysis.sizePolicy().hasHeightForWidth())
+        self.comboBox_virtualanalysis.setSizePolicy(sizePolicy)
+
+        self.horizontalLayout_4.addWidget(self.comboBox_virtualanalysis)
+
+        self.pushButton_va1 = QPushButton(self.layoutWidget_4)
         self.pushButton_va1.setObjectName(u"pushButton_va1")
 
-        self.verticalLayout_11.addWidget(self.pushButton_va1)
-
-        self.horizontalLayout_7 = QHBoxLayout()
-        self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
-        self.plainTextEdit_va1 = QPlainTextEdit(self.layoutWidget_9)
-        self.plainTextEdit_va1.setObjectName(u"plainTextEdit_va1")
-
-        self.horizontalLayout_7.addWidget(self.plainTextEdit_va1)
-
-        self.plainTextEdit_va2 = QPlainTextEdit(self.layoutWidget_9)
-        self.plainTextEdit_va2.setObjectName(u"plainTextEdit_va2")
-
-        self.horizontalLayout_7.addWidget(self.plainTextEdit_va2)
+        self.horizontalLayout_4.addWidget(self.pushButton_va1)
 
 
-        self.verticalLayout_11.addLayout(self.horizontalLayout_7)
+        self.verticalLayout_5.addLayout(self.horizontalLayout_4)
+
+        self.lineEdit_va2 = QLineEdit(self.layoutWidget_4)
+        self.lineEdit_va2.setObjectName(u"lineEdit_va2")
+
+        self.verticalLayout_5.addWidget(self.lineEdit_va2)
+
+        self.tableView_virtualanalysis = QTableView(self.layoutWidget_4)
+        self.tableView_virtualanalysis.setObjectName(u"tableView_virtualanalysis")
+
+        self.verticalLayout_5.addWidget(self.tableView_virtualanalysis)
 
         self.stackedWidget_2.addWidget(self.page_virtualanalysis)
         self.layoutWidget2 = QWidget(self.Analysistab)
         self.layoutWidget2.setObjectName(u"layoutWidget2")
-        self.layoutWidget2.setGeometry(QRect(500, 190, 95, 139))
+        self.layoutWidget2.setGeometry(QRect(530, 210, 95, 139))
         self.verticalLayout_7 = QVBoxLayout(self.layoutWidget2)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
         self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
@@ -361,24 +379,24 @@ class Ui_Form(object):
         self.MainWidget.setCurrentIndex(0)
         self.stackedWidget.setCurrentIndex(0)
         self.stackedWidget_2.setCurrentIndex(0)
-    # setupUi
+        # setupUi
         '-------------------------------页面设置处--------------------------------'
-        self.MainWidget.setTabEnabled(2,False)
+        self.MainWidget.setTabEnabled(2, False)
         self.MainWidget.setTabEnabled(3, False)
         '-------------------------------控件设置处--------------------------------'
         self.label_openfile.setWordWrap(True)  # Qlabel Text自动换行
-        self.lineEdit_authoranalysis.setValidator(QIntValidator(1,100))                         # 设置作者统计只能为int类型
-        regex = QRegularExpression(r"(19[0-9]{2}|20[0-1][0-9]|202[0-4])")                       # 正则表达式1900~2024
-        self.lineEdit_hotspotanalysis.setValidator(QRegularExpressionValidator(regex))          # 设置输入范围
-        self.tableView_authoranalysis.verticalHeader().setVisible(False)                        # 隐藏行号
-        self.tableView_basicsearch.verticalHeader().setVisible(False)                           # 隐藏行号
-        self.tableView_basicsearch.setEditTriggers(QTableView.NoEditTriggers)                   # 不可编辑
-        self.tableView_relevancesearch.verticalHeader().setVisible(False)                       # 隐藏行号
-        self.tableView_relevancesearch.setEditTriggers(QTableView.NoEditTriggers)               # 不可编辑
-        self.tableView_hotspotanalysis.verticalHeader().setVisible(False)                       # 隐藏行号
-        self.tableView_hotspotanalysis.setEditTriggers(QTableView.NoEditTriggers)               # 不可编辑
-        self.tableView_particalsearch.verticalHeader().setVisible(False)                        # 隐藏行号
-        self.tableView_particalsearch.setEditTriggers(QTableView.NoEditTriggers)                # 不可编辑
+        self.lineEdit_authoranalysis.setValidator(QIntValidator(1, 100))  # 设置作者统计只能为int类型
+        regex = QRegularExpression(r"(19[0-9]{2}|20[0-1][0-9]|202[0-4])")  # 正则表达式1900~2024
+        self.lineEdit_hotspotanalysis.setValidator(QRegularExpressionValidator(regex))  # 设置输入范围
+        self.tableView_authoranalysis.verticalHeader().setVisible(False)  # 隐藏行号
+        self.tableView_basicsearch.verticalHeader().setVisible(False)  # 隐藏行号
+        self.tableView_basicsearch.setEditTriggers(QTableView.NoEditTriggers)  # 不可编辑
+        self.tableView_relevancesearch.verticalHeader().setVisible(False)  # 隐藏行号
+        self.tableView_relevancesearch.setEditTriggers(QTableView.NoEditTriggers)  # 不可编辑
+        self.tableView_hotspotanalysis.verticalHeader().setVisible(False)  # 隐藏行号
+        self.tableView_hotspotanalysis.setEditTriggers(QTableView.NoEditTriggers)  # 不可编辑
+        self.tableView_particalsearch.verticalHeader().setVisible(False)  # 隐藏行号
+        self.tableView_particalsearch.setEditTriggers(QTableView.NoEditTriggers)  # 不可编辑
         '-------------------------------槽函数连接处-------------------------------'
         self.pushButton_exit.clicked.connect(Form.close)
         self.pushButton_basicsearch.clicked.connect(self.on_pushButton_basicsearch_clicked)
@@ -407,48 +425,52 @@ class Ui_Form(object):
         '--------------------------------年热频词连接处---------------------------'
         self.pushButton_hsa1.clicked.connect(self.hotspotanalysis)
         self.pushButton_wordcloud.clicked.connect(self.word_cloud_generation)
+        '--------------------------------作者关系分析连接处---------------------------'
+        self.lineEdit_va1.textChanged.connect(self.set_combobox)
     def retranslateUi(self, Form):
-            Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
-            self.label_main1.setText(QCoreApplication.translate("Form",u"<html><head/><body><p align=\"center\"><span style=\" font-size:18pt; font-weight:700;\">\u79d1\u5b66\u6587\u732e\u7ba1\u7406\u7cfb\u7edf</span></p></body></html>",None))
-            self.pushButton_exit.setText(QCoreApplication.translate("Form", u"\u9000\u51fa", None))
-            self.label_name2.setText(QCoreApplication.translate("Form", u"\u90b5\u5f08", None))
-            self.label_name3.setText(QCoreApplication.translate("Form", u"\u6f58\u6cfd\u8f69", None))
-            self.label_name1.setText(QCoreApplication.translate("Form", u"\u9a6c\u601d\u6377", None))
-            self.MainWidget.setTabText(self.MainWidget.indexOf(self.tab_4),QCoreApplication.translate("Form", u"\u9996\u9875", None))
-            self.pushButton_db.setText(QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
-            self.label_openfile.setText("")
-            self.pushButton_openfile.setText(QCoreApplication.translate("Form", u"\u6253\u5f00\u6587\u4ef6", None))
-            self.MainWidget.setTabText(self.MainWidget.indexOf(self.DataBasetab),QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
-            self.comboBox_basicsearch.setItemText(0, QCoreApplication.translate("Form", u"\u4f5c\u8005", None))
-            self.comboBox_basicsearch.setItemText(1, QCoreApplication.translate("Form", u"\u8bba\u6587", None))
-            self.lineEdit_basicsearch.setPlaceholderText(QCoreApplication.translate("Form",u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d\u6216\u5b8c\u6574\u8bba\u6587\u9898\u76ee",None))
-            self.pushButton_bs1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
-            self.lineEdit_relevancesearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d", None))
-            self.pushButton_rs1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
-            self.radioButton_particalsearch.setText(QCoreApplication.translate("Form", u"\u7cbe\u786e\u641c\u7d22", None))
-            self.lineEdit_particalsearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5173\u952e\u5b57\u4fe1\u606f", None))
-            self.pushButton_ps1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
-            self.pushButton_basicsearch.setText(QCoreApplication.translate("Form", u"\u57fa\u672c\u641c\u7d22", None))
-            self.pushButton_relevancesearch.setText(QCoreApplication.translate("Form", u"\u76f8\u5173\u641c\u7d22", None))
-            self.pushButton_particalsearch.setText(QCoreApplication.translate("Form", u"\u90e8\u5206\u5339\u914d\u641c\u7d22", None))
-            self.MainWidget.setTabText(self.MainWidget.indexOf(self.Searchtab),QCoreApplication.translate("Form", u"\u641c\u7d22", None))
-            self.lineEdit_authoranalysis.setText("")
-            self.lineEdit_authoranalysis.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u4e2a\u6570", None))
-            self.pushButton_aa1.setText(QCoreApplication.translate("Form", u"\u4f5c\u8005\u7edf\u8ba1", None))
-            self.lineEdit_hotspotanalysis.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5e74\u4efd\u4fe1\u606f", None))
-            self.lineEdit_hotspotanalysis1.setText("")
-            self.lineEdit_hotspotanalysis1.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u70ed\u70b9\u8bcd\u4e2a\u6570", None))
-            self.pushButton_hsa1.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
-            self.pushButton_wordcloud.setText(QCoreApplication.translate("Form", u"\u751f\u6210\u8be5\u5e74\u4efd\u8bcd\u4e91\u56fe", None))
-            self.pushButton_ca1.setText(QCoreApplication.translate("Form", u"\u805a\u56e2\u5206\u6790", None))
-            self.pushButton_va1.setText(QCoreApplication.translate("Form", u"\u53ef\u89c6\u5316\u663e\u793a", None))
-            self.pushButton_authoranalysis.setText(QCoreApplication.translate("Form", u"\u4f5c\u8005\u7edf\u8ba1", None))
-            self.pushButton_hotspotanalysis.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
-            self.pushButton_clusteranalysis.setText(QCoreApplication.translate("Form", u"\u805a\u56e2\u5206\u6790", None))
-            self.pushButton_virtualanalysis.setText(QCoreApplication.translate("Form", u"\u53ef\u89c6\u5316\u663e\u793a", None))
-            self.MainWidget.setTabText(self.MainWidget.indexOf(self.Analysistab),QCoreApplication.translate("Form", u"\u7edf\u8ba1", None))
-    # retranslateUi
+        Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
+        self.label_main1.setText(QCoreApplication.translate("Form", u"<html><head/><body><p align=\"center\"><span style=\" font-size:28pt; font-weight:700;\">\u79d1\u5b66\u6587\u732e\u7ba1\u7406\u7cfb\u7edf</span></p></body></html>", None))
+        self.pushButton_exit.setText(QCoreApplication.translate("Form", u"\u9000\u51fa", None))
+        self.label_name2.setText(QCoreApplication.translate("Form", u"\u90b5\u5f08", None))
+        self.label_name3.setText(QCoreApplication.translate("Form", u"\u6f58\u6cfd\u8f69", None))
+        self.label_name1.setText(QCoreApplication.translate("Form", u"\u9a6c\u601d\u6377", None))
+        self.MainWidget.setTabText(self.MainWidget.indexOf(self.tab_4), QCoreApplication.translate("Form", u"\u9996\u9875", None))
+        self.pushButton_db.setText(QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
+        self.label_openfile.setText("")
+        self.pushButton_openfile.setText(QCoreApplication.translate("Form", u"\u6253\u5f00\u6587\u4ef6", None))
+        self.MainWidget.setTabText(self.MainWidget.indexOf(self.DataBasetab), QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
+        self.comboBox_basicsearch.setItemText(0, QCoreApplication.translate("Form", u"\u4f5c\u8005", None))
+        self.comboBox_basicsearch.setItemText(1, QCoreApplication.translate("Form", u"\u8bba\u6587", None))
 
+        self.lineEdit_basicsearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d\u6216\u5b8c\u6574\u8bba\u6587\u9898\u76ee", None))
+        self.pushButton_bs1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
+        self.lineEdit_relevancesearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d", None))
+        self.pushButton_rs1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
+        self.radioButton_particalsearch.setText(QCoreApplication.translate("Form", u"\u7cbe\u786e\u641c\u7d22", None))
+        self.lineEdit_particalsearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5173\u952e\u5b57\u4fe1\u606f", None))
+        self.pushButton_ps1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
+        self.pushButton_basicsearch.setText(QCoreApplication.translate("Form", u"\u57fa\u672c\u641c\u7d22", None))
+        self.pushButton_relevancesearch.setText(QCoreApplication.translate("Form", u"\u76f8\u5173\u641c\u7d22", None))
+        self.pushButton_particalsearch.setText(QCoreApplication.translate("Form", u"\u90e8\u5206\u5339\u914d\u641c\u7d22", None))
+        self.MainWidget.setTabText(self.MainWidget.indexOf(self.Searchtab), QCoreApplication.translate("Form", u"\u641c\u7d22", None))
+        self.lineEdit_authoranalysis.setText("")
+        self.lineEdit_authoranalysis.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u4e2a\u6570", None))
+        self.pushButton_aa1.setText(QCoreApplication.translate("Form", u"\u4f5c\u8005\u7edf\u8ba1", None))
+        self.lineEdit_hotspotanalysis.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5e74\u4efd\u4fe1\u606f", None))
+        self.lineEdit_hotspotanalysis1.setText("")
+        self.lineEdit_hotspotanalysis1.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u70ed\u70b9\u8bcd\u4e2a\u6570", None))
+        self.pushButton_hsa1.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
+        self.pushButton_wordcloud.setText(QCoreApplication.translate("Form", u"\u751f\u6210\u8be5\u5e74\u4efd\u8bcd\u4e91\u56fe", None))
+        self.pushButton_ca1.setText(QCoreApplication.translate("Form", u"\u805a\u56e2\u5206\u6790", None))
+        self.lineEdit_va1.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d", None))
+        self.pushButton_va1.setText(QCoreApplication.translate("Form", u"\u53ef\u89c6\u5316\u663e\u793a", None))
+        self.pushButton_authoranalysis.setText(QCoreApplication.translate("Form", u"\u4f5c\u8005\u7edf\u8ba1", None))
+        self.pushButton_hotspotanalysis.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
+        self.pushButton_clusteranalysis.setText(QCoreApplication.translate("Form", u"\u805a\u56e2\u5206\u6790", None))
+        self.pushButton_virtualanalysis.setText(QCoreApplication.translate("Form", u"\u53ef\u89c6\u5316\u663e\u793a", None))
+        self.MainWidget.setTabText(self.MainWidget.indexOf(self.Analysistab), QCoreApplication.translate("Form", u"\u7edf\u8ba1", None))
+    # retranslateUi
+    
     '--------------------------函数处--------------------------------'
 
     def on_pushButton_basicsearch_clicked(self):
@@ -495,6 +517,7 @@ class Ui_Form(object):
             print(file)
             ##设置文本框
             self.label_openfile.setText(file)
+
     'createdatabase'
     def createdb(self):
         #先判断是否有路径
@@ -601,7 +624,7 @@ class Ui_Form(object):
         self.tableView_relevancesearch_model = QStandardItemModel(Len,1)
         self.tableView_relevancesearch_model.setHorizontalHeaderLabels(["合作作者"])
         for i,author in enumerate(authors):
-            self.tableView_relevancesearch_model.setItem(i,0,QStandardItem(author))
+            self.tableView_relevancesearch_model.setItem(i,0,QStandardItem(author[0]))
         self.tableView_relevancesearch.setModel(self.tableView_relevancesearch_model)
         self.tableView_relevancesearch.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.tableView_relevancesearch.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
@@ -700,11 +723,25 @@ class Ui_Form(object):
         self.wordcloudwindow = WordCloudWindow(wordcloud_path)
         self.wordcloudwindow.show()
 
+    def set_combobox(self):
+        self.comboBox_virtualanalysis.clear()
+        author_a = self.lineEdit_va1.text()
+        if not author_a:
+            return
+        author_b = self.edge_author[author_a]
+        #print(author_b)
+        for author in author_b:
+            self.comboBox_virtualanalysis.addItem(author)
+
 if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
     Form = QWidget()
     ui = Ui_Form()
     ui.setupUi(Form)
+
+    with open("style.qss",encoding="utf-8") as f:
+        app.setStyleSheet(f.read())
+
     Form.show()
     sys.exit(app.exec())

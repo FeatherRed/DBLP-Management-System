@@ -24,7 +24,6 @@ def split_sentence(sentence):
 
 def build_index(data):#建立作者到标题、标题到内容的索引
     type_name = ["article", "book", "www", "inproceedings", "mastersthesis", "incollection", "proceedings", "phdthesis"]
-    edge_author0 = defaultdict(list)
     edge_author = defaultdict(list)
     author_to_titles = defaultdict(list)
     title_to_info = defaultdict(list)
@@ -67,18 +66,9 @@ def build_index(data):#建立作者到标题、标题到内容的索引
                 for author2 in authors:
                     if author2 == author1:
                         continue
-                    #if author2 in edge_author[author1]:
-                    #    continue
-                    edge_author0[author1].append(author2)
-    for author in edge_author0:
-        cnt = defaultdict(int)
-        for author2 in edge_author0[author]:
-            if author2 in cnt:
-                cnt[author2] += 1
-            else:
-                cnt[author2] = 1
-        for author2 in cnt:
-            edge_author[author].append((author2, cnt[author2]))
+                    if author2 in edge_author[author1]:
+                        continue
+                    edge_author[author1].append(author2)
     buckets = [[] for _ in range(32767)]
     for author in author_to_titles:
         buckets[len(author_to_titles[author])].append(author)
@@ -258,73 +248,8 @@ def build_inverted_index(title_to_info):
             if count >= top_n:
                 break
     return  top_n_keywords, inverted_index
-
-def Bron_Kerbosch(R, P, X, graph, cliques):#B-K算法
-    if not P and not X:
-        if len(R) not in cliques:
-            cliques[len(R)] = 1
-        else:
-            cliques[len(R)] += 1
-        return
-
-    for v in list(P):  # 将集合转换为列表
-        Bron_Kerbosch(
-            R | {v},
-            P & set(graph[v]),
-            X & set(graph[v]),
-            graph,
-            cliques
-        )
-        P.remove(v)
-        X.add(v)
-
-def clique_analysis(year, title_to_info):#给出年份，得到这一年的聚团分析
-    clique_edge = defaultdict(list)
-    for title in title_to_info:
-        for publication in title_to_info[title]:
-            if "year" in publication:
-                year0 = publication["year"]
-                if year0 == year:
-                    if "authors" in publication:
-                        authors = publication["authors"]
-                    else:
-                        if "editor" in publication:
-                            authors = publication["editor"]
-                        else:
-                            if "author" in publication:
-                                authors = publication["author"]
-                            else:
-                                if "editors" in publication:
-                                    authors = publication["editors"]
-                                else:
-                                    authors = []
-                    for author in authors:
-                        if author not in clique_edge:
-                            clique_edge[author] = []
-                        for author2 in authors:
-                            if author == author2:
-                                continue
-                            if author2 in clique_edge[author]:
-                                continue
-                            clique_edge[author].append(author2)
-    cnt = 0
-    num = defaultdict(int)
-    for author in clique_edge:
-        cnt += 1
-        num[author] = cnt
-    edge = defaultdict(list)
-    for author in clique_edge:
-        if author not in edge:
-            edge[num[author]] = []
-        for author2 in clique_edge[author]:
-            edge[num[author]].append(num[author2])
-    cliques = defaultdict(int)
-    #print(cnt)
-    Bron_Kerbosch(set(), set(edge.keys()), set(), edge, cliques)
-    return cliques
-
 if __name__ == "__main__":
-    #type_name = ["article" , "book" , "www" , "inproceedings" , "mastersthesis" , "incollection" , "proceedings" , "phdthesis"]
+    type_name = ["article" , "book" , "www" , "inproceedings" , "mastersthesis" , "incollection" , "proceedings" , "phdthesis"]
 
     #filename = 'dblp.pkl'
     allindex = create.readpkl("dblp.pkl")
@@ -337,4 +262,3 @@ if __name__ == "__main__":
     #            print(author, title)
     #        else:
     #            bj[title] = 1
-    #print(clique_analysis("2021", title_to_info))
