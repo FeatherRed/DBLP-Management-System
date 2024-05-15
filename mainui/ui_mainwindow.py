@@ -405,6 +405,10 @@ class Ui_Form(object):
         self.lineEdit_clusteranalysis.setValidator(QRegularExpressionValidator(regex))      # 设置输入范围
         self.tableView_clusteranalysis.verticalHeader().setVisible(False)                   # 隐藏行号
         self.tableView_clusteranalysis.setEditTriggers(QTableView.NoEditTriggers)           # 不可编辑
+        self.tableView_virtualanalysis.verticalHeader().setVisible(False)                   # 隐藏行号
+        self.tableView_virtualanalysis.setEditTriggers(QTableView.NoEditTriggers)           # 不可编辑
+        self.lineEdit_va2.setEnabled(False)                                                 # 不可编辑
+        self.lineEdit_va2.setAlignment(Qt.AlignCenter)                                      # 居中
         '-------------------------------槽函数连接处-------------------------------'
         self.pushButton_exit.clicked.connect(Form.close)
         self.pushButton_basicsearch.clicked.connect(self.on_pushButton_basicsearch_clicked)
@@ -436,6 +440,7 @@ class Ui_Form(object):
         '--------------------------------作者关系分析连接处---------------------------'
         self.lineEdit_va1.textChanged.connect(self.set_combobox)
         self.pushButton_va1.clicked.connect(self.virtualanalysis)
+        self.tableView_virtualanalysis.doubleClicked.connect(partial(self.show_info, self.tableView_virtualanalysis, 2))
         '--------------------------------聚团分析连接处---------------------------'
         self.pushButton_ca1.clicked.connect(self.clusteranalysis)
     def retranslateUi(self, Form):
@@ -574,6 +579,7 @@ class Ui_Form(object):
         match index:
             case 0: self.dewidget = DEWidget(title,self.basicsearch_info[row])
             case 1: self.dewidget = DEWidget(title,self.partical_publicationlist[row])
+            case 2: self.dewidget = DEWidget(title,self.coperate_publicationlist[row])
         self.dewidget.show()
     def basicsearch(self):
         self.tableView_basicsearch_model = None
