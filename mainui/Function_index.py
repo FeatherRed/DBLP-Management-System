@@ -348,6 +348,3 @@ if __name__ == "__main__":
     #            print(author, title)
     #        else:
     #            bj[title] = 1
-    result_titles, result_publication = corperation("Paul Kocher", "Daniel Genkin", author_to_titles)
-    print(result_titles)
-    print(result_publication)
