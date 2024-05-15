@@ -772,10 +772,13 @@ class Ui_Form(object):
             QMessageBox.warning(self.Analysistab, "错误", "请输入年份信息")
             return
         analysis_year = self.lineEdit_clusteranalysis.text()
-        if analysis_year != "1955":
+        # if analysis_year != "1955":
+        #     QMessageBox.warning(self.Analysistab, "超时", "作者数太多！")
+        #     return
+        cliques = Function_index.clique_analysis(analysis_year,self.title_to_info)
+        if not cliques:
             QMessageBox.warning(self.Analysistab, "超时", "作者数太多！")
             return
-        cliques = Function_index.clique_analysis(analysis_year,self.title_to_info)
         cliques = dict(sorted(cliques.items(),key=lambda x:x[0]))
         #print(cliques)
         Len = len(cliques)
