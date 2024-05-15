@@ -30,7 +30,7 @@ QTabBar::tab{height:150}</string>
     <enum>QTabWidget::East</enum>
    </property>
    <property name="currentIndex">
-    <number>3</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="tab_4">
     <attribute name="title">
@@ -364,7 +364,7 @@ border-radius: 5px;</string>
       </rect>
      </property>
      <property name="currentIndex">
-      <number>4</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="page_analysisnull"/>
      <widget class="QWidget" name="page_authoranalysis">
@@ -464,13 +464,20 @@ border-radius: 5px;</string>
       <widget class="QWidget" name="layoutWidget_8">
        <property name="geometry">
         <rect>
-         <x>30</x>
-         <y>60</y>
-         <width>311</width>
-         <height>291</height>
+         <x>0</x>
+         <y>20</y>
+         <width>451</width>
+         <height>421</height>
         </rect>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_10">
+        <item>
+         <widget class="QLineEdit" name="lineEdit_clusteranalysis">
+          <property name="placeholderText">
+           <string>请输入年份信息</string>
+          </property>
+         </widget>
+        </item>
         <item>
          <widget class="QPushButton" name="pushButton_ca1">
           <property name="text">
@@ -479,7 +486,7 @@ border-radius: 5px;</string>
          </widget>
         </item>
         <item>
-         <widget class="QPlainTextEdit" name="plainTextEdit_clusteranalysis"/>
+         <widget class="QTableView" name="tableView_clusteranalysis"/>
         </item>
        </layout>
       </widget>
