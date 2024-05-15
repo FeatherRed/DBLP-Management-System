@@ -738,9 +738,15 @@ class Ui_Form(object):
         # 提供合作作者在combobox中给予选择
         for author in author_b:
             self.comboBox_virtualanalysis.addItem(author[0])
-        self.lineEdit_va2.setText(str(author_b[0][1]))
+        # self.lineEdit_va2.setText(str(author_b[0][1]))
+        selected_author = self.comboBox_virtualanalysis.currentText()
+        self.lineEdit_va2.clear()
+        for author in author_b:
+            if author[0] == selected_author:
+                self.lineEdit_va2.setText(str(author[1]))
         self.comboBox_virtualanalysis.currentIndexChanged.connect(self.on_virtualanalysis_selection_changed)
     def on_virtualanalysis_selection_changed(self, index):
+        self.lineEdit_va2.clear()
         selected_author = self.comboBox_virtualanalysis.itemText(index)  # 获得选择的作者
         author_a = self.lineEdit_va1.text()
         if not author_a:

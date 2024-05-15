@@ -328,9 +328,22 @@ def corperation(author1, author2, author_to_titles):
     titlelist3 = []
     publicationlist3 = []
     for title in titlelist1:
-        if author2 in publicationlist1[titlelist1.index(title)]["authors"]: #通过详细信息中的作者列表判断是否合作
-            titlelist3.append(title)
-            publicationlist3.append(publicationlist1[titlelist1.index(title)])
+        if "authors" in publicationlist1[titlelist1.index(title)]:
+            if author2 in publicationlist1[titlelist1.index(title)]["authors"]: #通过详细信息中的作者列表判断是否合作
+                titlelist3.append(title)
+                publicationlist3.append(publicationlist1[titlelist1.index(title)])
+        elif "editor" in publicationlist1[titlelist1.index(title)]:
+            if author2 in publicationlist1[titlelist1.index(title)]["editor"]:
+                titlelist3.append(title)
+                publicationlist3.append(publicationlist1[titlelist1.index(title)])
+        elif "author" in publicationlist1[titlelist1.index(title)]:
+            if author2 in publicationlist1[titlelist1.index(title)]["author"]:
+                titlelist3.append(title)
+                publicationlist3.append(publicationlist1[titlelist1.index(title)])
+        elif "editors" in publicationlist1[titlelist1.index(title)]:
+            if author2 in publicationlist1[titlelist1.index(title)]["editors"]:
+                titlelist3.append(title)
+                publicationlist3.append(publicationlist1[titlelist1.index(title)])
     return titlelist3, publicationlist3
 
 if __name__ == "__main__":
@@ -347,3 +360,6 @@ if __name__ == "__main__":
     #            print(author, title)
     #        else:
     #            bj[title] = 1
+    #titlelist, publicationlist = corperation("Paul Kocher", "Daniel Genkin", author_to_titles)
+    #print(titlelist)
+    #print(publicationlist)
