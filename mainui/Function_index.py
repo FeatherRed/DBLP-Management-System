@@ -325,11 +325,10 @@ def clique_analysis(year, title_to_info):#给出年份，得到这一年的聚�
 
 def corperation(author1, author2, author_to_titles):
     titlelist1, publicationlist1 = find_author(author1, author_to_titles)
-    titlelist2, publicationlist2 = find_author(author2, author_to_titles)
     titlelist3 = []
     publicationlist3 = []
     for title in titlelist1:
-        if author2 in publicationlist1[titlelist1.index(title)]["authors"]:
+        if author2 in publicationlist1[titlelist1.index(title)]["authors"]: #通过详细信息中的作者列表判断是否合作
             titlelist3.append(title)
             publicationlist3.append(publicationlist1[titlelist1.index(title)])
     return titlelist3, publicationlist3
