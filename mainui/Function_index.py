@@ -329,17 +329,16 @@ def corperation(author1, author2, author_to_titles):
     titlelist3 = []
     publicationlist3 = []
     for title in titlelist1:
-        if title in titlelist2:
-            if publicationlist1[titlelist1.index(title)] == publicationlist2[titlelist2.index(title)]:
-                titlelist3.append(title)
-                publicationlist3.append(publicationlist1[titlelist1.index(title)])
+        if author2 in publicationlist1[titlelist1.index(title)]["authors"]:
+            titlelist3.append(title)
+            publicationlist3.append(publicationlist1[titlelist1.index(title)])
     return titlelist3, publicationlist3
 
 if __name__ == "__main__":
     #type_name = ["article" , "book" , "www" , "inproceedings" , "mastersthesis" , "incollection" , "proceedings" , "phdthesis"]
 
     #filename = 'dblp.pkl'
-    allindex = create.readpkl("dblp.pkl")
+    allindex = create.readpkl("test.pkl")
     author_to_titles, title_to_info , buckets, edge_author, top_n_keywords, inverted_index = allindex.reset()
     print("finished building title index")
     #for author in author_to_titles:
@@ -349,6 +348,6 @@ if __name__ == "__main__":
     #            print(author, title)
     #        else:
     #            bj[title] = 1
-    #result_titles, result_publication = corperation("Paul Kocher", "Daniel Genkin", author_to_titles)
-    #print(result_titles)
-    #print(result_publication)
+    result_titles, result_publication = corperation("Paul Kocher", "Daniel Genkin", author_to_titles)
+    print(result_titles)
+    print(result_publication)

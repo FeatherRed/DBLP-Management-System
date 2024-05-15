@@ -435,6 +435,7 @@ class Ui_Form(object):
         self.pushButton_wordcloud.clicked.connect(self.word_cloud_generation)
         '--------------------------------作者关系分析连接处---------------------------'
         self.lineEdit_va1.textChanged.connect(self.set_combobox)
+        self.pushButton_va1.clicked.connect(self.virtualanalysis)
         '--------------------------------聚团分析连接处---------------------------'
         self.pushButton_ca1.clicked.connect(self.clusteranalysis)
     def retranslateUi(self, Form):
@@ -484,34 +485,27 @@ class Ui_Form(object):
     # retranslateUi
     
     '--------------------------函数处--------------------------------'
-
+        # 按钮一：打开第一个面板
     def on_pushButton_basicsearch_clicked(self):
         self.stackedWidget.setCurrentIndex(1)
-
         # 按钮二：打开第二个面板
     def on_pushButton_relevancesearch_clicked(self):
         self.stackedWidget.setCurrentIndex(2)
-
         # 按钮三：打开第三个面板
     def on_pushButton_particalsearch_clicked(self):
         self.stackedWidget.setCurrentIndex(3)
-
         # 按钮一：打开第一个面板
     def on_pushButton_authoranalysis_clicked(self):
         self.stackedWidget_2.setCurrentIndex(1)
-
             # 按钮二：打开第二个面板
     def on_pushButton_hotspotanalysis_clicked(self):
         self.stackedWidget_2.setCurrentIndex(2)
-
             # 按钮三：打开第三个面板
     def on_pushButton_clusteranalysis_clicked(self):
         self.stackedWidget_2.setCurrentIndex(3)
-
         # 按钮四：打开第四个面板
     def on_pushButton_virtualanalysis_clicked(self):
         self.stackedWidget_2.setCurrentIndex(4)
-
     def on_pushButton_builddatabse_clicked(self):
         self.stackedWidget_2.setCurrentIndex(0)
         self.stackedWidget.setCurrentIndex(0)
@@ -741,9 +735,35 @@ class Ui_Form(object):
         if not author_a:
             return
         author_b = self.edge_author[author_a]
-        #print(author_b)
+        # print(author_b)
         for author in author_b:
             self.comboBox_virtualanalysis.addItem(author[0])
+        self.lineEdit_va2.setText(str(author_b[0][1]))
+        self.comboBox_virtualanalysis.currentIndexChanged.connect(self.on_virtualanalysis_selection_changed)
+    def on_virtualanalysis_selection_changed(self, index):
+        selected_author = self.comboBox_virtualanalysis.itemText(index)
+        author_a = self.lineEdit_va1.text()
+        if not author_a:
+            return
+        author_b = self.edge_author[author_a]
+        for author in author_b:
+            if author[0] == selected_author:
+                self.lineEdit_va2.setText(str(author[1]))
+    def virtualanalysis(self):
+        self.tableView_virtualanalysis.setModel(None)
+        #获得输入作者
+        author_a = self.lineEdit_va1.text()
+        selected_author = self.comboBox_virtualanalysis.currentText()
+        author_a = self.lineEdit_va1.text()
+        self.coperate_titlelist, self.coperate_publicationlist = Function_index.corperation(author_a, selected_author, self.author_to_titles)
+        Len = len(self.coperate_titlelist)
+        self.tableView_virtualanalysis_model = QStandardItemModel(Len, 1)
+        self.tableView_virtualanalysis_model.setHorizontalHeaderLabels(["标题"])
+        for i, title in enumerate(self.coperate_titlelist):
+            self.tableView_virtualanalysis_model.setItem(i, 0, QStandardItem(title))
+        self.tableView_virtualanalysis.setModel(self.tableView_virtualanalysis_model)
+        self.tableView_virtualanalysis.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.tableView_virtualanalysis.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
     def clusteranalysis(self):
         #获得年份信息
