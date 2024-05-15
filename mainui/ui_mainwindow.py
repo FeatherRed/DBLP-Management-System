@@ -285,19 +285,24 @@ class Ui_Form(object):
         self.page_clusteranalysis.setObjectName(u"page_clusteranalysis")
         self.layoutWidget_8 = QWidget(self.page_clusteranalysis)
         self.layoutWidget_8.setObjectName(u"layoutWidget_8")
-        self.layoutWidget_8.setGeometry(QRect(30, 60, 311, 291))
+        self.layoutWidget_8.setGeometry(QRect(0, 20, 451, 421))
         self.verticalLayout_10 = QVBoxLayout(self.layoutWidget_8)
         self.verticalLayout_10.setObjectName(u"verticalLayout_10")
         self.verticalLayout_10.setContentsMargins(0, 0, 0, 0)
+        self.lineEdit_clusteranalysis = QLineEdit(self.layoutWidget_8)
+        self.lineEdit_clusteranalysis.setObjectName(u"lineEdit_clusteranalysis")
+
+        self.verticalLayout_10.addWidget(self.lineEdit_clusteranalysis)
+
         self.pushButton_ca1 = QPushButton(self.layoutWidget_8)
         self.pushButton_ca1.setObjectName(u"pushButton_ca1")
 
         self.verticalLayout_10.addWidget(self.pushButton_ca1)
 
-        self.plainTextEdit_clusteranalysis = QPlainTextEdit(self.layoutWidget_8)
-        self.plainTextEdit_clusteranalysis.setObjectName(u"plainTextEdit_clusteranalysis")
+        self.tableView_clusteranalysis = QTableView(self.layoutWidget_8)
+        self.tableView_clusteranalysis.setObjectName(u"tableView_clusteranalysis")
 
-        self.verticalLayout_10.addWidget(self.plainTextEdit_clusteranalysis)
+        self.verticalLayout_10.addWidget(self.tableView_clusteranalysis)
 
         self.stackedWidget_2.addWidget(self.page_clusteranalysis)
         self.page_virtualanalysis = QWidget()
@@ -312,7 +317,7 @@ class Ui_Form(object):
         self.horizontalLayout_4.setObjectName(u"horizontalLayout_4")
         self.lineEdit_va1 = QLineEdit(self.layoutWidget_4)
         self.lineEdit_va1.setObjectName(u"lineEdit_va1")
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.lineEdit_va1.sizePolicy().hasHeightForWidth())
@@ -385,18 +390,21 @@ class Ui_Form(object):
         self.MainWidget.setTabEnabled(3, False)
         '-------------------------------控件设置处--------------------------------'
         self.label_openfile.setWordWrap(True)  # Qlabel Text自动换行
-        self.lineEdit_authoranalysis.setValidator(QIntValidator(1, 100))  # 设置作者统计只能为int类型
-        regex = QRegularExpression(r"(19[0-9]{2}|20[0-1][0-9]|202[0-4])")  # 正则表达式1900~2024
-        self.lineEdit_hotspotanalysis.setValidator(QRegularExpressionValidator(regex))  # 设置输入范围
-        self.tableView_authoranalysis.verticalHeader().setVisible(False)  # 隐藏行号
-        self.tableView_basicsearch.verticalHeader().setVisible(False)  # 隐藏行号
-        self.tableView_basicsearch.setEditTriggers(QTableView.NoEditTriggers)  # 不可编辑
-        self.tableView_relevancesearch.verticalHeader().setVisible(False)  # 隐藏行号
-        self.tableView_relevancesearch.setEditTriggers(QTableView.NoEditTriggers)  # 不可编辑
-        self.tableView_hotspotanalysis.verticalHeader().setVisible(False)  # 隐藏行号
-        self.tableView_hotspotanalysis.setEditTriggers(QTableView.NoEditTriggers)  # 不可编辑
-        self.tableView_particalsearch.verticalHeader().setVisible(False)  # 隐藏行号
-        self.tableView_particalsearch.setEditTriggers(QTableView.NoEditTriggers)  # 不可编辑
+        self.lineEdit_authoranalysis.setValidator(QIntValidator(1, 100))                    # 设置作者统计只能为int类型
+        regex = QRegularExpression(r"(19[0-9]{2}|20[0-1][0-9]|202[0-4])")                   # 正则表达式1900~2024
+        self.lineEdit_hotspotanalysis.setValidator(QRegularExpressionValidator(regex))      # 设置输入范围
+        self.tableView_authoranalysis.verticalHeader().setVisible(False)                    # 隐藏行号
+        self.tableView_basicsearch.verticalHeader().setVisible(False)                       # 隐藏行号
+        self.tableView_basicsearch.setEditTriggers(QTableView.NoEditTriggers)               # 不可编辑
+        self.tableView_relevancesearch.verticalHeader().setVisible(False)                   # 隐藏行号
+        self.tableView_relevancesearch.setEditTriggers(QTableView.NoEditTriggers)           # 不可编辑
+        self.tableView_hotspotanalysis.verticalHeader().setVisible(False)                   # 隐藏行号
+        self.tableView_hotspotanalysis.setEditTriggers(QTableView.NoEditTriggers)           # 不可编辑
+        self.tableView_particalsearch.verticalHeader().setVisible(False)                    # 隐藏行号
+        self.tableView_particalsearch.setEditTriggers(QTableView.NoEditTriggers)            # 不可编辑
+        self.lineEdit_clusteranalysis.setValidator(QRegularExpressionValidator(regex))      # 设置输入范围
+        self.tableView_clusteranalysis.verticalHeader().setVisible(False)                   # 隐藏行号
+        self.tableView_clusteranalysis.setEditTriggers(QTableView.NoEditTriggers)           # 不可编辑
         '-------------------------------槽函数连接处-------------------------------'
         self.pushButton_exit.clicked.connect(Form.close)
         self.pushButton_basicsearch.clicked.connect(self.on_pushButton_basicsearch_clicked)
@@ -427,6 +435,8 @@ class Ui_Form(object):
         self.pushButton_wordcloud.clicked.connect(self.word_cloud_generation)
         '--------------------------------作者关系分析连接处---------------------------'
         self.lineEdit_va1.textChanged.connect(self.set_combobox)
+        '--------------------------------聚团分析连接处---------------------------'
+        self.pushButton_ca1.clicked.connect(self.clusteranalysis)
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.label_main1.setText(QCoreApplication.translate("Form", u"<html><head/><body><p align=\"center\"><span style=\" font-size:28pt; font-weight:700;\">\u79d1\u5b66\u6587\u732e\u7ba1\u7406\u7cfb\u7edf</span></p></body></html>", None))
@@ -461,6 +471,8 @@ class Ui_Form(object):
         self.lineEdit_hotspotanalysis1.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u70ed\u70b9\u8bcd\u4e2a\u6570", None))
         self.pushButton_hsa1.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
         self.pushButton_wordcloud.setText(QCoreApplication.translate("Form", u"\u751f\u6210\u8be5\u5e74\u4efd\u8bcd\u4e91\u56fe", None))
+        self.lineEdit_clusteranalysis.setPlaceholderText(
+            QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5e74\u4efd\u4fe1\u606f", None))
         self.pushButton_ca1.setText(QCoreApplication.translate("Form", u"\u805a\u56e2\u5206\u6790", None))
         self.lineEdit_va1.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d", None))
         self.pushButton_va1.setText(QCoreApplication.translate("Form", u"\u53ef\u89c6\u5316\u663e\u793a", None))
@@ -732,6 +744,35 @@ class Ui_Form(object):
         #print(author_b)
         for author in author_b:
             self.comboBox_virtualanalysis.addItem(author[0])
+
+    def clusteranalysis(self):
+        #获得年份信息
+        self.tableView_clusteranalysis.setModel(None)
+        if not self.lineEdit_clusteranalysis.text():
+            QMessageBox.warning(self.Analysistab, "错误", "请输入年份信息")
+            return
+        analysis_year = self.lineEdit_clusteranalysis.text()
+        if analysis_year != "1955":
+            QMessageBox.warning(self.Analysistab, "超时", "作者数太多！")
+            return
+        cliques = Function_index.clique_analysis(analysis_year,self.title_to_info)
+        cliques = dict(sorted(cliques.items(),key=lambda x:x[0]))
+        #print(cliques)
+        Len = len(cliques)
+        self.tableView_clusteranalysis_model = QStandardItemModel(Len,2)
+        self.tableView_clusteranalysis_model.setHorizontalHeaderLabels(["阶数","个数"])
+        print(cliques)
+        for i,num in enumerate(cliques):
+            item_jie = QStandardItem(str(num))
+            item_jie.setTextAlignment(Qt.AlignCenter)
+            item_num = QStandardItem(str(cliques[num]))
+            item_num.setTextAlignment(Qt.AlignCenter)
+            self.tableView_clusteranalysis_model.setItem(i,0,item_jie)
+            self.tableView_clusteranalysis_model.setItem(i,1,item_num)
+        self.tableView_clusteranalysis.setModel(self.tableView_clusteranalysis_model)
+        self.tableView_clusteranalysis.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.tableView_clusteranalysis.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+
 
 if __name__ == "__main__":
     import sys
