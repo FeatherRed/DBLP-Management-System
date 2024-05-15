@@ -307,21 +307,18 @@ def clique_analysis(year, title_to_info):#给出年份，得到这一年的聚�
                             if author2 in clique_edge[author]:
                                 continue
                             clique_edge[author].append(author2)
-    cliques = defaultdict(int)
     cnt = 0
     num = defaultdict(int)
     for author in clique_edge:
         cnt += 1
         num[author] = cnt
-    if cnt > 50000:
-        return cliques
     edge = defaultdict(list)
     for author in clique_edge:
         if author not in edge:
             edge[num[author]] = []
         for author2 in clique_edge[author]:
             edge[num[author]].append(num[author2])
-
+    cliques = defaultdict(int)
     #print(cnt)
     Bron_Kerbosch(set(), set(edge.keys()), set(), edge, cliques)
     return cliques
