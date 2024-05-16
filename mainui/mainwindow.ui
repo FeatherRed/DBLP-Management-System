@@ -33,60 +33,46 @@ QTabBar::tab{height:150}</string>
     <number>0</number>
    </property>
    <widget class="QWidget" name="tab_4">
-    <property name="styleSheet">
-     <string notr="true">background-image: url(:/微信图片_20240516211516.jpg);</string>
-    </property>
     <attribute name="title">
      <string>首页</string>
     </attribute>
+    <widget class="QLabel" name="label_main1">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>170</y>
+       <width>351</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 9pt &quot;华文行楷&quot;;</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:28pt; font-weight:700;&quot;&gt;科学文献管理系统&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
     <widget class="QPushButton" name="pushButton_exit">
      <property name="geometry">
       <rect>
-       <x>290</x>
+       <x>300</x>
        <y>470</y>
        <width>75</width>
        <height>23</height>
       </rect>
      </property>
-     <property name="styleSheet">
-      <string notr="true">background-image: url();
-background-color: #ff5722;
-color: white;
-border: 1px solid #404040;
-border-radius: 3px;
-padding: 5px 10px;</string>
-     </property>
      <property name="text">
       <string>退出</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_name1">
-     <property name="geometry">
-      <rect>
-       <x>540</x>
-       <y>450</y>
-       <width>54</width>
-       <height>16</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background: transparent;</string>
-     </property>
-     <property name="text">
-      <string>马思捷</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_name2">
      <property name="geometry">
       <rect>
-       <x>540</x>
+       <x>550</x>
        <y>470</y>
        <width>54</width>
        <height>16</height>
       </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background: transparent;</string>
      </property>
      <property name="text">
       <string>邵弈</string>
@@ -95,34 +81,27 @@ padding: 5px 10px;</string>
     <widget class="QLabel" name="label_name3">
      <property name="geometry">
       <rect>
-       <x>540</x>
+       <x>550</x>
        <y>490</y>
        <width>54</width>
        <height>16</height>
       </rect>
      </property>
-     <property name="styleSheet">
-      <string notr="true">background: transparent;</string>
-     </property>
      <property name="text">
       <string>潘泽轩</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_main1">
+    <widget class="QLabel" name="label_name1">
      <property name="geometry">
       <rect>
-       <x>190</x>
-       <y>30</y>
-       <width>351</width>
-       <height>81</height>
+       <x>550</x>
+       <y>450</y>
+       <width>54</width>
+       <height>16</height>
       </rect>
      </property>
-     <property name="styleSheet">
-      <string notr="true">background: transparent;
-font: 9pt &quot;华文行楷&quot;;</string>
-     </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:28pt; font-weight:700;&quot;&gt;科学文献管理系统&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>马思捷</string>
      </property>
     </widget>
    </widget>
@@ -610,8 +589,6 @@ border-radius: 5px;</string>
    </widget>
   </widget>
  </widget>
- <resources>
-  <include location="photo.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
