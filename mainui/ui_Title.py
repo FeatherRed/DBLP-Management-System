@@ -1,30 +1,20 @@
 # -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'Title.ui'
-##
-## Created by: Qt User Interface Compiler version 6.6.0
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
-
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform,QStandardItem, QStandardItemModel)
-from PySide6.QtWidgets import (QApplication, QHeaderView, QPushButton, QSizePolicy,
-    QTableView, QWidget,QLabel,QToolTip)
+'''
+该文件是设计展示全部论文信息的页面
+DEWidget为创建页面定义的类
+DetailsWindow为界面的ui实现
+'''
+from PySide6.QtCore import (QCoreApplication, QMetaObject, QRect, Qt)
+from PySide6.QtGui import (QStandardItem, QStandardItemModel)
+from PySide6.QtWidgets import (QHeaderView, QPushButton, QTableView, QWidget)
 
 class DEWidget(QWidget):
     def __init__(self,title,record,parent=None):
         super().__init__(parent)
         self.ui = DetailsWindow()
         self.ui.setupUi(title,self) #注意这里修改了一下setupui 主要是为了设置页面标题
-        print(title)
-        print(record)
+        # print(title)
+        # print(record)
         self.ui.Datain(record)  #调用ui_Title中的Datain函数，显示论文全部信息
 
 class DetailsWindow(object):
@@ -55,7 +45,7 @@ class DetailsWindow(object):
     def Datain(self,record):
         self.tableView.setModel(None)   #先置为None 初始化
         Len = len(record)
-        print(len(record))
+        #print(len(record))
         for ele in record:
             if ele == "authors":
                 Len += len(record[ele])
@@ -63,7 +53,7 @@ class DetailsWindow(object):
                 Len += len(record[ele])
             else:
                 Len += 1
-        print(Len)
+        #print(Len)
         self.model = QStandardItemModel(Len,1)  #初始化model，设置大小
         Len1 = 0
         for ele in record:

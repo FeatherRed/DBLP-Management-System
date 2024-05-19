@@ -1,10 +1,8 @@
 '''
 该文件主要是对xml进行数据处理
-
 '''
 import html
 import os
-from lxml import etree
 
 def xmlprocessing(file_path,new_file_path):
     '''
@@ -46,9 +44,10 @@ def preprocessing(file_path):
     new_file_path = file_name + "_deal.xml"                             ##新的文件
     #先判断当前是否是已经处理过的
     if os.path.exists(new_file_path):                                   ##判断是否已经处理好
-        print("The xml file has been processed")
+        #print("The xml file has been processed")
+        return
     else:
-        print("Now let's start working on the xml file")
+        #print("Now let's start working on the xml file")
         xmlprocessing(file_path,new_file_path)
 
 if __name__ == "__main__":

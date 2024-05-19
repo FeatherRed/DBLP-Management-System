@@ -1,24 +1,10 @@
 # -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'mainwindow.ui'
-##
-## Created by: Qt User Interface Compiler version 6.6.2
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
-
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt, QRegularExpression)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform, QIntValidator, QStandardItem, QStandardItemModel, QRegularExpressionValidator)
-from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLineEdit, QPlainTextEdit,
+from PySide6.QtCore import (QCoreApplication, QRect, Qt, QRegularExpression)
+from PySide6.QtGui import (QIntValidator, QStandardItem, QStandardItemModel, QRegularExpressionValidator)
+from PySide6.QtWidgets import (QApplication, QHBoxLayout, QLineEdit,
     QPushButton, QSizePolicy, QStackedWidget, QTabWidget,
-    QVBoxLayout, QWidget, QLabel, QDialog, QFileDialog, QMessageBox, QTableView,
-    QAbstractItemView, QHeaderView, QComboBox, QSpacerItem, QRadioButton)
+    QVBoxLayout, QWidget, QLabel, QFileDialog, QMessageBox, QTableView,
+    QAbstractItemView, QHeaderView, QComboBox, QRadioButton)
 import os, create, Datain, Function_index
 from ui_Title import DEWidget
 from ui_wordcloud import WordCloudWindow
@@ -66,7 +52,6 @@ class Ui_Form(object):
         self.label_openfile.setStyleSheet(u"color: #333333;\n"
 "font-size: 20px;\n"
 "font-weight: bold;\n"
-"font-family: CMU Serif;\n"
 "background-color: #abb8ff;\n"
 "border-style: solid;\n"
 "border-width: 2px;\n"
@@ -100,28 +85,18 @@ class Ui_Form(object):
         self.comboBox_basicsearch.setObjectName(u"comboBox_basicsearch")
         self.comboBox_basicsearch.setEnabled(True)
         self.comboBox_basicsearch.setFrame(True)
-
         self.horizontalLayout.addWidget(self.comboBox_basicsearch)
-
         self.lineEdit_basicsearch = QLineEdit(self.layoutWidget)
         self.lineEdit_basicsearch.setObjectName(u"lineEdit_basicsearch")
         self.lineEdit_basicsearch.setFrame(True)
-
         self.horizontalLayout.addWidget(self.lineEdit_basicsearch)
-
         self.pushButton_bs1 = QPushButton(self.layoutWidget)
         self.pushButton_bs1.setObjectName(u"pushButton_bs1")
-
         self.horizontalLayout.addWidget(self.pushButton_bs1)
-
-
         self.verticalLayout_2.addLayout(self.horizontalLayout)
-
         self.tableView_basicsearch = QTableView(self.layoutWidget)
         self.tableView_basicsearch.setObjectName(u"tableView_basicsearch")
-
         self.verticalLayout_2.addWidget(self.tableView_basicsearch)
-
         self.stackedWidget.addWidget(self.pagebasicsearch)
         self.page_relevancesearch = QWidget()
         self.page_relevancesearch.setObjectName(u"page_relevancesearch")
@@ -135,22 +110,14 @@ class Ui_Form(object):
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.lineEdit_relevancesearch = QLineEdit(self.layoutWidget_2)
         self.lineEdit_relevancesearch.setObjectName(u"lineEdit_relevancesearch")
-
         self.horizontalLayout_2.addWidget(self.lineEdit_relevancesearch)
-
         self.pushButton_rs1 = QPushButton(self.layoutWidget_2)
         self.pushButton_rs1.setObjectName(u"pushButton_rs1")
-
         self.horizontalLayout_2.addWidget(self.pushButton_rs1)
-
-
         self.verticalLayout_3.addLayout(self.horizontalLayout_2)
-
         self.tableView_relevancesearch = QTableView(self.layoutWidget_2)
         self.tableView_relevancesearch.setObjectName(u"tableView_relevancesearch")
-
         self.verticalLayout_3.addWidget(self.tableView_relevancesearch)
-
         self.stackedWidget.addWidget(self.page_relevancesearch)
         self.page_particalsearch = QWidget()
         self.page_particalsearch.setObjectName(u"page_particalsearch")
@@ -164,27 +131,17 @@ class Ui_Form(object):
         self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.radioButton_particalsearch = QRadioButton(self.layoutWidget_3)
         self.radioButton_particalsearch.setObjectName(u"radioButton_particalsearch")
-
         self.horizontalLayout_3.addWidget(self.radioButton_particalsearch)
-
         self.lineEdit_particalsearch = QLineEdit(self.layoutWidget_3)
         self.lineEdit_particalsearch.setObjectName(u"lineEdit_particalsearch")
-
         self.horizontalLayout_3.addWidget(self.lineEdit_particalsearch)
-
         self.pushButton_ps1 = QPushButton(self.layoutWidget_3)
         self.pushButton_ps1.setObjectName(u"pushButton_ps1")
-
         self.horizontalLayout_3.addWidget(self.pushButton_ps1)
-
-
         self.verticalLayout_4.addLayout(self.horizontalLayout_3)
-
         self.tableView_particalsearch = QTableView(self.layoutWidget_3)
         self.tableView_particalsearch.setObjectName(u"tableView_particalsearch")
-
         self.verticalLayout_4.addWidget(self.tableView_particalsearch)
-
         self.stackedWidget.addWidget(self.page_particalsearch)
         self.layoutWidget1 = QWidget(self.Searchtab)
         self.layoutWidget1.setObjectName(u"layoutWidget1")
@@ -194,19 +151,13 @@ class Ui_Form(object):
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.pushButton_basicsearch = QPushButton(self.layoutWidget1)
         self.pushButton_basicsearch.setObjectName(u"pushButton_basicsearch")
-
         self.verticalLayout.addWidget(self.pushButton_basicsearch)
-
         self.pushButton_relevancesearch = QPushButton(self.layoutWidget1)
         self.pushButton_relevancesearch.setObjectName(u"pushButton_relevancesearch")
-
         self.verticalLayout.addWidget(self.pushButton_relevancesearch)
-
         self.pushButton_particalsearch = QPushButton(self.layoutWidget1)
         self.pushButton_particalsearch.setObjectName(u"pushButton_particalsearch")
-
         self.verticalLayout.addWidget(self.pushButton_particalsearch)
-
         self.MainWidget.addTab(self.Searchtab, "")
         self.Analysistab = QWidget()
         self.Analysistab.setObjectName(u"Analysistab")
@@ -226,21 +177,15 @@ class Ui_Form(object):
         self.verticalLayout_8.setContentsMargins(0, 0, 0, 0)
         self.lineEdit_authoranalysis = QLineEdit(self.layoutWidget_6)
         self.lineEdit_authoranalysis.setObjectName(u"lineEdit_authoranalysis")
-
         self.verticalLayout_8.addWidget(self.lineEdit_authoranalysis)
-
         self.pushButton_aa1 = QPushButton(self.layoutWidget_6)
         self.pushButton_aa1.setObjectName(u"pushButton_aa1")
-
         self.verticalLayout_8.addWidget(self.pushButton_aa1)
-
         self.tableView_authoranalysis = QTableView(self.layoutWidget_6)
         self.tableView_authoranalysis.setObjectName(u"tableView_authoranalysis")
         self.tableView_authoranalysis.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tableView_authoranalysis.setShowGrid(True)
-
         self.verticalLayout_8.addWidget(self.tableView_authoranalysis)
-
         self.stackedWidget_2.addWidget(self.page_authoranalysis)
         self.page_hotspotanalysis = QWidget()
         self.page_hotspotanalysis.setObjectName(u"page_hotspotanalysis")
@@ -254,32 +199,20 @@ class Ui_Form(object):
         self.horizontalLayout_6.setObjectName(u"horizontalLayout_6")
         self.lineEdit_hotspotanalysis = QLineEdit(self.layoutWidget_7)
         self.lineEdit_hotspotanalysis.setObjectName(u"lineEdit_hotspotanalysis")
-
         self.horizontalLayout_6.addWidget(self.lineEdit_hotspotanalysis)
-
         self.lineEdit_hotspotanalysis1 = QLineEdit(self.layoutWidget_7)
         self.lineEdit_hotspotanalysis1.setObjectName(u"lineEdit_hotspotanalysis1")
-
         self.horizontalLayout_6.addWidget(self.lineEdit_hotspotanalysis1)
-
         self.pushButton_hsa1 = QPushButton(self.layoutWidget_7)
         self.pushButton_hsa1.setObjectName(u"pushButton_hsa1")
-
         self.horizontalLayout_6.addWidget(self.pushButton_hsa1)
-
-
         self.verticalLayout_9.addLayout(self.horizontalLayout_6)
-
         self.tableView_hotspotanalysis = QTableView(self.layoutWidget_7)
         self.tableView_hotspotanalysis.setObjectName(u"tableView_hotspotanalysis")
-
         self.verticalLayout_9.addWidget(self.tableView_hotspotanalysis)
-
         self.pushButton_wordcloud = QPushButton(self.layoutWidget_7)
         self.pushButton_wordcloud.setObjectName(u"pushButton_wordcloud")
-
         self.verticalLayout_9.addWidget(self.pushButton_wordcloud)
-
         self.stackedWidget_2.addWidget(self.page_hotspotanalysis)
         self.page_clusteranalysis = QWidget()
         self.page_clusteranalysis.setObjectName(u"page_clusteranalysis")
@@ -291,19 +224,13 @@ class Ui_Form(object):
         self.verticalLayout_10.setContentsMargins(0, 0, 0, 0)
         self.lineEdit_clusteranalysis = QLineEdit(self.layoutWidget_8)
         self.lineEdit_clusteranalysis.setObjectName(u"lineEdit_clusteranalysis")
-
         self.verticalLayout_10.addWidget(self.lineEdit_clusteranalysis)
-
         self.pushButton_ca1 = QPushButton(self.layoutWidget_8)
         self.pushButton_ca1.setObjectName(u"pushButton_ca1")
-
         self.verticalLayout_10.addWidget(self.pushButton_ca1)
-
         self.tableView_clusteranalysis = QTableView(self.layoutWidget_8)
         self.tableView_clusteranalysis.setObjectName(u"tableView_clusteranalysis")
-
         self.verticalLayout_10.addWidget(self.tableView_clusteranalysis)
-
         self.stackedWidget_2.addWidget(self.page_clusteranalysis)
         self.page_virtualanalysis = QWidget()
         self.page_virtualanalysis.setObjectName(u"page_virtualanalysis")
@@ -322,34 +249,22 @@ class Ui_Form(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.lineEdit_va1.sizePolicy().hasHeightForWidth())
         self.lineEdit_va1.setSizePolicy(sizePolicy)
-
         self.horizontalLayout_4.addWidget(self.lineEdit_va1)
-
         self.comboBox_virtualanalysis = QComboBox(self.layoutWidget_4)
         self.comboBox_virtualanalysis.setObjectName(u"comboBox_virtualanalysis")
         sizePolicy.setHeightForWidth(self.comboBox_virtualanalysis.sizePolicy().hasHeightForWidth())
         self.comboBox_virtualanalysis.setSizePolicy(sizePolicy)
-
         self.horizontalLayout_4.addWidget(self.comboBox_virtualanalysis)
-
         self.pushButton_va1 = QPushButton(self.layoutWidget_4)
         self.pushButton_va1.setObjectName(u"pushButton_va1")
-
         self.horizontalLayout_4.addWidget(self.pushButton_va1)
-
-
         self.verticalLayout_5.addLayout(self.horizontalLayout_4)
-
         self.lineEdit_va2 = QLineEdit(self.layoutWidget_4)
         self.lineEdit_va2.setObjectName(u"lineEdit_va2")
-
         self.verticalLayout_5.addWidget(self.lineEdit_va2)
-
         self.tableView_virtualanalysis = QTableView(self.layoutWidget_4)
         self.tableView_virtualanalysis.setObjectName(u"tableView_virtualanalysis")
-
         self.verticalLayout_5.addWidget(self.tableView_virtualanalysis)
-
         self.stackedWidget_2.addWidget(self.page_virtualanalysis)
         self.layoutWidget2 = QWidget(self.Analysistab)
         self.layoutWidget2.setObjectName(u"layoutWidget2")
@@ -359,28 +274,18 @@ class Ui_Form(object):
         self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
         self.pushButton_authoranalysis = QPushButton(self.layoutWidget2)
         self.pushButton_authoranalysis.setObjectName(u"pushButton_authoranalysis")
-
         self.verticalLayout_7.addWidget(self.pushButton_authoranalysis)
-
         self.pushButton_hotspotanalysis = QPushButton(self.layoutWidget2)
         self.pushButton_hotspotanalysis.setObjectName(u"pushButton_hotspotanalysis")
-
         self.verticalLayout_7.addWidget(self.pushButton_hotspotanalysis)
-
         self.pushButton_clusteranalysis = QPushButton(self.layoutWidget2)
         self.pushButton_clusteranalysis.setObjectName(u"pushButton_clusteranalysis")
-
         self.verticalLayout_7.addWidget(self.pushButton_clusteranalysis)
-
         self.pushButton_virtualanalysis = QPushButton(self.layoutWidget2)
         self.pushButton_virtualanalysis.setObjectName(u"pushButton_virtualanalysis")
-
         self.verticalLayout_7.addWidget(self.pushButton_virtualanalysis)
-
         self.MainWidget.addTab(self.Analysistab, "")
-
         self.retranslateUi(Form)
-
         self.MainWidget.setCurrentIndex(0)
         self.stackedWidget.setCurrentIndex(0)
         self.stackedWidget_2.setCurrentIndex(0)
@@ -422,7 +327,6 @@ class Ui_Form(object):
         '-------------------------------创建数据库连接处---------------------------'
         self.pushButton_openfile.clicked.connect(self.msg)
         self.pushButton_db.clicked.connect(self.createdb)
-
         '--------------------------------基本搜索连接处---------------------------'
         self.pushButton_bs1.clicked.connect(self.basicsearch)
         self.tableView_basicsearch.doubleClicked.connect(partial(self.show_info, self.tableView_basicsearch, 0))
@@ -456,7 +360,6 @@ class Ui_Form(object):
         self.MainWidget.setTabText(self.MainWidget.indexOf(self.DataBasetab), QCoreApplication.translate("Form", u"\u5efa\u7acb\u6570\u636e\u5e93", None))
         self.comboBox_basicsearch.setItemText(0, QCoreApplication.translate("Form", u"\u4f5c\u8005", None))
         self.comboBox_basicsearch.setItemText(1, QCoreApplication.translate("Form", u"\u8bba\u6587", None))
-
         self.lineEdit_basicsearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d\u6216\u5b8c\u6574\u8bba\u6587\u9898\u76ee", None))
         self.pushButton_bs1.setText(QCoreApplication.translate("Form", u"\u641c\u7d22", None))
         self.lineEdit_relevancesearch.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d", None))
@@ -476,8 +379,7 @@ class Ui_Form(object):
         self.lineEdit_hotspotanalysis1.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u70ed\u70b9\u8bcd\u4e2a\u6570", None))
         self.pushButton_hsa1.setText(QCoreApplication.translate("Form", u"\u70ed\u70b9\u5206\u6790", None))
         self.pushButton_wordcloud.setText(QCoreApplication.translate("Form", u"\u751f\u6210\u8be5\u5e74\u4efd\u8bcd\u4e91\u56fe", None))
-        self.lineEdit_clusteranalysis.setPlaceholderText(
-            QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5e74\u4efd\u4fe1\u606f", None))
+        self.lineEdit_clusteranalysis.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u5e74\u4efd\u4fe1\u606f", None))
         self.pushButton_ca1.setText(QCoreApplication.translate("Form", u"\u805a\u56e2\u5206\u6790", None))
         self.lineEdit_va1.setPlaceholderText(QCoreApplication.translate("Form", u"\u8bf7\u8f93\u5165\u4f5c\u8005\u59d3\u540d", None))
         self.pushButton_va1.setText(QCoreApplication.translate("Form", u"\u53ef\u89c6\u5316\u663e\u793a", None))
@@ -514,8 +416,7 @@ class Ui_Form(object):
         self.stackedWidget_2.setCurrentIndex(0)
         self.stackedWidget.setCurrentIndex(0)
     '-------------------------创建数据库函数-------------------------'
-
-    'openfile'
+        # 打开文件得到路径
     def msg(self,Filepath):
         self.label_openfile.clear()
         current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -524,11 +425,11 @@ class Ui_Form(object):
         if not file:
             return
         else:
-            print(file)
+            #print(file)
             ##设置文本框
             self.label_openfile.setText(file)
 
-    'createdatabase'
+        # 创建数据库
     def createdb(self):
         #先判断是否有路径
         file = self.label_openfile.text()
@@ -540,19 +441,19 @@ class Ui_Form(object):
         #判断该文件名有无deal
         if "_deal" not in file_name:
             Datain.preprocessing(file)
-            print("已经处理完毕，正构建pkl")
+            # print("已经处理完毕，正构建pkl")
         else:
-            print("该文件已处理完毕，正构建pkl")
+            # print("该文件已处理完毕，正构建pkl")
             file_name = file_name[:4]
             #存在_deal删掉
         #判断是否有pkl
         pkl_path = file_name + ".pkl"
         self.filename = file_name
         self.path = pkl_path
-        print(pkl_path)
+        # print(pkl_path)
         if(os.path.exists(pkl_path)):
             #存在pkl了 直接读就行
-            print("直接读pkl")
+            # print("直接读pkl")
             allindex = create.readpkl(pkl_path)
         else:
             # 不存在pkl 还得生成pkl并且保存跑后的record
@@ -569,6 +470,9 @@ class Ui_Form(object):
         #创建完数据库或者得到路径后，打开功能
         self.MainWidget.setTabEnabled(2, True)
         self.MainWidget.setTabEnabled(3, True)
+        QMessageBox.information(self.DataBasetab, "完成", "已经成功导入数据")
+
+    # 展示文章全部信息
     def show_info(self,Table,index,Index):
         title = Table.currentIndex().data()     #获得标题
         row = Table.currentIndex().row()        #获得行号
@@ -580,6 +484,9 @@ class Ui_Form(object):
             case 1: self.dewidget = DEWidget(title,self.partical_publicationlist[row])
             case 2: self.dewidget = DEWidget(title,self.coperate_publicationlist[row])
         self.dewidget.show()
+
+    '-------------------------功能1-7函数-------------------------'
+        # 基础搜索入口
     def basicsearch(self):
         self.tableView_basicsearch_model = None
         #查看combobox是什么
@@ -594,6 +501,8 @@ class Ui_Form(object):
         self.tableView_basicsearch.setModel(self.tableView_basicsearch_model)
         self.tableView_basicsearch.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.tableView_basicsearch.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+
+        # 基础搜索——查作者
     def basicsearch_author(self,searchtext):
         self.tableView_basicsearch.setModel(None)
         author_title,self.basicsearch_info = Function_index.find_author(searchtext,self.author_to_titles)
@@ -607,6 +516,7 @@ class Ui_Form(object):
         for i,title in enumerate(author_title):
             self.tableView_basicsearch_model.setItem(i,0,QStandardItem(title))
 
+        # 基础搜索——查论文
     def basicsearch_title(self,searchtext):
         self.tableView_basicsearch.setModel(None)
         self.basicsearch_info = self.title_to_info[searchtext]
@@ -621,6 +531,7 @@ class Ui_Form(object):
         for i in range(Len):
             self.tableView_basicsearch_model.setItem(i,0,QStandardItem(searchtext))
 
+        # 相关搜索
     def relevanacesearch(self):
         search_author = self.lineEdit_relevancesearch.text()
         self.tableView_relevancesearch.setModel(None)
@@ -640,6 +551,7 @@ class Ui_Form(object):
         self.tableView_relevancesearch.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.tableView_relevancesearch.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
+        # 部分匹配搜索
     def particalsearch(self):
         self.tableView_particalsearch.setModel(None)
         #获得输入单词列表
@@ -667,6 +579,7 @@ class Ui_Form(object):
         self.tableView_particalsearch.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.tableView_particalsearch.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
+        # 作者统计
     def authoranalysis(self):
         #获得数量
         if not self.lineEdit_authoranalysis.text():
@@ -689,6 +602,8 @@ class Ui_Form(object):
                     cnt += 1
         self.tableView_authoranalysis.setModel(self.tableView_authoranalysis_model)
         self.tableView_authoranalysis.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+
+        # 热点分析
     def hotspotanalysis(self):
         self.tableView_hotspotanalysis.setModel(None)
         #先获得第几年
@@ -721,6 +636,8 @@ class Ui_Form(object):
         self.tableView_hotspotanalysis.setModel(self.tableView_hotspotanalysis_model)
         self.tableView_hotspotanalysis.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.tableView_hotspotanalysis.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
+
+        # 创建词云图
     def word_cloud_generation(self):
         # 先获得第几年
         if not self.lineEdit_hotspotanalysis.text():
@@ -734,6 +651,7 @@ class Ui_Form(object):
         self.wordcloudwindow = WordCloudWindow(wordcloud_path)
         self.wordcloudwindow.show()
 
+        # 更新combobox
     def set_combobox(self):
         self.comboBox_virtualanalysis.clear()
         author_a = self.lineEdit_va1.text()
@@ -750,6 +668,8 @@ class Ui_Form(object):
             if author[0] == selected_author:
                 self.lineEdit_va2.setText(str(author[1]))
         self.comboBox_virtualanalysis.currentIndexChanged.connect(self.on_virtualanalysis_selection_changed)
+
+        # 更新作者权重
     def on_virtualanalysis_selection_changed(self, index):
         self.lineEdit_va2.clear()
         selected_author = self.comboBox_virtualanalysis.itemText(index)  # 获得选择的作者
@@ -760,6 +680,8 @@ class Ui_Form(object):
         for author in author_b:
             if author[0] == selected_author:
                 self.lineEdit_va2.setText(str(author[1]))
+
+        # 作者合作文章
     def virtualanalysis(self):
         self.tableView_virtualanalysis.setModel(None)
         #获得输入作者
@@ -776,6 +698,7 @@ class Ui_Form(object):
         self.tableView_virtualanalysis.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.tableView_virtualanalysis.setHorizontalScrollBarPolicy(Qt.ScrollBarAsNeeded)
 
+        # 聚团分析
     def clusteranalysis(self):
         #获得年份信息
         self.tableView_clusteranalysis.setModel(None)
@@ -792,7 +715,7 @@ class Ui_Form(object):
         Len = len(cliques)
         self.tableView_clusteranalysis_model = QStandardItemModel(Len,2)
         self.tableView_clusteranalysis_model.setHorizontalHeaderLabels(["阶数","个数"])
-        print(cliques)
+        #print(cliques)
         for i,num in enumerate(cliques):
             item_jie = QStandardItem(str(num))
             item_jie.setTextAlignment(Qt.AlignCenter)
@@ -811,9 +734,7 @@ if __name__ == "__main__":
     Form = QWidget()
     ui = Ui_Form()
     ui.setupUi(Form)
-
     with open("style.qss",encoding="utf-8") as f:
         app.setStyleSheet(f.read())
-
     Form.show()
     sys.exit(app.exec())

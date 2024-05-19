@@ -162,7 +162,11 @@ def count_matches(query_words, title):
     title = title.lower()
     title = split_sentence(title)
     cnt = 0
+    bj = []
     for word in title:
+        if word in bj:
+            continue
+        bj.append(word)
         if word in query_words:
             cnt += 1
     return cnt

@@ -1,21 +1,12 @@
 # -*- coding: utf-8 -*-
-
-################################################################################
-## Form generated from reading UI file 'form.ui'
-##
-## Created by: Qt User Interface Compiler version 6.6.0
-##
-## WARNING! All changes made in this file will be lost when recompiling UI file!
-################################################################################
-
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QPushButton, QSizePolicy, QWidget, QLabel)
+'''
+该文件是设计创建词云图的页面
+WordCloudWindow为创建页面定义的类
+WordCloud为界面的ui实现
+'''
+from PySide6.QtCore import (QCoreApplication, QMetaObject, QRect)
+from PySide6.QtGui import QPixmap
+from PySide6.QtWidgets import (QPushButton, QWidget, QLabel)
 import os
 class WordCloudWindow(QWidget):
     def __init__(self,imgpath,parent=None):
