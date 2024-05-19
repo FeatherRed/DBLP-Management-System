@@ -28,7 +28,8 @@ def create_record_element(element, tag):
         case "phdthesis": return Phdthesis(**record_info)
 
 # 从XML文件中读取记录
-def read_records_from_xml(file_path, record_types):
+def read_records_from_xml(file_path):
+    record_types = ['article', 'book', 'www', 'inproceedings', 'mastersthesis', 'incollection', 'proceedings','phdthesis']
     records = {record_type: [] for record_type in record_types}  # 初始化记录字典
     context = etree.iterparse(file_path, events=('start', 'end'))  # 创建XML解析器上下文
     current_record_type = None  # 当前记录类型初始化为空
@@ -47,18 +48,26 @@ def read_records_from_xml(file_path, record_types):
     del context  # 删除XML解析器上下文
     return records  # 返回记录字典
 
+def createjson(records,filename):
+    for key, value in records.items():
+        records[key] = [item.to_dict() for item in value]
+    # 将记录字典写入JSON文件
+    output_file = filename + ".json"
+    with open(output_file, 'w') as f:
+        json.dump(records, f, indent=4)  # 以缩进格式写入JSON文件
+
 # 定义记录类型列表和XML文件路径
-record_types = ['article', 'book', 'www', 'inproceedings', 'mastersthesis', 'incollection', 'proceedings', 'phdthesis']
-file_path = 'dblp_deal.xml'
+if __name__ == "__main__":
+    file_path = 'test1_deal.xml'
 
-# 从XML文件中读取记录
-records = read_records_from_xml(file_path, record_types)
+    # 从XML文件中读取记录
+    records = read_records_from_xml(file_path)
 
-# 将记录对象转换为字典
-for key, value in records.items():
-    records[key] = [item.to_dict() for item in value]
+    # 将记录对象转换为字典
+    for key, value in records.items():
+        records[key] = [item.to_dict() for item in value]
 
-# 将记录字典写入JSON文件
-output_file = 'Record.json'
-with open(output_file, 'w') as f:
-    json.dump(records, f, indent=4)  # 以缩进格式写入JSON文件
+    # 将记录字典写入JSON文件
+    output_file = 'Record.json'
+    with open(output_file, 'w') as f:
+        json.dump(records, f, indent=4)  # 以缩进格式写入JSON文件
