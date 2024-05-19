@@ -426,7 +426,6 @@ class Ui_Form(object):
         '--------------------------------基本搜索连接处---------------------------'
         self.pushButton_bs1.clicked.connect(self.basicsearch)
         self.tableView_basicsearch.doubleClicked.connect(partial(self.show_info, self.tableView_basicsearch, 0))
-
         '--------------------------------相关搜索连接处---------------------------'
         self.pushButton_rs1.clicked.connect(self.relevanacesearch)
         '--------------------------------关键词搜索连接处---------------------------'
@@ -444,7 +443,7 @@ class Ui_Form(object):
         '--------------------------------聚团分析连接处---------------------------'
         self.pushButton_ca1.clicked.connect(self.clusteranalysis)
     def retranslateUi(self, Form):
-        Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
+        Form.setWindowTitle(QCoreApplication.translate("Form", u"科学文献管理系统", None))
         self.label_main1.setText(QCoreApplication.translate("Form", u"<html><head/><body><p align=\"center\"><span style=\" font-size:28pt; font-weight:700;\">\u79d1\u5b66\u6587\u732e\u7ba1\u7406\u7cfb\u7edf</span></p></body></html>", None))
         self.pushButton_exit.setText(QCoreApplication.translate("Form", u"\u9000\u51fa", None))
         self.label_name2.setText(QCoreApplication.translate("Form", u"\u90b5\u5f08", None))
