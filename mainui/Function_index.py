@@ -320,6 +320,8 @@ def clique_analysis(year, title_to_info):#给出年份，得到这一年的聚�
             edge[num[author]].append(num[author2])
     cliques = defaultdict(int)
     #print(cnt)
+    if cnt >= 50000:
+        return cliques
     Bron_Kerbosch(set(), set(edge.keys()), set(), edge, cliques)
     return cliques
 
