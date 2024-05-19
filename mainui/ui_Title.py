@@ -22,6 +22,7 @@ class DetailsWindow(object):
         if not Widget.objectName():
             Widget.setObjectName(u"Widget")
         Widget.resize(400, 600)
+        Widget.setFixedSize(400,600)
         Widget.setWindowTitle(Title)
         self.pushButton = QPushButton(Widget)
         self.pushButton.setObjectName(u"pushButton")

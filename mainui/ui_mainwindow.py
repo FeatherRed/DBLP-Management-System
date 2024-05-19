@@ -15,6 +15,7 @@ class Ui_Form(object):
         if not Form.objectName():
             Form.setObjectName(u"Form")
         Form.resize(800, 600)
+        Form.setFixedSize(800,600)
         self.MainWidget = QTabWidget(Form)
         self.MainWidget.setObjectName(u"MainWidget")
         self.MainWidget.setGeometry(QRect(0, 0, 800, 600))

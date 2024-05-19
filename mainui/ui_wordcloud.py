@@ -20,6 +20,7 @@ class WordCloud(object):
         if not Widget.objectName():
             Widget.setObjectName(u"Widget")
         Widget.resize(800, 450)
+        Widget.setFixedSize(800,450)
         self.exit = QPushButton(Widget)
         self.exit.setObjectName(u"exit")
         self.exit.setGeometry(QRect(350, 410, 100, 30))
